@@ -2,6 +2,7 @@ class_name CameraEffects extends Camera3D
 
 @export_category("References")
 @export var player: PlayerController
+@export var blur_effect: ColorRect
 
 @export_category("Effects")
 @export var enable_tilt: bool = true
@@ -26,8 +27,23 @@ var _step_timer = 0.0
 const MIN_SCREEN_SHAKE: float = 0.05
 const MAX_SCREEN_SHAKE: float = 0.4
 
+func _ready():
+	set_blur_strength(0.0)
+
 func _process(delta: float) -> void:
 	calculate_view_offset(delta)
+
+func set_blur_strength(strength: float) -> void:
+	blur_effect.material.set_shader_parameter("blur_amount", strength * 5.0)
+	blur_effect.material.set_shader_parameter("tint_strenght", strength * 0.3)
+
+func enable_blur_smooth():
+	var tween = create_tween()
+	tween.tween_method(set_blur_strength, 0.0, 1.0, 0.3)
+
+func disable_blur_smooth():
+	var tween = create_tween()
+	tween.create_method(set_blur_strength, 1.0, 0.0, 0.3)
 
 func calculate_view_offset(delta: float) -> void:
 	if not player:

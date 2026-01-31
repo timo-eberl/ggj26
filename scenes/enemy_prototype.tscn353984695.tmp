@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bogqc6d6pb1rr"]
 
-[ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="1_4706d"]
 [ext_resource type="Script" uid="uid://cb0mppp77ww7g" path="res://scripts/mask_area.gd" id="1_lhi7w"]
 [ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="1_w58r3"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="2_j7opc"]
@@ -29,8 +28,6 @@ size = Vector3(0.5217285, 0.3557129, 0.1171875)
 radius = 0.1
 
 [node name="EnemyPrototype" type="Node3D" unique_id=1785478038]
-
-[node name="CanvasLayer" parent="." unique_id=1975544332 instance=ExtResource("1_4706d")]
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=1483744264]
 transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -0.5, 0)
@@ -148,10 +145,9 @@ transform = Transform3D(-0.30830315, 0, -0.95128816, 0, 1, 0, 0.95128816, 0, -0.
 [node name="CamParent" type="Node3D" parent="." unique_id=1003285289]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6741743, 8.505402)
 
-[node name="Camera3D" type="Camera3D" parent="CamParent" unique_id=1829377079 node_paths=PackedStringArray("player", "blur_effect")]
+[node name="Camera3D" type="Camera3D" parent="CamParent" unique_id=1829377079 node_paths=PackedStringArray("player")]
 script = ExtResource("10_06fh6")
 player = NodePath("../../Mask/PlayerController")
-blur_effect = NodePath("../../CanvasLayer/ColorRect")
 
 [node name="RayCast3D" type="RayCast3D" parent="CamParent/Camera3D" unique_id=276697023]
 target_position = Vector3(0, 0, -10)
@@ -167,5 +163,3 @@ collision_mask = 8
 [connection signal="state_processing" from="Mask/StateChart/Root/Aiming" to="Mask" method="_on_aiming_state_processing"]
 [connection signal="state_entered" from="Mask/StateChart/Root/Transition" to="Mask" method="_on_transition_state_entered"]
 [connection signal="state_processing" from="Mask/StateChart/Root/Dead" to="Mask" method="_on_dead_state_processing"]
-
-[editable path="CanvasLayer"]

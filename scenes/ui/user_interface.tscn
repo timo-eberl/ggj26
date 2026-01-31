@@ -1,8 +1,25 @@
 [gd_scene format=3 uid="uid://drgmu3orchuld"]
 
 [ext_resource type="PackedScene" uid="uid://c5sh46l6teel" path="res://scenes/ui/crosshair.tscn" id="1_284y0"]
+[ext_resource type="Shader" uid="uid://beslbp7by2x3e" path="res://assets/shader/blur.gdshader" id="1_hj6hg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a44fs"]
+shader = ExtResource("1_hj6hg")
+shader_parameter/blur_amount = 2.0
+shader_parameter/inner_radius = 0.3
+shader_parameter/edge_color = Color(0.4, 0.6, 1, 1)
+shader_parameter/color_blend = 0.250000011875
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1975544332]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1186939395]
+material = SubResource("ShaderMaterial_a44fs")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07058824, 1, 1, 1)
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=982012594]
 anchors_preset = 15
@@ -10,6 +27,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="ReticleDraw" parent="CenterContainer" unique_id=405146175 instance=ExtResource("1_284y0")]
 layout_mode = 2
