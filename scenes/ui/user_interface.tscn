@@ -1,15 +1,121 @@
 [gd_scene format=3 uid="uid://drgmu3orchuld"]
 
 [ext_resource type="PackedScene" uid="uid://c5sh46l6teel" path="res://scenes/ui/crosshair.tscn" id="1_284y0"]
+[ext_resource type="Script" uid="uid://dilpid225n3ub" path="res://scripts/ui/user_interface.gd" id="1_hj6hg"]
+[ext_resource type="Script" uid="uid://c24oq8vtp02t8" path="res://scripts/ui/settings_menu.gd" id="3_a44fs"]
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1975544332]
+[node name="UI" type="CanvasLayer" unique_id=1975544332]
+process_mode = 3
+script = ExtResource("1_hj6hg")
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=982012594]
+[node name="Reticle" type="CenterContainer" parent="." unique_id=982012594]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ReticleDraw" parent="CenterContainer" unique_id=405146175 instance=ExtResource("1_284y0")]
+[node name="ReticleDraw" parent="Reticle" unique_id=405146175 instance=ExtResource("1_284y0")]
 layout_mode = 2
+
+[node name="PauseMenu" type="PanelContainer" parent="." unique_id=1835739715]
+visible = false
+custom_minimum_size = Vector2(150, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -68.0
+offset_right = 75.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu" unique_id=57978572]
+layout_mode = 2
+
+[node name="ButtonContinue" type="Button" parent="PauseMenu/VBoxContainer" unique_id=1197791708]
+layout_mode = 2
+text = "Continue"
+
+[node name="ButtonSettings" type="Button" parent="PauseMenu/VBoxContainer" unique_id=1082420950]
+layout_mode = 2
+text = "Settings"
+
+[node name="ButtonQuit" type="Button" parent="PauseMenu/VBoxContainer" unique_id=83907334]
+layout_mode = 2
+text = "Quit"
+
+[node name="SettingsMenu" type="PanelContainer" parent="." unique_id=1784414410]
+custom_minimum_size = Vector2(0, 120)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -156.5
+offset_top = -25.0
+offset_right = 156.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_a44fs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu" unique_id=1699164813]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="SettingsMenu/VBoxContainer" unique_id=2126898022]
+layout_mode = 2
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="SettingsMenu/VBoxContainer" unique_id=134029043]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="LabelMusicVolume" type="Label" parent="SettingsMenu/VBoxContainer/GridContainer" unique_id=298541061]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="LabelMusicVolumeValue" type="Label" parent="SettingsMenu/VBoxContainer/GridContainer" unique_id=1287868779]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "50 %"
+horizontal_alignment = 1
+
+[node name="HSliderMusicVol" type="HSlider" parent="SettingsMenu/VBoxContainer/GridContainer" unique_id=342139293]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="LabelMouseSensitivity" type="Label" parent="SettingsMenu/VBoxContainer/GridContainer" unique_id=411341289]
+layout_mode = 2
+text = "Mouse Sensitivity"
+
+[node name="LabelMouseSensitivityValue" type="Label" parent="SettingsMenu/VBoxContainer/GridContainer" unique_id=541056833]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "50 %"
+horizontal_alignment = 1
+
+[node name="HSliderMouseSensitivity" type="HSlider" parent="SettingsMenu/VBoxContainer/GridContainer" unique_id=1143476482]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ButtonBack" type="Button" parent="SettingsMenu/VBoxContainer" unique_id=376403747]
+layout_mode = 2
+text = "Back"
+
+[connection signal="value_changed" from="SettingsMenu/VBoxContainer/GridContainer/HSliderMusicVol" to="SettingsMenu" method="_on_h_slider_music_vol_value_changed"]
+[connection signal="value_changed" from="SettingsMenu/VBoxContainer/GridContainer/HSliderMouseSensitivity" to="SettingsMenu" method="_on_h_slider_mouse_sensitivity_value_changed"]
+[connection signal="pressed" from="SettingsMenu/VBoxContainer/ButtonBack" to="SettingsMenu" method="_on_button_back_pressed"]

@@ -15,7 +15,7 @@ func _process(delta):
 	recoilAdd = lerp(recoilAdd, Vector3.ZERO, delta * 10);
 	pass
 
-func shoot():
+func shoot() -> Dictionary:
 	var space = get_world_3d().direct_space_state
 	var extendetTarget = bulletExitPos.global_position + (aimTarget - bulletExitPos.global_position).normalized() * 500;
 
@@ -26,7 +26,7 @@ func shoot():
 	
 	query.exclude = [self]
 	
-	var result = space.intersect_ray(query)
+	var result := space.intersect_ray(query)
 	
 	if result:
 		var collider = result.collider
@@ -34,11 +34,13 @@ func shoot():
 		
 		if result.collider is RigidBody3D:
 			result.collider.apply_impulse(-global_basis.z * 100, hit_pos)
-	
+		if result.collider is Enemy:
+			result.collider.queue_free()
 	
 	spawn_bullet_vis(bulletExitPos.global_position, extendetTarget)
 	add_recoil(base_recoil)
-	pass
+	
+	return result
 
 func add_recoil(amount):
 	recoilAdd += Vector3(0,amount,0) * 0.0001
