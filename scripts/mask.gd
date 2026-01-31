@@ -77,7 +77,7 @@ func _on_dislodged_state_entered() -> void:
 	self.apply_central_impulse(dir * dislodge_force)
 func _on_dislodged_state_processing(_delta: float) -> void:
 	cam.global_transform = self.global_transform
-	if Input.is_action_pressed("right_mouse_button"):
+	if Input.is_action_just_pressed("right_mouse_button"):
 		state_chart.send_event("onMaskAim")
 
 
