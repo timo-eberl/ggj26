@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="8_06fh6"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="9_4706d"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="9_e4pkg"]
+[ext_resource type="Script" uid="uid://dc0dpt335slwo" path="res://scripts/camera/camera_effects.gd" id="10_06fh6"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="10_mus3p"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_w58r3"]
@@ -141,10 +142,14 @@ metadata/_custom_type_script = "uid://cytafq8i1y8qm"
 [node name="Enemy" parent="." unique_id=1575115432 instance=ExtResource("2_j7opc")]
 transform = Transform3D(-0.30830315, 0, -0.95128816, 0, 1, 0, 0.95128816, 0, -0.30830315, 3.8816614, 0, 8.054255)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1829377079]
+[node name="CamParent" type="Node3D" parent="." unique_id=1003285289]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6741743, 8.505402)
 
-[node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=276697023]
+[node name="Camera3D" type="Camera3D" parent="CamParent" unique_id=1829377079 node_paths=PackedStringArray("player")]
+script = ExtResource("10_06fh6")
+player = NodePath("../../Mask/PlayerController")
+
+[node name="RayCast3D" type="RayCast3D" parent="CamParent/Camera3D" unique_id=276697023]
 target_position = Vector3(0, 0, -10)
 collision_mask = 8
 
