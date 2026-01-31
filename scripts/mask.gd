@@ -85,7 +85,7 @@ func _on_dislodged_state_entered() -> void:
 	self.apply_central_impulse(dir * dislodge_force)
 func _on_dislodged_state_processing(_delta: float) -> void:
 	cam.global_transform = self.global_transform
-	if Input.is_action_pressed("right_mouse_button"):
+	if true:
 		state_chart.send_event("onMaskAim")
 
 
@@ -97,7 +97,7 @@ func _on_aiming_state_processing(delta: float) -> void:
 	cam.global_position = self.global_position
 	cam.global_rotation.y = _cam_rot.y
 	cam.global_rotation.x = _cam_rot.x
-	if Input.is_action_just_released("right_mouse_button"):
+	if Input.is_action_just_pressed("right_mouse_button") or Input.is_action_just_pressed("left_mouse_button"):
 		Engine.time_scale = 1
 		var collider = ray_cast.get_collider() as CollisionObject3D
 		if collider is Enemy:
