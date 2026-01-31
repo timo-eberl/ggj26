@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bf1axc731bh3o" path="res://scripts/enemy.gd" id="1_ipns3"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="2_je7p5"]
-[ext_resource type="Script" uid="uid://bpelvjwb5rsex" path="res://scripts/player/components/mouse_capture_component.gd" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_0owmy"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_5gtgg"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_h17s1"]
@@ -21,6 +20,8 @@ material = SubResource("StandardMaterial3D_8afob")
 [sub_resource type="BoxMesh" id="BoxMesh_nenq2"]
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1891892681]
+collision_layer = 10
+collision_mask = 3
 script = ExtResource("1_ipns3")
 
 [node name="StateChartDebugger" parent="." unique_id=121419417 instance=ExtResource("2_je7p5")]
@@ -29,6 +30,7 @@ anchor_right = 0.354
 anchor_bottom = 0.47200003
 offset_right = 0.19198608
 offset_bottom = 0.14398193
+enabled = false
 initial_node_to_watch = NodePath("../StateChart")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=422208150]
@@ -43,17 +45,11 @@ mesh = SubResource("CapsuleMesh_gmlin")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Visuals" unique_id=281965361]
 transform = Transform3D(0.6604568, 0, 0, 0, 0.25574315, 0, 0, 0, 0.6671614, 0, 1.5726423, -0.18967289)
+material_override = SubResource("StandardMaterial3D_8afob")
 mesh = SubResource("BoxMesh_nenq2")
 
 [node name="MaskTarget" type="Node3D" parent="." unique_id=1618735242]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6005105, -0.494358)
-
-[node name="Components" type="Node" parent="." unique_id=102988485]
-
-[node name="MouseCaptureComponent" type="Node" parent="Components" unique_id=252345129]
-script = ExtResource("3_gmlin")
-debug = true
-mouse_sensitivity = 0.1
 
 [node name="StateChart" type="Node" parent="." unique_id=1258168704]
 script = ExtResource("4_0owmy")
@@ -81,6 +77,12 @@ delay_in_seconds = "0.0"
 
 [node name="Active" type="Node" parent="StateChart/Root" unique_id=1018996131]
 script = ExtResource("7_h17s1")
+
+[node name="GetPossessed" type="Node" parent="StateChart/Root/Active" unique_id=609862722]
+script = ExtResource("8_qek5x")
+to = NodePath("../../Possessed")
+event = &"onPossessed"
+delay_in_seconds = "0.0"
 
 [node name="Possessed" type="Node" parent="StateChart/Root" unique_id=853065098]
 script = ExtResource("7_h17s1")

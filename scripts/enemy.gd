@@ -7,6 +7,9 @@ extends CharacterBody3D
 @onready var state_chart: StateChart = $StateChart
 @onready var mask_target: Node3D = $MaskTarget
 
+func get_state_chart() -> StateChart:
+	return $StateChart
+
 func _on_active_state_physics_processing(delta: float) -> void:
 	var direction := global_position.direction_to(_mask.global_position)
 
