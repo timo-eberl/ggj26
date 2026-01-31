@@ -1,6 +1,17 @@
 [gd_scene format=3 uid="uid://x1p21c5k01uj"]
 
 [ext_resource type="Script" uid="uid://bc4w5l8sc8hv1" path="res://scripts/player/playerController.gd" id="1_8afob"]
+[ext_resource type="Script" uid="uid://chfsi1nxquy5o" path="res://scripts/camera/camera_controller.gd" id="2_dovo2"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="2_je7p5"]
+[ext_resource type="Script" uid="uid://bpelvjwb5rsex" path="res://scripts/player/components/mouse_capture_component.gd" id="3_gmlin"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_0owmy"]
+[ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="5_qek5x"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_5gtgg"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_h17s1"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_qek5x"]
+[ext_resource type="Script" uid="uid://cachgx4ilyh81" path="res://scripts/player/state_machine/state_machine.gd" id="9_5gtgg"]
+[ext_resource type="Script" uid="uid://dd71m73roqrvs" path="res://scripts/player/state_machine/states/idle.gd" id="10_h17s1"]
+[ext_resource type="Script" uid="uid://df7hljwri0ghs" path="res://scripts/player/state_machine/states/walking.gd" id="12_fm80t"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dovo2"]
 size = Vector3(1, 2.06, 1)
@@ -12,9 +23,18 @@ roughness = 0.4
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gmlin"]
 material = SubResource("StandardMaterial3D_8afob")
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1891892681 node_paths=PackedStringArray("CAMERA_CONTROLLER")]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1891892681 node_paths=PackedStringArray("camera", "state_chart")]
 script = ExtResource("1_8afob")
-CAMERA_CONTROLLER = NodePath("CameraController/Camera3D")
+camera = NodePath("CameraController")
+state_chart = NodePath("StateChart")
+
+[node name="StateChartDebugger" parent="." unique_id=121419417 instance=ExtResource("2_je7p5")]
+anchors_preset = -1
+anchor_right = 0.354
+anchor_bottom = 0.47200003
+offset_right = 0.19198608
+offset_bottom = 0.14398193
+initial_node_to_watch = NodePath("../StateChart")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=422208150]
 shape = SubResource("BoxShape3D_dovo2")
@@ -22,10 +42,73 @@ shape = SubResource("BoxShape3D_dovo2")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1494332233]
 mesh = SubResource("CapsuleMesh_gmlin")
 
-[node name="CameraController" type="Node3D" parent="." unique_id=91348915]
+[node name="CameraController" type="Node3D" parent="." unique_id=91348915 node_paths=PackedStringArray("player_controller", "component_mouse_capture")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.58110124, -0.09159094)
+script = ExtResource("2_dovo2")
+player_controller = NodePath("..")
+component_mouse_capture = NodePath("../Components/MouseCaptureComponent")
 
 [node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=500821085]
 
-[node name="ReflectionProbe" type="ReflectionProbe" parent="CameraController/Camera3D" unique_id=1721451832]
-update_mode = 1
+[node name="Components" type="Node" parent="." unique_id=102988485]
+
+[node name="MouseCaptureComponent" type="Node" parent="Components" unique_id=252345129]
+script = ExtResource("3_gmlin")
+debug = true
+mouse_sensitivity = 0.1
+
+[node name="StateChart" type="Node" parent="." unique_id=1258168704]
+script = ExtResource("4_0owmy")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" unique_id=1839730627]
+script = ExtResource("5_qek5x")
+
+[node name="Movement" type="Node" parent="StateChart/Root" unique_id=1226748314]
+script = ExtResource("6_5gtgg")
+initial_state = NodePath("Masked")
+
+[node name="Masked" type="Node" parent="StateChart/Root/Movement" unique_id=250085043]
+script = ExtResource("6_5gtgg")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root/Movement/Masked" unique_id=1572850917]
+script = ExtResource("7_h17s1")
+
+[node name="OnWalking" type="Node" parent="StateChart/Root/Movement/Masked/Idle" unique_id=1933595493]
+script = ExtResource("8_qek5x")
+to = NodePath("../../Walking")
+event = &"onWalking"
+delay_in_seconds = "0.0"
+
+[node name="Walking" type="Node" parent="StateChart/Root/Movement/Masked" unique_id=1018996131]
+script = ExtResource("7_h17s1")
+
+[node name="OnIdle" type="Node" parent="StateChart/Root/Movement/Masked/Walking" unique_id=2117560723]
+script = ExtResource("8_qek5x")
+to = NodePath("../../Idle")
+event = &"onIdle"
+delay_in_seconds = "0.0"
+
+[node name="Unmasked" type="Node" parent="StateChart/Root/Movement" unique_id=1548921707]
+script = ExtResource("6_5gtgg")
+
+[node name="StateMachine" type="Node" parent="." unique_id=803083966 node_paths=PackedStringArray("player_controller")]
+unique_name_in_owner = true
+script = ExtResource("9_5gtgg")
+player_controller = NodePath("..")
+
+[node name="Movement" type="Node" parent="StateMachine" unique_id=1154824882]
+
+[node name="Masked" type="Node" parent="StateMachine/Movement" unique_id=1082088925]
+
+[node name="Idle" type="Node" parent="StateMachine/Movement/Masked" unique_id=718481040]
+script = ExtResource("10_h17s1")
+
+[node name="Walking" type="Node" parent="StateMachine/Movement/Masked" unique_id=1976807701]
+script = ExtResource("12_fm80t")
+
+[node name="Unmasked" type="Node" parent="StateMachine/Movement" unique_id=1208691141]
+
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Masked/Idle" to="StateMachine/Movement/Masked/Idle" method="_on_idle_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement/Masked/Walking" to="StateMachine/Movement/Masked/Walking" method="_on_walking_state_physics_processing"]
