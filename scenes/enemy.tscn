@@ -10,8 +10,7 @@
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_h17s1"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_qek5x"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dovo2"]
-size = Vector3(1, 2.06, 1)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ipns3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8afob"]
 albedo_color = Color(1, 0.1254902, 0.15294118, 1)
@@ -42,7 +41,7 @@ initial_node_to_watch = NodePath("../StateChart")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=422208150]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_dovo2")
+shape = SubResource("CapsuleShape3D_ipns3")
 
 [node name="Visuals" type="Node3D" parent="." unique_id=1561075255]
 

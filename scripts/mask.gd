@@ -99,8 +99,9 @@ func _on_aiming_state_processing(delta: float) -> void:
 		Engine.time_scale = 1
 		var collider = ray_cast.get_collider() as CollisionObject3D
 		if collider is Enemy:
-			_current_enemy.head.global_transform = _current_enemy.mask_target.global_transform
-			_current_enemy.get_state_chart().send_event("onActivate")
+			if is_instance_valid(_current_enemy):
+				_current_enemy.head.global_transform = _current_enemy.mask_target.global_transform
+				_current_enemy.get_state_chart().send_event("onActivate")
 			_current_enemy = collider
 			_current_enemy.get_state_chart().send_event("onPossessed")
 			state_chart.send_event("onTransition")
