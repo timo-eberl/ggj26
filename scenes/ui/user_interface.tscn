@@ -5,10 +5,11 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a44fs"]
 shader = ExtResource("1_hj6hg")
-shader_parameter/blur_amount = 2.0
-shader_parameter/inner_radius = 0.3
-shader_parameter/edge_color = Color(0.4, 0.6, 1, 1)
-shader_parameter/color_blend = 0.250000011875
+shader_parameter/blur_amount = 2.000000095
+shader_parameter/inner_radius = 0.750000035625
+shader_parameter/edge_color = Color(1, 0.1254902, 0.18039216, 1)
+shader_parameter/color_blend = 0.4
+shader_parameter/saturation = 1.9200000912
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1975544332]
 
