@@ -12,4 +12,4 @@ func _on_area_entered(area: Area3D) -> void:
 	if area is MaskArea:
 		var enemies = get_my_enemies()
 		for enemy in enemies:
-			enemy.state = Enemy.State.ACTIVE
+			enemy.state_chart.send_event("onActivate")

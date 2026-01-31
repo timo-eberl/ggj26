@@ -14,13 +14,13 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	_mouse_input = Vector2.ZERO
 
-func _unhandled_input(event: InputEvent) -> void:
+#func _unhandled_input(event: InputEvent) -> void:
+
+func _input(event: InputEvent) -> void:
 	_capture_mouse = event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
 	if _capture_mouse:
 		_mouse_input.x += -event.screen_relative.x * mouse_sensitivity
 		_mouse_input.y += -event.screen_relative.y * mouse_sensitivity
-
-func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and debug:
 		if event.keycode == KEY_ESCAPE:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

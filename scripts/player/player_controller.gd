@@ -11,14 +11,11 @@ extends Node
 @export_group("Speed")
 @export var default_speed: float = 6.0
 
-@onready var body: CharacterBody3D = $".."
-
 var _input_dir: Vector2 = Vector2.ZERO
 var _movement_velocity: Vector3 = Vector3.ZERO
 var speed: float
 
-
-func _on_player_state_physics_processing(delta: float) -> void:
+func control_body(body: CharacterBody3D, delta: float):
 	if not body.is_on_floor():
 		body.velocity += body.get_gravity() * delta
 
