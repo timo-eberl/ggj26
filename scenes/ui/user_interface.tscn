@@ -2,11 +2,28 @@
 
 [ext_resource type="PackedScene" uid="uid://c5sh46l6teel" path="res://scenes/ui/crosshair.tscn" id="1_284y0"]
 [ext_resource type="Script" uid="uid://dilpid225n3ub" path="res://scripts/ui/user_interface.gd" id="1_hj6hg"]
+[ext_resource type="Shader" uid="uid://beslbp7by2x3e" path="res://assets/shader/blur.gdshader" id="2_rcgkl"]
 [ext_resource type="Script" uid="uid://c24oq8vtp02t8" path="res://scripts/ui/settings_menu.gd" id="3_a44fs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vnpvo"]
+shader = ExtResource("2_rcgkl")
+shader_parameter/blur_amount = 2.0
+shader_parameter/inner_radius = 0.3
+shader_parameter/edge_color = Color(1, 0.38039216, 0.39215687, 1)
+shader_parameter/color_blend = 0.4
+shader_parameter/saturation = 1.0
 
 [node name="UI" type="CanvasLayer" unique_id=1975544332]
 process_mode = 3
 script = ExtResource("1_hj6hg")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=768798567]
+material = SubResource("ShaderMaterial_vnpvo")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Reticle" type="CenterContainer" parent="." unique_id=982012594]
 visible = false

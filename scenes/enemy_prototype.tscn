@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bogqc6d6pb1rr"]
 
-[ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="1_4706d"]
 [ext_resource type="Script" uid="uid://cb0mppp77ww7g" path="res://scripts/mask_area.gd" id="1_lhi7w"]
 [ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="1_w58r3"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="2_j7opc"]
@@ -31,7 +30,7 @@ radius = 0.1
 
 [node name="EnemyPrototype" type="Node3D" unique_id=1785478038]
 
-[node name="CanvasLayer" parent="." unique_id=1975544332 instance=ExtResource("1_4706d")]
+[node name="CanvasLayer" parent="." unique_id=1975544332 instance=ExtResource("11_4706d")]
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=1483744264]
 transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -0.5, 0)
@@ -157,8 +156,6 @@ blur_effect = NodePath("../../CanvasLayer/ColorRect")
 [node name="RayCast3D" type="RayCast3D" parent="CamParent/Camera3D" unique_id=276697023]
 target_position = Vector3(0, 0, -10)
 collision_mask = 8
-
-[node name="CanvasLayer" parent="." unique_id=1975544332 instance=ExtResource("11_4706d")]
 
 [connection signal="area_entered" from="EnemyGroup" to="EnemyGroup" method="_on_area_entered"]
 [connection signal="state_entered" from="Mask/StateChart/Root/Possessing" to="Mask" method="_on_possessing_state_entered"]
