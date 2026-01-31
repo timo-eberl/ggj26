@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cr8acva7dgfr"]
+
+[ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="2_w8frs"]
+
+[node name="Level" type="Node3D" unique_id=1053274533]
+
+[node name="UI" parent="." unique_id=1975544332 instance=ExtResource("2_w8frs")]
