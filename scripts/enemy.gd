@@ -1,8 +1,8 @@
 class_name Enemy
 extends Node3D
 
-@export var turn_speed : float = 5.0
-@onready var _mask : Node3D = $"../../Camera3D"
+@export var turn_speed : float = 3.0
+@onready var _mask : Node3D = $"../../Player"
 var state: State = State.IDLE
 
 enum State { IDLE, ACTIVE }

@@ -3,20 +3,21 @@
 [ext_resource type="Script" uid="uid://cb0mppp77ww7g" path="res://scripts/mask_area.gd" id="1_lhi7w"]
 [ext_resource type="Script" uid="uid://bf1axc731bh3o" path="res://scripts/enemy.gd" id="1_tqe01"]
 [ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="1_w58r3"]
+[ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/player/player.tscn" id="3_j7opc"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_w58r3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tqe01"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_lhi7w"]
-radius = 0.1
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_w58r3"]
-radius = 5.0
+radius = 7.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lhi7w"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_j7opc"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lhi7w"]
+radius = 0.1
 
 [node name="EnemyPrototype" type="Node3D" unique_id=1785478038]
 
@@ -32,15 +33,6 @@ shape = SubResource("BoxShape3D_tqe01")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1168416218]
 transform = Transform3D(1, 0, 0, 0, 0.19661358, 0.980481, 0, -0.980481, 0.19661358, 0, 5.5924788, 0)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=898866256]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3063833, 6.1695843)
-
-[node name="MaskArea" type="Area3D" parent="Camera3D" unique_id=1393819833]
-script = ExtResource("1_lhi7w")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/MaskArea" unique_id=1952893137]
-shape = SubResource("SphereShape3D_lhi7w")
-
 [node name="EnemyGroup" type="Area3D" parent="." unique_id=2128502404]
 script = ExtResource("1_w58r3")
 
@@ -48,7 +40,9 @@ script = ExtResource("1_w58r3")
 shape = SubResource("SphereShape3D_w58r3")
 
 [node name="Enemy" type="Node3D" parent="EnemyGroup" unique_id=1052551047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4692798, 0, 0)
 script = ExtResource("1_tqe01")
+turn_speed = 5.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="EnemyGroup/Enemy" unique_id=911153070]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -58,4 +52,43 @@ mesh = SubResource("CapsuleMesh_lhi7w")
 transform = Transform3D(0.70237046, 0, 0, 0, 0.20538011, 0, 0, 0, 0.62675023, 0, 1.525301, -0.26524007)
 mesh = SubResource("BoxMesh_j7opc")
 
+[node name="Enemy2" type="Node3D" parent="EnemyGroup" unique_id=2036539504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2992363, 0, 0)
+script = ExtResource("1_tqe01")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EnemyGroup/Enemy2" unique_id=1952783609]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_lhi7w")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="EnemyGroup/Enemy2" unique_id=412107984]
+transform = Transform3D(0.70237046, 0, 0, 0, 0.20538011, 0, 0, 0, 0.62675023, 0, 1.525301, -0.26524007)
+mesh = SubResource("BoxMesh_j7opc")
+
+[node name="Enemy3" type="Node3D" parent="EnemyGroup" unique_id=424697196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8276434, 0, 0)
+script = ExtResource("1_tqe01")
+turn_speed = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EnemyGroup/Enemy3" unique_id=1168621521]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_lhi7w")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="EnemyGroup/Enemy3" unique_id=776094131]
+transform = Transform3D(0.70237046, 0, 0, 0, 0.20538011, 0, 0, 0, 0.62675023, 0, 1.525301, -0.26524007)
+mesh = SubResource("BoxMesh_j7opc")
+
+[node name="Player" parent="." unique_id=1891892681 instance=ExtResource("3_j7opc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7742991, 1.0000002, 8.175222)
+
+[node name="Root" parent="Player/StateChart" parent_id_path=PackedInt32Array(1891892681, 1258168704) index="0" unique_id=1674409065]
+initial_state = NodePath("Player")
+
+[node name="MaskArea" type="Area3D" parent="Player" unique_id=1393819833]
+script = ExtResource("1_lhi7w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/MaskArea" unique_id=1952893137]
+shape = SubResource("SphereShape3D_lhi7w")
+
 [connection signal="area_entered" from="EnemyGroup" to="EnemyGroup" method="_on_area_entered"]
+
+[editable path="Player"]

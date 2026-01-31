@@ -24,3 +24,5 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and debug:
 		if event.keycode == KEY_ESCAPE:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		if event.keycode == KEY_ENTER:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

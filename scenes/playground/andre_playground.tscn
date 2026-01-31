@@ -57,5 +57,5 @@ mesh = SubResource("BoxMesh_bxnh3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D" unique_id=1118076168]
 shape = SubResource("BoxShape3D_uokba")
 
-[node name="CharacterBody3D" parent="." unique_id=1891892681 instance=ExtResource("1_mswg0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36865616, 1.1602283, -3.1048594)
+[node name="Character" parent="." unique_id=1891892681 instance=ExtResource("1_mswg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

@@ -11,6 +11,7 @@ class_name CameraController extends Node3D
 
 var _rotation: Vector3
 
+@onready var body: CharacterBody3D = $".."
 
 func _process(delta: float) -> void:
 	_update_camera_rotation(component_mouse_capture._mouse_input, delta)
@@ -25,6 +26,6 @@ func _update_camera_rotation(input: Vector2, delta: float) -> void:
 	var _camera_rotation = Vector3(_rotation.x, 0.0, 0.0)
 
 	transform.basis = Basis.from_euler(_camera_rotation)
-	player_controller.update_rotation(_player_rotation)
+	body.global_transform.basis = Basis.from_euler(_player_rotation)
 
 	_rotation.z = 0.0
