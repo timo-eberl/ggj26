@@ -11,13 +11,10 @@ class_name CameraController extends Node3D
 
 var _rotation: Vector3
 
-@onready var body: CharacterBody3D = $".."
+func update_camera(body: CharacterBody3D, delta: float) -> void:
+	_update_camera_rotation(body, component_mouse_capture._mouse_input, delta)
 
-func _process(delta: float) -> void:
-	_update_camera_rotation(component_mouse_capture._mouse_input, delta)
-
-
-func _update_camera_rotation(input: Vector2, delta: float) -> void:
+func _update_camera_rotation(body: CharacterBody3D, input: Vector2, delta: float) -> void:
 	_rotation.x += input.y * delta
 	_rotation.y += input.x * delta
 	_rotation.x = clamp(_rotation.x, deg_to_rad(tilt_lower_limit), deg_to_rad(tilt_upper_limit))
