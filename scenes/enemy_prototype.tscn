@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://bogqc6d6pb1rr"]
+
+[ext_resource type="Script" uid="uid://cb0mppp77ww7g" path="res://scripts/mask_area.gd" id="1_lhi7w"]
+[ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="1_w58r3"]
+[ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="2_j7opc"]
+[ext_resource type="Script" uid="uid://d0oqv1005hnrm" path="res://scripts/masktmp.gd" id="4_lcibp"]
+[ext_resource type="Script" uid="uid://bc4w5l8sc8hv1" path="res://scripts/player/player_controller.gd" id="5_lcibp"]
+[ext_resource type="Script" uid="uid://bpelvjwb5rsex" path="res://scripts/player/components/mouse_capture_component.gd" id="6_4icvj"]
+[ext_resource type="Script" uid="uid://chfsi1nxquy5o" path="res://scripts/camera/camera_controller.gd" id="7_spxsa"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w58r3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tqe01"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w58r3"]
+radius = 7.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lhi7w"]
+radius = 0.1
+
+[node name="EnemyPrototype" type="Node3D" unique_id=1785478038]
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1483744264]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_w58r3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=969025740]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=962728280]
+shape = SubResource("BoxShape3D_tqe01")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1168416218]
+transform = Transform3D(1, 0, 0, 0, 0.19661358, 0.980481, 0, -0.980481, 0.19661358, 0, 5.5924788, 0)
+
+[node name="EnemyGroup" type="Area3D" parent="." unique_id=2128502404]
+script = ExtResource("1_w58r3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyGroup" unique_id=69708237]
+shape = SubResource("SphereShape3D_w58r3")
+
+[node name="Enemy" parent="EnemyGroup" unique_id=1891892681 instance=ExtResource("2_j7opc")]
+
+[node name="Enemy2" parent="EnemyGroup" unique_id=224124476 instance=ExtResource("2_j7opc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.4298773)
+
+[node name="Enemy3" parent="EnemyGroup" unique_id=278276688 instance=ExtResource("2_j7opc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7154627)
+
+[node name="Mask" type="Node3D" parent="." unique_id=2141492722 node_paths=PackedStringArray("first_enemy")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6741743, 8.505402)
+script = ExtResource("4_lcibp")
+first_enemy = NodePath("../Enemy")
+
+[node name="MaskArea" type="Area3D" parent="Mask" unique_id=1393819833]
+script = ExtResource("1_lhi7w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mask/MaskArea" unique_id=1952893137]
+shape = SubResource("SphereShape3D_lhi7w")
+
+[node name="CameraController" type="Node3D" parent="Mask" unique_id=416802556 node_paths=PackedStringArray("player_controller", "component_mouse_capture")]
+script = ExtResource("7_spxsa")
+debug = true
+player_controller = NodePath("../PlayerController")
+component_mouse_capture = NodePath("../Components/MouseCaptureComponent")
+
+[node name="Camera3D" type="Camera3D" parent="Mask/CameraController" unique_id=1829377079]
+
+[node name="PlayerController" type="Node" parent="Mask" unique_id=146181861]
+script = ExtResource("5_lcibp")
+
+[node name="Components" type="Node" parent="Mask" unique_id=2049463564]
+
+[node name="MouseCaptureComponent" type="Node" parent="Mask/Components" unique_id=1146266809]
+script = ExtResource("6_4icvj")
+debug = true
+mouse_sensitivity = 0.1
+
+[node name="Enemy" parent="." unique_id=1575115432 instance=ExtResource("2_j7opc")]
+transform = Transform3D(-0.30830315, 0, -0.95128816, 0, 1, 0, 0.95128816, 0, -0.30830315, 3.8816614, 0, 8.054255)
+
+[connection signal="area_entered" from="EnemyGroup" to="EnemyGroup" method="_on_area_entered"]
