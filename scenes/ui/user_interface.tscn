@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://drgmu3orchuld"]
+
+[ext_resource type="PackedScene" uid="uid://c5sh46l6teel" path="res://scenes/ui/crosshair.tscn" id="1_284y0"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1975544332]
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=982012594]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ReticleDraw" parent="CenterContainer" unique_id=405146175 instance=ExtResource("1_284y0")]
+layout_mode = 2

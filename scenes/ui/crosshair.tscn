@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c5sh46l6teel"]
+
+[ext_resource type="Script" uid="uid://crnt5g08w5r27" path="res://scripts/ui/reticle_draw.gd" id="1_51nar"]
+
+[node name="ReticleDraw" type="Control" unique_id=405146175]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_51nar")
