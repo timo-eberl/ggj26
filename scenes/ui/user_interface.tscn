@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dilpid225n3ub" path="res://scripts/ui/user_interface.gd" id="1_hj6hg"]
 [ext_resource type="Shader" uid="uid://beslbp7by2x3e" path="res://assets/shader/blur.gdshader" id="2_rcgkl"]
 [ext_resource type="Script" uid="uid://c24oq8vtp02t8" path="res://scripts/ui/settings_menu.gd" id="3_a44fs"]
+[ext_resource type="Texture2D" uid="uid://df0lojl403bsm" path="res://assets/MaskMassacre-Controls.png" id="4_vnpvo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vnpvo"]
 shader = ExtResource("2_rcgkl")
@@ -18,6 +19,7 @@ process_mode = 3
 script = ExtResource("1_hj6hg")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=768798567]
+visible = false
 material = SubResource("ShaderMaterial_vnpvo")
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,36 +41,55 @@ size_flags_vertical = 4
 layout_mode = 2
 
 [node name="PauseMenu" type="PanelContainer" parent="." unique_id=1835739715]
-visible = false
-custom_minimum_size = Vector2(150, 0)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -75.0
-offset_top = -68.0
-offset_right = 75.0
-offset_bottom = 68.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu" unique_id=57978572]
+[node name="CenterContainer" type="CenterContainer" parent="PauseMenu" unique_id=751680556]
 layout_mode = 2
 
-[node name="ButtonContinue" type="Button" parent="PauseMenu/VBoxContainer" unique_id=1197791708]
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/CenterContainer" unique_id=1138920415]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="CenterContainer" type="MarginContainer" parent="PauseMenu/CenterContainer/HBoxContainer" unique_id=414494532]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu/CenterContainer/HBoxContainer/CenterContainer" unique_id=1550641213]
+layout_mode = 2
+color = Color(0.585062, 0.585062, 0.5850621, 1)
+
+[node name="TextureRect" type="TextureRect" parent="PauseMenu/CenterContainer/HBoxContainer/CenterContainer" unique_id=888569012]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+texture = ExtResource("4_vnpvo")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/CenterContainer/HBoxContainer" unique_id=57978572]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ButtonContinue" type="Button" parent="PauseMenu/CenterContainer/HBoxContainer/VBoxContainer" unique_id=1197791708]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Continue"
 
-[node name="ButtonSettings" type="Button" parent="PauseMenu/VBoxContainer" unique_id=1082420950]
+[node name="ButtonSettings" type="Button" parent="PauseMenu/CenterContainer/HBoxContainer/VBoxContainer" unique_id=1082420950]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Settings"
 
-[node name="ButtonQuit" type="Button" parent="PauseMenu/VBoxContainer" unique_id=83907334]
+[node name="ButtonQuit" type="Button" parent="PauseMenu/CenterContainer/HBoxContainer/VBoxContainer" unique_id=83907334]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
 
 [node name="SettingsMenu" type="PanelContainer" parent="." unique_id=1784414410]
+visible = false
 custom_minimum_size = Vector2(0, 120)
 anchors_preset = 8
 anchor_left = 0.5

@@ -6,10 +6,10 @@ extends CanvasLayer
 @onready var pause_menu := $PauseMenu
 
 func _ready():
-	$PauseMenu/VBoxContainer/ButtonContinue.text = "Start Game"
-	$PauseMenu/VBoxContainer/ButtonContinue.pressed.connect(continue_game)
-	$PauseMenu/VBoxContainer/ButtonSettings.pressed.connect(open_settings)
-	$PauseMenu/VBoxContainer/ButtonQuit.pressed.connect(on_quit)
+	%ButtonContinue.text = "Start Game"
+	%ButtonContinue.pressed.connect(continue_game)
+	%ButtonSettings.pressed.connect(open_settings)
+	%ButtonQuit.pressed.connect(on_quit)
 	settings_menu.close.connect(close_settings)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	pause_game()
@@ -23,7 +23,7 @@ func _process(_delta):
 			pause_game()
 
 func pause_game():
-	$PauseMenu/VBoxContainer/ButtonContinue.text = "Continue"
+	%ButtonContinue.text = "Continue"
 	get_tree().paused = true
 	reticle.hide()
 	pause_menu.show()
