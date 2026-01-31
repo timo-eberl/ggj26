@@ -19,8 +19,8 @@ const mouse_sensitivity = 0.002
 
 var _cam_rot: Vector3
 
-@onready var cam: Camera3D = $"../Camera3D"
-@onready var ray_cast: RayCast3D = $"../Camera3D/RayCast3D"
+@onready var cam: Node3D = $"../CamParent"
+@onready var ray_cast: RayCast3D = $"../CamParent/Camera3D/RayCast3D"
 @onready var player_controller: PlayerController = $PlayerController
 @onready var state_chart: StateChart = $StateChart
 
