@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://btkjv8i1adl1b"]
+
+[ext_resource type="PackedScene" uid="uid://bs1y54scate4v" path="res://assets/Prefabs/kegel.tscn" id="1_hanbj"]
+[ext_resource type="PackedScene" uid="uid://bfohu2sh5adeg" path="res://assets/Prefabs/player_shoot_prototype.tscn" id="2_25kmx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x8lnf"]
+size = Vector3(10, 0.05, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_25kmx"]
+size = Vector3(10, 0.05, 10)
+
+[sub_resource type="Environment" id="Environment_hanbj"]
+
+[node name="Shooting" type="StaticBody3D" unique_id=1631057453]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=856131343]
+mesh = SubResource("BoxMesh_x8lnf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2072085917]
+shape = SubResource("BoxShape3D_25kmx")
+
+[node name="Kegel" parent="." unique_id=1362632845 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.156771, 0.030372625, -2.0790396)
+
+[node name="Kegel2" parent="." unique_id=1185033011 instance=ExtResource("1_hanbj")]
+transform = Transform3D(0.9028856, 0.42988086, 0, -0.42988086, 0.9028856, 0, 0, 0, 1, 1.7570809, 0.75420547, -2.1667628)
+
+[node name="Kegel3" parent="." unique_id=1368236307 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7260133, 0.030372506, -2.1523633)
+
+[node name="Kegel4" parent="." unique_id=1968535198 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3283284, 0.030372625, -2.0760756)
+
+[node name="Kegel5" parent="." unique_id=710945276 instance=ExtResource("1_hanbj")]
+transform = Transform3D(0.9028856, 0.42988086, 0, -0.42988086, 0.9028856, 0, 0, 0, 1, 0.92863834, 0.75420547, -2.1637988)
+
+[node name="Kegel6" parent="." unique_id=1792157979 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8975707, 0.030372506, -2.1493993)
+
+[node name="Kegel7" parent="." unique_id=2138303464 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36682582, 0.030372625, -2.0790396)
+
+[node name="Kegel8" parent="." unique_id=1633215691 instance=ExtResource("1_hanbj")]
+transform = Transform3D(0.9028856, 0.42988086, 0, -0.42988086, 0.9028856, 0, 0, 0, 1, -0.032864213, 0.75420547, -2.1667628)
+
+[node name="Kegel9" parent="." unique_id=2109067615 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06393182, 0.030372506, -2.1523633)
+
+[node name="Kegel10" parent="." unique_id=1270810997 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46161675, 0.030372625, -2.0760756)
+
+[node name="Kegel11" parent="." unique_id=244774375 instance=ExtResource("1_hanbj")]
+transform = Transform3D(0.9028856, 0.42988086, 0, -0.42988086, 0.9028856, 0, 0, 0, 1, -0.8613068, 0.75420547, -2.1637988)
+
+[node name="Kegel12" parent="." unique_id=182847332 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8923744, 0.030372506, -2.1493993)
+
+[node name="Kegel13" parent="." unique_id=2103440145 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.156771, 0.030372625, -0.9685545)
+
+[node name="Kegel14" parent="." unique_id=1452794414 instance=ExtResource("1_hanbj")]
+transform = Transform3D(0.9028856, 0.42988086, 0, -0.42988086, 0.9028856, 0, 0, 0, 1, 1.7570809, 0.75420547, -1.0562778)
+
+[node name="Kegel15" parent="." unique_id=1153667460 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7260133, 0.030372506, -1.0418782)
+
+[node name="Kegel16" parent="." unique_id=179134469 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3283284, 0.030372625, -0.9655905)
+
+[node name="Kegel17" parent="." unique_id=119774472 instance=ExtResource("1_hanbj")]
+transform = Transform3D(0.9028856, 0.42988086, 0, -0.42988086, 0.9028856, 0, 0, 0, 1, 0.92863834, 0.75420547, -1.0533137)
+
+[node name="Kegel18" parent="." unique_id=190524632 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8975707, 0.030372506, -1.0389142)
+
+[node name="Kegel19" parent="." unique_id=396537011 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36682582, 0.030372625, -0.9685545)
+
+[node name="Kegel20" parent="." unique_id=1341163664 instance=ExtResource("1_hanbj")]
+transform = Transform3D(0.9028856, 0.42988086, 0, -0.42988086, 0.9028856, 0, 0, 0, 1, -0.032864213, 0.75420547, -1.0562778)
+
+[node name="Kegel21" parent="." unique_id=1842535757 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06393182, 0.030372506, -1.0418782)
+
+[node name="Kegel22" parent="." unique_id=933739466 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46161675, 0.030372625, -0.9655905)
+
+[node name="Kegel23" parent="." unique_id=1801656619 instance=ExtResource("1_hanbj")]
+transform = Transform3D(0.9028856, 0.42988086, 0, -0.42988086, 0.9028856, 0, 0, 0, 1, -0.8613068, 0.75420547, -1.0533137)
+
+[node name="Kegel24" parent="." unique_id=1474622385 instance=ExtResource("1_hanbj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8923744, 0.030372506, -1.0389142)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1785271613]
+environment = SubResource("Environment_hanbj")
+
+[node name="PlayerShootPrototype" parent="." unique_id=2119865532 instance=ExtResource("2_25kmx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8155522, 2.4503384, 2.3372114)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=633783580]
+transform = Transform3D(1, 0, 0, 0, -0.7552818, 0.65540016, 0, -0.65540016, -0.7552818, 0, 0, 0)
+
+[editable path="PlayerShootPrototype"]

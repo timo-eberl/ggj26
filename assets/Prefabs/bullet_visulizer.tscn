@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bx57se1pu5xse"]
+
+[ext_resource type="Script" uid="uid://dkjxmx67qbrkd" path="res://scripts/bullet_visulizer.gd" id="1_n4vkh"]
+[ext_resource type="Material" uid="uid://dvkxlbwsh268t" path="res://assets/materials/BulletVisMaterial.tres" id="2_wjx7a"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_n4vkh"]
+radius = 0.04
+height = 1.0
+
+[node name="BulletVisulizer" type="Node3D" unique_id=837243035]
+script = ExtResource("1_n4vkh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1484836533]
+material_override = ExtResource("2_wjx7a")
+mesh = SubResource("CapsuleMesh_n4vkh")

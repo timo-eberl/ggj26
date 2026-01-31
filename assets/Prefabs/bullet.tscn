@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://di2igp3umdkpv"]
+
+[ext_resource type="Script" uid="uid://b7oy6iefbk6l3" path="res://scripts/bullet.gd" id="1_0r12m"]
+[ext_resource type="PackedScene" uid="uid://gw5vmvix5df2" path="res://assets/3D_Modell/Bullet.glb" id="1_6skkt"]
+
+[node name="Bullet" type="RigidBody3D" unique_id=1178989174]
+mass = 0.05
+gravity_scale = 0.0
+continuous_cd = true
+script = ExtResource("1_0r12m")
+
+[node name="Bullet2" parent="." unique_id=1394944898 instance=ExtResource("1_6skkt")]
+transform = Transform3D(1, 0, 0, 0, -4.625539e-06, -1, 0, 105.82, -4.371139e-08, 0, 0, 0)
+
+[editable path="Bullet2"]

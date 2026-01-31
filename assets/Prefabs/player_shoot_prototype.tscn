@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bfohu2sh5adeg"]
+
+[ext_resource type="Script" uid="uid://binw15vtvvms5" path="res://scripts/player/player_shoot_prototype_skript.gd" id="1_4k8rc"]
+[ext_resource type="Script" uid="uid://chfsi1nxquy5o" path="res://scripts/camera/camera_controller.gd" id="2_8rund"]
+[ext_resource type="Script" uid="uid://bpelvjwb5rsex" path="res://scripts/player/components/mouse_capture_component.gd" id="2_mqpyr"]
+[ext_resource type="PackedScene" uid="uid://cee0g8gxndnul" path="res://assets/3D_Modell/Pistole.glb" id="3_yk3xm"]
+[ext_resource type="Script" uid="uid://d0oda81cj8icv" path="res://scripts/waffen.gd" id="4_nciil"]
+[ext_resource type="PackedScene" uid="uid://bx57se1pu5xse" path="res://assets/Prefabs/bullet_visulizer.tscn" id="5_rql45"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bp3i7"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_nciil"]
+radius = 0.1
+height = 0.2
+
+[node name="PlayerShootPrototype" type="CharacterBody3D" unique_id=2119865532 node_paths=PackedStringArray("currentPistole")]
+script = ExtResource("1_4k8rc")
+currentPistole = NodePath("Camera3D/Hand/Pistole2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1833127952]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_bp3i7")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2088556181 node_paths=PackedStringArray("component_mouse_capture")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("2_8rund")
+component_mouse_capture = NodePath("../Components/MouseCaptureComponent")
+
+[node name="Hand" type="Node3D" parent="Camera3D" unique_id=1155918162]
+transform = Transform3D(0.99897057, 0, 0.04536299, 0, 1, 0, -0.04536299, 0, 0.99897057, 0.306, -0.215, -0.295)
+
+[node name="Pistole2" parent="Camera3D/Hand" unique_id=2045700836 instance=ExtResource("3_yk3xm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, -0.035)
+script = ExtResource("4_nciil")
+bullet_vis_scene = ExtResource("5_rql45")
+
+[node name="bulletStartPos" type="Node3D" parent="Camera3D/Hand/Pistole2" unique_id=9038725]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.020522684, 0.101946115, -0.451945)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/Hand" unique_id=1968012186]
+mesh = SubResource("SphereMesh_nciil")
+
+[node name="Components" type="Node" parent="." unique_id=1036763135]
+
+[node name="MouseCaptureComponent" type="Node" parent="Components" unique_id=1265483079]
+script = ExtResource("2_mqpyr")
+debug = true
+mouse_sensitivity = 0.1

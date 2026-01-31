@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dvkxlbwsh268t"]
+
+[ext_resource type="Shader" uid="uid://c80t71yuqatrl" path="res://assets/materials/BulletShader.gdshader" id="1_5to6r"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_5to6r")
