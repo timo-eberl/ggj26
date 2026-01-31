@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bogqc6d6pb1rr"]
+
+[ext_resource type="Script" uid="uid://cb0mppp77ww7g" path="res://scripts/mask_area.gd" id="1_lhi7w"]
+[ext_resource type="Script" uid="uid://bf1axc731bh3o" path="res://scripts/enemy.gd" id="1_tqe01"]
+[ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="1_w58r3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w58r3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tqe01"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lhi7w"]
+radius = 0.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w58r3"]
+radius = 5.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lhi7w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j7opc"]
+
+[node name="EnemyPrototype" type="Node3D" unique_id=1785478038]
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1483744264]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_w58r3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=969025740]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=962728280]
+shape = SubResource("BoxShape3D_tqe01")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1168416218]
+transform = Transform3D(1, 0, 0, 0, 0.19661358, 0.980481, 0, -0.980481, 0.19661358, 0, 5.5924788, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=898866256]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3063833, 6.1695843)
+
+[node name="MaskArea" type="Area3D" parent="Camera3D" unique_id=1393819833]
+script = ExtResource("1_lhi7w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Camera3D/MaskArea" unique_id=1952893137]
+shape = SubResource("SphereShape3D_lhi7w")
+
+[node name="EnemyGroup" type="Area3D" parent="." unique_id=2128502404]
+script = ExtResource("1_w58r3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyGroup" unique_id=69708237]
+shape = SubResource("SphereShape3D_w58r3")
+
+[node name="Enemy" type="Node3D" parent="EnemyGroup" unique_id=1052551047]
+script = ExtResource("1_tqe01")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="EnemyGroup/Enemy" unique_id=911153070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_lhi7w")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="EnemyGroup/Enemy" unique_id=879588494]
+transform = Transform3D(0.70237046, 0, 0, 0, 0.20538011, 0, 0, 0, 0.62675023, 0, 1.525301, -0.26524007)
+mesh = SubResource("BoxMesh_j7opc")
+
+[connection signal="area_entered" from="EnemyGroup" to="EnemyGroup" method="_on_area_entered"]
