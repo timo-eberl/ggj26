@@ -14,8 +14,12 @@ func get_state_chart() -> StateChart:
 
 func _on_active_state_physics_processing(delta: float) -> void:
 	var direction := global_position.direction_to(_mask.global_position)
+	direction.y = 0
+	direction = direction.normalized()
 
-	var facing_direction := -global_basis.z
+	var facing_direction := -global_basis.z.normalized()
 	var angle_diff := facing_direction.signed_angle_to(direction, Vector3.UP)
+	
+	waffe.set_target(_mask.global_position)
 
 	rotate_y(angle_diff * turn_speed * delta)

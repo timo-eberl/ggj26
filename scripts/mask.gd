@@ -79,8 +79,6 @@ func _on_possessing_state_processing(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("right_mouse_button"):
 		state_chart.send_event("onDislodge")
-func _on_possessing_state_exited() -> void:
-	_current_enemy.head.global_transform = _current_enemy.mask_target.global_transform
 
 
 # Dislodged
@@ -117,6 +115,9 @@ func _on_aiming_state_processing(delta: float) -> void:
 	if Input.is_action_just_pressed("right_mouse_button") or Input.is_action_just_pressed("left_mouse_button"):
 		var collider = ray_cast.get_collider() as CollisionObject3D
 		if collider is Enemy:
+			if is_instance_valid(_current_enemy):
+				_current_enemy.head.global_transform = _current_enemy.mask_target.global_transform
+				_current_enemy.get_state_chart().send_event("onActivate")
 			_current_enemy = collider
 			_current_enemy.get_state_chart().send_event("onPossessed")
 			cam_effect.enable_blur(false)
