@@ -1,3 +1,4 @@
+class_name Waffe
 extends Node3D
 @onready var bulletExitPos: Node3D = $bulletStartPos;
 @onready var hand: Node3D = $"..";
@@ -9,17 +10,18 @@ var recoilAdd : Vector3;
 @export var nextTarget : Vector3;
 
 func _process(delta):
-	aimTarget = lerp(aimTarget, nextTarget, 0.04);
+	aimTarget = lerp(aimTarget, nextTarget, delta * 10);
 	hand.look_at(aimTarget);
-	recoilAdd = lerp(recoilAdd, Vector3.ZERO, 0.2);
+	recoilAdd = lerp(recoilAdd, Vector3.ZERO, delta * 10);
 	pass
 
 func shoot():
 	var space = get_world_3d().direct_space_state
+	var extendetTarget = bulletExitPos.global_position + (aimTarget - bulletExitPos.global_position).normalized() * 500;
 
 	var query = PhysicsRayQueryParameters3D.create(
 		bulletExitPos.global_position,
-		aimTarget
+		extendetTarget
 	)
 	
 	query.exclude = [self]
@@ -34,12 +36,12 @@ func shoot():
 			result.collider.apply_impulse(-global_basis.z * 100, hit_pos)
 	
 	
-	spawn_bullet_vis(bulletExitPos.global_position, aimTarget)
+	spawn_bullet_vis(bulletExitPos.global_position, extendetTarget)
 	add_recoil(base_recoil)
 	pass
 
 func add_recoil(amount):
-	recoilAdd += Vector3(0,amount,0)
+	recoilAdd += Vector3(0,amount,0) * 0.0001
 
 func set_target(target : Vector3):
 	nextTarget = target + recoilAdd;

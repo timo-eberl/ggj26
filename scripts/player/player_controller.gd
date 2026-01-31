@@ -2,8 +2,6 @@ class_name PlayerController
 extends Node
 
 @export var debug: bool = false
-@export_category("References")
-@export var camera: CameraController
 @export_category("Movement Settings")
 @export_group("Easing")
 @export var accelartion: float = 1.0
