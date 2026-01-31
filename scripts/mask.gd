@@ -34,7 +34,7 @@ var is_in_transition = false
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_current_enemy = first_enemy
-	_current_enemy.get_state_chart().send_event("onPossessed")
+	_current_enemy.get_state_chart().send_event.call_deferred("onPossessed")
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
