@@ -15,7 +15,7 @@ func _ready():
 	pause_game()
 	
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if get_tree().paused:
 			continue_game()
