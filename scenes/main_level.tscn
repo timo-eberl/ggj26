@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://degpivl6mcegn" path="res://assets/3D_Modell/Fabrik_red_brick_diff_1k.jpg" id="1_ufxs0"]
 [ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="2_fkrx8"]
+[ext_resource type="PackedScene" uid="uid://cxcdlhs4nr4o3" path="res://assets/3D_Modell/Container.glb" id="2_mwgft"]
 [ext_resource type="PackedScene" uid="uid://bs1y54scate4v" path="res://assets/Prefabs/kegel.tscn" id="3_6we3w"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="3_mwgft"]
 [ext_resource type="Script" uid="uid://d0oqv1005hnrm" path="res://scripts/mask.gd" id="4_adxub"]
@@ -254,6 +255,9 @@ shape = SubResource("ConcavePolygonShape3D_qmak7")
 [node name="Cube_004" type="MeshInstance3D" parent="Fabrik2" unique_id=198752282]
 transform = Transform3D(3.6908265e-08, 0.10320298, -1.6813901e-08, 0.10320298, -3.690826e-08, 1.6813907e-08, 1.6813901e-08, -1.6813907e-08, -0.10320298, -20.442741, 12.916863, -14.472475)
 mesh = SubResource("ArrayMesh_onaa8")
+
+[node name="Container2" parent="Fabrik2" unique_id=1095593324 instance=ExtResource("2_mwgft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.956967, 5.7264037, -41.641376)
 
 [node name="EnemyPrototype" type="Node3D" parent="." unique_id=1785478038]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17198181, -16.897655)
