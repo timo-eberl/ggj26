@@ -5,8 +5,8 @@ extends RigidBody3D
 
 const mouse_sensitivity = 0.002
 @export var dislodge_force = 8
-@export_range(-90,90) var dislodge_angle_offset = 20
-@export var time_scale = 0.1
+@export_range(-90,90) var dislodge_angle_offset = 50
+@export var time_scale = 0.2
 @export var mask_shoot_force = 3
 @export var transition_speed = 10
 @export var min_trans_time = 0.6
@@ -65,9 +65,17 @@ func _on_possessing_state_processing(_delta: float) -> void:
 	self.global_rotation.y = _current_enemy.mask_target.global_rotation.y
 	
 	cam.global_transform = self.global_transform
+	_current_enemy.head.global_transform = self.global_transform
 	
-	if Input.is_action_just_pressed("ui_accept"):
+	_current_enemy.waffe.set_target(self.global_position - self.global_basis.z * 500)
+	
+	if Input.is_action_just_pressed("shoot"):
+		_current_enemy.waffe.shoot()
+	
+	if Input.is_action_just_pressed("right_mouse_button"):
 		state_chart.send_event("onDislodge")
+func _on_possessing_state_exited() -> void:
+	_current_enemy.head.global_transform = _current_enemy.mask_target.global_transform
 
 
 # Dislodged
@@ -77,15 +85,15 @@ func _on_dislodged_state_entered() -> void:
 	self.apply_central_impulse(dir * dislodge_force)
 func _on_dislodged_state_processing(_delta: float) -> void:
 	cam.global_transform = self.global_transform
-	if Input.is_action_just_pressed("right_mouse_button"):
+	if Input.is_action_pressed("right_mouse_button"):
 		state_chart.send_event("onMaskAim")
 
 
 # Aiming
 func _on_aiming_state_entered() -> void:
-	Engine.time_scale = time_scale
 	_cam_rot = self.global_rotation
-func _on_aiming_state_processing(_delta: float) -> void:
+func _on_aiming_state_processing(delta: float) -> void:
+	Engine.time_scale = lerp(Engine.time_scale, time_scale, delta * 5.0)
 	cam.global_position = self.global_position
 	cam.global_rotation.y = _cam_rot.y
 	cam.global_rotation.x = _cam_rot.x

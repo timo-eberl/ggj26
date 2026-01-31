@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bf1axc731bh3o" path="res://scripts/enemy.gd" id="1_ipns3"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="2_je7p5"]
+[ext_resource type="PackedScene" uid="uid://cee0g8gxndnul" path="res://assets/3D_Modell/Pistole.glb" id="3_nenq2"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_0owmy"]
+[ext_resource type="Script" uid="uid://d0oda81cj8icv" path="res://scripts/waffen.gd" id="4_md484"]
+[ext_resource type="PackedScene" uid="uid://bx57se1pu5xse" path="res://assets/Prefabs/bullet_visulizer.tscn" id="5_ipns3"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_5gtgg"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_h17s1"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_qek5x"]
@@ -18,6 +21,10 @@ roughness = 0.4
 material = SubResource("StandardMaterial3D_8afob")
 
 [sub_resource type="BoxMesh" id="BoxMesh_nenq2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_xwavj"]
+radius = 0.05
+height = 0.1
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1891892681]
 collision_layer = 10
@@ -47,6 +54,23 @@ mesh = SubResource("CapsuleMesh_gmlin")
 transform = Transform3D(0.6604568, 0, 0, 0, 0.25574315, 0, 0, 0, 0.6671614, 0, 1.5726423, -0.18967289)
 material_override = SubResource("StandardMaterial3D_8afob")
 mesh = SubResource("BoxMesh_nenq2")
+
+[node name="Head" type="Node3D" parent="." unique_id=1048384683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6005105, -0.494358)
+
+[node name="HandAnchor" type="Node3D" parent="Head" unique_id=1705238049]
+
+[node name="Hand" type="MeshInstance3D" parent="Head/HandAnchor" unique_id=693429619]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22742459, -0.1830343, -0.31118542)
+mesh = SubResource("SphereMesh_xwavj")
+
+[node name="Waffe" parent="Head/HandAnchor" unique_id=1468163385 instance=ExtResource("3_nenq2")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.22389361, -0.13736475, -0.32786834)
+script = ExtResource("4_md484")
+bullet_vis_scene = ExtResource("5_ipns3")
+
+[node name="bulletStartPos" type="Node3D" parent="Head/HandAnchor/Waffe" unique_id=1855909560]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004127145, 0.093804836, -0.37035882)
 
 [node name="MaskTarget" type="Node3D" parent="." unique_id=1618735242]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6005105, -0.494358)

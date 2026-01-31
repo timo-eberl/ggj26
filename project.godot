@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Mask Massacre"
-run/main_scene="uid://y2n23c7snbkj"
+run/main_scene="uid://bogqc6d6pb1rr"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

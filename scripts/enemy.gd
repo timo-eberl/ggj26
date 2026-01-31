@@ -6,6 +6,8 @@ extends CharacterBody3D
 @onready var _mask : Node3D = %Mask
 @onready var state_chart: StateChart = $StateChart
 @onready var mask_target: Node3D = $MaskTarget
+@onready var head: Node3D = $Head
+@onready var waffe: Waffe = $Head/HandAnchor/Waffe
 
 func get_state_chart() -> StateChart:
 	return $StateChart
