@@ -10,6 +10,7 @@ func _ready():
 	%ButtonContinue.pressed.connect(continue_game)
 	%ButtonSettings.pressed.connect(open_settings)
 	%ButtonQuit.pressed.connect(on_quit)
+	%ButtonRestart.pressed.connect(on_restart)
 	settings_menu.close.connect(close_settings)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	continue_game()
@@ -47,6 +48,9 @@ func close_settings():
 	settings_menu.hide()
 	pause_menu.show()
 	
+
+func on_restart():
+	get_tree().reload_current_scene()
 
 func on_quit():
 	get_tree().quit()
