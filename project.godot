@@ -12,8 +12,13 @@ config_version=5
 
 config/name="Mask Massacre"
 run/main_scene="uid://dib7wl3k31t36"
+config/quit_on_go_back=false
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://bmjr6t34bo6hn"
+
+[autoload]
+
+AudioManager="*uid://bu41gotfdpwiu"
 
 [display]
 
