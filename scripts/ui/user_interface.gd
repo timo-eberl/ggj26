@@ -54,3 +54,17 @@ func on_restart():
 
 func on_quit():
 	get_tree().quit()
+
+
+func _on_restart_after_win_pressed():
+	get_tree().reload_current_scene()
+
+
+func _on_win_area_body_entered(body):
+	get_tree().paused = true
+	$WinMenu.show()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+
+func _on_quit_pressed():
+	get_tree().quit()
