@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://vrvaoa3kbuo7"]
+
+[ext_resource type="Script" uid="uid://d0oqv1005hnrm" path="res://scripts/mask.gd" id="1_0iq2y"]
+[ext_resource type="PackedScene" uid="uid://dftsx3goa60g7" path="res://assets/3D_Modell/maske.glb" id="2_q5cp3"]
+[ext_resource type="Script" uid="uid://cb0mppp77ww7g" path="res://scripts/mask_area.gd" id="3_khdy1"]
+[ext_resource type="Script" uid="uid://bc4w5l8sc8hv1" path="res://scripts/player/player_controller.gd" id="4_13g8o"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="5_h7770"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_p3q4p"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_ngpd7"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_yddl2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4706d"]
+radius = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lhi7w"]
+radius = 0.1
+
+[node name="Mask" type="RigidBody3D" unique_id=324879140 node_paths=PackedStringArray("first_enemy")]
+collision_layer = 4
+script = ExtResource("1_0iq2y")
+first_enemy = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=27753368]
+shape = SubResource("SphereShape3D_4706d")
+
+[node name="maske" parent="." unique_id=2123581501 instance=ExtResource("2_q5cp3")]
+transform = Transform3D(-1.857734e-08, 0, 0.425, 0, 0.425, 0, -0.425, 0, -1.857734e-08, 0, 0, 0.21232605)
+
+[node name="MaskArea" type="Area3D" parent="." unique_id=1895148110]
+script = ExtResource("3_khdy1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MaskArea" unique_id=1758275242]
+shape = SubResource("SphereShape3D_lhi7w")
+
+[node name="PlayerController" type="Node" parent="." unique_id=582092241]
+script = ExtResource("4_13g8o")
+
+[node name="StateChart" type="Node" parent="." unique_id=1122604367]
+script = ExtResource("5_h7770")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" unique_id=919977824]
+script = ExtResource("6_p3q4p")
+initial_state = NodePath("Possessing")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Possessing" type="Node" parent="StateChart/Root" unique_id=67122569]
+script = ExtResource("7_ngpd7")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Dislodge" type="Node" parent="StateChart/Root/Possessing" unique_id=1856254223]
+script = ExtResource("8_yddl2")
+to = NodePath("../../Dislodged")
+event = &"onDislodge"
+delay_in_seconds = "0.0"
+
+[node name="Die" type="Node" parent="StateChart/Root/Possessing" unique_id=237377991]
+script = ExtResource("8_yddl2")
+to = NodePath("../../Dead")
+event = &"onHit"
+delay_in_seconds = "0.0"
+
+[node name="Dislodged" type="Node" parent="StateChart/Root" unique_id=666384745]
+script = ExtResource("7_ngpd7")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="MaskAim" type="Node" parent="StateChart/Root/Dislodged" unique_id=1643505150]
+script = ExtResource("8_yddl2")
+to = NodePath("../../Aiming")
+event = &"onMaskAim"
+delay_in_seconds = "0.0"
+
+[node name="Aiming" type="Node" parent="StateChart/Root" unique_id=931054748]
+script = ExtResource("7_ngpd7")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Die" type="Node" parent="StateChart/Root/Aiming" unique_id=89922058]
+script = ExtResource("8_yddl2")
+to = NodePath("../../Dead")
+event = &"onMaskMiss"
+delay_in_seconds = "0.0"
+
+[node name="Transition" type="Node" parent="StateChart/Root/Aiming" unique_id=1839091912]
+script = ExtResource("8_yddl2")
+to = NodePath("../../Transition")
+event = &"onTransition"
+delay_in_seconds = "0.0"
+
+[node name="Transition" type="Node" parent="StateChart/Root" unique_id=1080422218]
+script = ExtResource("7_ngpd7")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Possess" type="Node" parent="StateChart/Root/Transition" unique_id=1929230595]
+script = ExtResource("8_yddl2")
+to = NodePath("../../Possessing")
+event = &"onPossess"
+delay_in_seconds = "0.0"
+
+[node name="Dead" type="Node" parent="StateChart/Root" unique_id=2038360005]
+script = ExtResource("7_ngpd7")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[connection signal="state_entered" from="StateChart/Root/Possessing" to="." method="_on_possessing_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Possessing" to="." method="_on_possessing_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Possessing" to="." method="_on_possessing_state_physics_processing"]
+[connection signal="state_processing" from="StateChart/Root/Possessing" to="." method="_on_possessing_state_processing"]
+[connection signal="state_entered" from="StateChart/Root/Dislodged" to="." method="_on_dislodged_state_entered"]
+[connection signal="state_processing" from="StateChart/Root/Dislodged" to="." method="_on_dislodged_state_processing"]
+[connection signal="state_entered" from="StateChart/Root/Aiming" to="." method="_on_aiming_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Aiming" to="." method="_on_aiming_state_exited"]
+[connection signal="state_processing" from="StateChart/Root/Aiming" to="." method="_on_aiming_state_processing"]
+[connection signal="state_entered" from="StateChart/Root/Transition" to="." method="_on_transition_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Dead" to="." method="_on_dead_state_entered"]
+[connection signal="state_processing" from="StateChart/Root/Dead" to="." method="_on_dead_state_processing"]
+
+[editable path="maske"]
