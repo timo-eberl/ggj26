@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="1_iqu8w"]
 [ext_resource type="PackedScene" uid="uid://dukrhwrgsm7vt" path="res://assets/3D_Modell/Fabrik.glb" id="1_v3uhd"]
-[ext_resource type="Script" path="res://scripts/enemy_group.gd" id="2_fkrx8"]
-[ext_resource type="PackedScene" path="res://scenes/mask.tscn" id="2_mwgft"]
+[ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="2_fkrx8"]
+[ext_resource type="PackedScene" uid="uid://vrvaoa3kbuo7" path="res://scenes/mask.tscn" id="2_mwgft"]
 [ext_resource type="PackedScene" uid="uid://bs1y54scate4v" path="res://assets/Prefabs/kegel.tscn" id="3_6we3w"]
-[ext_resource type="PackedScene" uid="uid://7msiydq3ot60" path="res://scenes/camera.tscn" id="3_adxub"]
+[ext_resource type="PackedScene" path="res://scenes/camera.tscn" id="3_adxub"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="3_mwgft"]
 [ext_resource type="Texture2D" uid="uid://3ghqn5tf64wm" path="res://assets/3D_Modell/outdoor_chapel_1k.exr" id="11_uk2yf"]
 [ext_resource type="PackedScene" uid="uid://cpfef7kdce62t" path="res://assets/Prefabs/container.tscn" id="13_mwgft"]
@@ -136,9 +136,16 @@ radius = 7.0
 
 [node name="Canvaslayer" parent="." unique_id=1975544332 instance=ExtResource("1_iqu8w")]
 
-[node name="Mask" parent="." unique_id=324879140 instance=ExtResource("2_mwgft")]
+[node name="Mask" parent="." unique_id=324879140 node_paths=PackedStringArray("first_enemy") instance=ExtResource("2_mwgft")]
+unique_name_in_owner = true
+first_enemy = NodePath("../Enemies/FirstEnemy")
 
 [node name="CamParent" parent="." unique_id=1411812721 instance=ExtResource("3_adxub")]
+
+[node name="Camera3D" parent="CamParent" index="0" unique_id=182462785 node_paths=PackedStringArray("player", "blur_effect", "mask")]
+player = NodePath("../../Mask/PlayerController")
+blur_effect = NodePath("../../Canvaslayer/ColorRect")
+mask = NodePath("../../Mask")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=954539639]
 environment = SubResource("Environment_ufxs0")
@@ -146,7 +153,7 @@ environment = SubResource("Environment_ufxs0")
 [node name="Fabrik2" parent="." unique_id=951520355 instance=ExtResource("1_v3uhd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2936249, 0, -0.32879043)
 
-[node name="Cylinder" parent="Fabrik2" index="3" unique_id=766717268]
+[node name="Cylinder" parent="Fabrik2" index="3" unique_id=392401731]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.741772, 11.340998, -11.651939)
 
 [node name="Cylinder2" type="MeshInstance3D" parent="Fabrik2" unique_id=1971189653]
@@ -615,6 +622,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.122387, 1, -7.222946)
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1382195430]
 
+[node name="FirstEnemy" parent="Enemies" unique_id=50302605 instance=ExtResource("3_mwgft")]
+transform = Transform3D(-0.057180714, 0, 0.99836385, 0, 1, 0, -0.99836385, 0, -0.057180714, 19.361267, 0, -4.328483)
+
 [node name="EnemyGroup" type="Area3D" parent="Enemies" unique_id=901898650]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.726887, 0, -14.853951)
 script = ExtResource("2_fkrx8")
@@ -672,5 +682,9 @@ transform = Transform3D(-0.99955046, 0, -0.029980302, 0, 1, 0, 0.029980302, 0, -
 [connection signal="area_entered" from="Enemies/EnemyGroup" to="Enemies/EnemyGroup" method="_on_area_entered"]
 [connection signal="area_entered" from="Enemies/EnemyGroup2" to="Enemies/EnemyGroup2" method="_on_area_entered"]
 
+[editable path="Canvaslayer"]
+[editable path="Mask"]
+[editable path="Mask/maske"]
+[editable path="CamParent"]
 [editable path="Fabrik2"]
 [editable path="ContainerHalter/Container27"]
