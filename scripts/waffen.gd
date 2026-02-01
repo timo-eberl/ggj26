@@ -3,6 +3,8 @@ extends Node3D
 @onready var bulletExitPos: Node3D = $bulletStartPos;
 @onready var hand: Node3D = $"..";
 @export var bullet_vis_scene: PackedScene
+@export var player_damage := 100
+@export var enemy_damage := 40
 
 var aimTarget : Vector3;
 var recoilAdd : Vector3;
@@ -39,10 +41,10 @@ func shoot() -> Dictionary:
 		if result.collider is RigidBody3D:
 			result.collider.apply_impulse(-global_basis.z * 100, hit_pos)
 		if result.collider is Enemy :
-			(result.collider as Enemy).hit(hit_pos, bulletExitPos.global_position.direction_to(extendetTarget))
+			(result.collider as Enemy).hit(hit_pos, bulletExitPos.global_position.direction_to(extendetTarget), player_damage)
 		if result.collider is Enemy and result.collider.state_possessed.active:
 			var direction := bulletExitPos.global_position.direction_to(extendetTarget)
-			(result.collider as Enemy).hit(hit_pos, direction)
+			(result.collider as Enemy).hit(hit_pos, direction, enemy_damage)
 			var mask: Mask = result.collider._mask
 			mask.state_chart.send_event("onHit")
 			mask.on_hit_by_bullet(direction)

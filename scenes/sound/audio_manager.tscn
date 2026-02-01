@@ -6,6 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://b80nltwgoebna" path="res://assets/sound/soundeffects/footsteps_6.wav" id="4_qc58m"]
 [ext_resource type="AudioStream" uid="uid://cj404ixouliac" path="res://assets/sound/soundeffects/dislodge.wav" id="5_t0u28"]
 [ext_resource type="AudioStream" uid="uid://brgvhoqwkmxdh" path="res://assets/sound/soundeffects/shot.wav" id="6_eod24"]
+[ext_resource type="AudioStream" uid="uid://xhnsi1o8oei7" path="res://assets/sound/soundeffects/empty_clip.wav" id="7_0t1kc"]
+[ext_resource type="AudioStream" uid="uid://vtc54q8dsawd" path="res://assets/sound/soundeffects/hit_splash.wav" id="8_yiulx"]
 
 [node name="AudioManager" type="Node" unique_id=1940496778 node_paths=PackedStringArray("clips", "background_music_action", "background_music_chill")]
 script = ExtResource("1_brmp6")
@@ -18,6 +20,7 @@ background_music_chill = NodePath("Clips/BackgroundMusicChill")
 [node name="BackgroundMusicAction" type="AudioStreamPlayer" parent="Clips" unique_id=1204856684]
 stream = ExtResource("2_0t1kc")
 volume_db = -35.0
+autoplay = true
 
 [node name="BackgroundMusicChill" type="AudioStreamPlayer" parent="Clips" unique_id=1557755796]
 stream = ExtResource("3_yiulx")
@@ -35,3 +38,11 @@ volume_db = -10.0
 [node name="GunShot" type="AudioStreamPlayer" parent="Clips" unique_id=153185410]
 stream = ExtResource("6_eod24")
 volume_db = -20.0
+
+[node name="EmptyClip" type="AudioStreamPlayer" parent="Clips" unique_id=569493496]
+stream = ExtResource("7_0t1kc")
+volume_db = -20.0
+
+[node name="EnemyDead" type="AudioStreamPlayer" parent="Clips" unique_id=329626374]
+stream = ExtResource("8_yiulx")
+volume_db = -15.0
