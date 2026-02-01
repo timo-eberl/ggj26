@@ -65,6 +65,7 @@ func _on_possessing_state_entered() -> void:
 	self.freeze = true
 	self.visible = false
 	_cam_rot = _current_enemy.global_rotation
+	Engine.time_scale = 1
 func _on_possessing_state_physics_processing(delta: float) -> void:
 	player_controller.control_body(_current_enemy, delta)
 func _on_possessing_state_processing(_delta: float) -> void:
