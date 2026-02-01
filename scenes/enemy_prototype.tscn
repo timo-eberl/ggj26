@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bogqc6d6pb1rr"]
 
-[ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="1_w58r3"]
+[ext_resource type="Script" path="res://scripts/enemy_group.gd" id="1_w58r3"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="2_j7opc"]
-[ext_resource type="PackedScene" uid="uid://vrvaoa3kbuo7" path="res://scenes/mask.tscn" id="4_lcibp"]
-[ext_resource type="Script" uid="uid://dc0dpt335slwo" path="res://scripts/camera/camera_effects.gd" id="10_06fh6"]
+[ext_resource type="PackedScene" path="res://scenes/mask.tscn" id="4_lcibp"]
+[ext_resource type="PackedScene" uid="uid://7msiydq3ot60" path="res://scenes/camera.tscn" id="5_lcibp"]
 [ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="11_4706d"]
 
 [sub_resource type="Gradient" id="Gradient_4706d"]
@@ -78,17 +78,8 @@ first_enemy = NodePath("../Enemy")
 [node name="Enemy" parent="." unique_id=1575115432 instance=ExtResource("2_j7opc")]
 transform = Transform3D(-0.30830315, 0, -0.95128816, 0, 1, 0, 0.95128816, 0, -0.30830315, 3.8816614, 0, 8.054255)
 
-[node name="CamParent" type="Node3D" parent="." unique_id=1003285289]
+[node name="CamParent" parent="." unique_id=1411812721 instance=ExtResource("5_lcibp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6741743, 8.505402)
-
-[node name="Camera3D" type="Camera3D" parent="CamParent" unique_id=1829377079 node_paths=PackedStringArray("player", "blur_effect")]
-script = ExtResource("10_06fh6")
-player = NodePath("")
-blur_effect = NodePath("../../CanvasLayer/ColorRect")
-
-[node name="RayCast3D" type="RayCast3D" parent="CamParent/Camera3D" unique_id=276697023]
-target_position = Vector3(0, 0, -10)
-collision_mask = 8
 
 [connection signal="area_entered" from="EnemyGroup" to="EnemyGroup" method="_on_area_entered"]
 

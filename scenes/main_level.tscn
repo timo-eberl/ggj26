@@ -3,7 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="1_iqu8w"]
 [ext_resource type="PackedScene" uid="uid://dukrhwrgsm7vt" path="res://assets/3D_Modell/Fabrik.glb" id="1_v3uhd"]
 [ext_resource type="Script" path="res://scripts/enemy_group.gd" id="2_fkrx8"]
+[ext_resource type="PackedScene" path="res://scenes/mask.tscn" id="2_mwgft"]
 [ext_resource type="PackedScene" uid="uid://bs1y54scate4v" path="res://assets/Prefabs/kegel.tscn" id="3_6we3w"]
+[ext_resource type="PackedScene" uid="uid://7msiydq3ot60" path="res://scenes/camera.tscn" id="3_adxub"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="3_mwgft"]
 [ext_resource type="Texture2D" uid="uid://3ghqn5tf64wm" path="res://assets/3D_Modell/outdoor_chapel_1k.exr" id="11_uk2yf"]
 [ext_resource type="PackedScene" uid="uid://cpfef7kdce62t" path="res://assets/Prefabs/container.tscn" id="13_mwgft"]
@@ -133,6 +135,10 @@ radius = 7.0
 [node name="MainLevel" type="Node3D" unique_id=1658949428]
 
 [node name="Canvaslayer" parent="." unique_id=1975544332 instance=ExtResource("1_iqu8w")]
+
+[node name="Mask" parent="." unique_id=324879140 instance=ExtResource("2_mwgft")]
+
+[node name="CamParent" parent="." unique_id=1411812721 instance=ExtResource("3_adxub")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=954539639]
 environment = SubResource("Environment_ufxs0")
@@ -643,9 +649,10 @@ shape = SubResource("SphereShape3D_2sb77")
 debug_color = Color(0, 0.6, 0.69803923, 0.5372549)
 
 [node name="Enemy" parent="Enemies/EnemyGroup2" unique_id=81553281 instance=ExtResource("3_mwgft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4518971, 0, 1.6516366)
 
 [node name="Enemy2" parent="Enemies/EnemyGroup2" unique_id=883690239 instance=ExtResource("3_mwgft")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5508347, 0, 0.8937578)
+transform = Transform3D(0.7590782, 0, 0.6509995, 0, 1, 0, -0.6509995, 0, 0.7590782, 8.444398, 0, 3.319468)
 
 [node name="Enemy3" parent="Enemies/EnemyGroup2" unique_id=1912450804 instance=ExtResource("3_mwgft")]
 transform = Transform3D(-0.5344408, 0, -0.8452059, 0, 1, 0, 0.8452059, 0, -0.5344408, 2.8005638, 0, -3.480113)
