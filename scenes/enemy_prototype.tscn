@@ -12,6 +12,20 @@
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="10_mus3p"]
 [ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="11_4706d"]
 
+[sub_resource type="Gradient" id="Gradient_4706d"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mus3p"]
+gradient = SubResource("Gradient_4706d")
+width = 2
+height = 2
+fill_from = Vector2(0, 1)
+repeat = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iiapf"]
+albedo_texture = SubResource("GradientTexture2D_mus3p")
+uv1_scale = Vector3(50, 50, 50)
+texture_filter = 2
+
 [sub_resource type="BoxMesh" id="BoxMesh_w58r3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tqe01"]
@@ -19,8 +33,8 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_w58r3"]
 radius = 7.0
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_e4pkg"]
-size = Vector3(0.5217285, 0.3557129, 0.1171875)
+[sub_resource type="SphereShape3D" id="SphereShape3D_4706d"]
+radius = 0.25
 
 [sub_resource type="BoxMesh" id="BoxMesh_06fh6"]
 size = Vector3(0.5217285, 0.3557129, 0.1171875)
@@ -34,6 +48,7 @@ radius = 0.1
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=1483744264]
 transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_iiapf")
 mesh = SubResource("BoxMesh_w58r3")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=969025740]
@@ -69,7 +84,7 @@ script = ExtResource("3_e4pkg")
 first_enemy = NodePath("../Enemy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mask" unique_id=63770764]
-shape = SubResource("BoxShape3D_e4pkg")
+shape = SubResource("SphereShape3D_4706d")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Mask" unique_id=1968376892]
 mesh = SubResource("BoxMesh_06fh6")

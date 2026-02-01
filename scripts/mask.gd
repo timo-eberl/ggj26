@@ -149,6 +149,9 @@ func _on_transition_state_entered() -> void:
 func _on_dead_state_entered() -> void:
 	self.global_rotation = cam.global_rotation
 	self.freeze = false
+	$"../CanvasLayer/Reticle".visible = false
+	await get_tree().create_timer(3.0).timeout
+	get_tree().reload_current_scene()
 func _on_dead_state_processing(_delta: float) -> void:
 	cam_effect.enable_full_blur()
 	# self.global_rotation = cam.global_rotation
