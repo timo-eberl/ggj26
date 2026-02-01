@@ -48,11 +48,8 @@ func _ready():
 	_current_enemy.get_state_chart().send_event("onPos")
 
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	if Input.is_action_just_pressed("left_mouse_button"):
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
