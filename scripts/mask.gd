@@ -85,6 +85,8 @@ func _on_possessing_state_processing(_delta: float) -> void:
 # Dislodged
 func _on_dislodged_state_entered() -> void:
 	cam_effect.add_screen_shake(0.4, 0.4)
+	cam_effect.enable_headbob = true
+	AudioManager.play("Dislodge", 0.0)
 	self.freeze = false
 	print("dislodge_angle_offset: ", dislodge_angle_offset)
 	var dir = Vector3.FORWARD.rotated(Vector3.RIGHT, deg_to_rad(dislodge_angle_offset)) * self.global_basis.inverse()

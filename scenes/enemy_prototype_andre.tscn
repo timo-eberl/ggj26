@@ -1,0 +1,185 @@
+[gd_scene format=3 uid="uid://cf81enmy8becu"]
+
+[ext_resource type="Script" uid="uid://5ma2tu6dib3b" path="res://scripts/game_manager.gd" id="1_hfuoi"]
+[ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="1_ipbrq"]
+[ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="2_hfuoi"]
+[ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="3_o6saw"]
+[ext_resource type="Script" uid="uid://d0oqv1005hnrm" path="res://scripts/mask.gd" id="4_fia42"]
+[ext_resource type="Script" uid="uid://cb0mppp77ww7g" path="res://scripts/mask_area.gd" id="5_f5afn"]
+[ext_resource type="Script" uid="uid://bc4w5l8sc8hv1" path="res://scripts/player/player_controller.gd" id="6_ty7d6"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="7_2ugcl"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="8_vjeg4"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="9_ex2d6"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="10_ixbyu"]
+[ext_resource type="Script" uid="uid://dc0dpt335slwo" path="res://scripts/camera/camera_effects.gd" id="11_rgfq2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w58r3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tqe01"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w58r3"]
+radius = 7.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e4pkg"]
+size = Vector3(0.5217285, 0.3557129, 0.1171875)
+
+[sub_resource type="BoxMesh" id="BoxMesh_06fh6"]
+size = Vector3(0.5217285, 0.3557129, 0.1171875)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lhi7w"]
+radius = 0.1
+
+[node name="EnemyPrototype" type="Node3D" unique_id=1785478038]
+script = ExtResource("1_hfuoi")
+
+[node name="CanvasLayer" parent="." unique_id=1975544332 instance=ExtResource("1_ipbrq")]
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1483744264]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_w58r3")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground" unique_id=969025740]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" unique_id=962728280]
+shape = SubResource("BoxShape3D_tqe01")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1168416218]
+transform = Transform3D(1, 0, 0, 0, 0.19661358, 0.980481, 0, -0.980481, 0.19661358, 0, 5.5924788, 0)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=1760550188]
+transform = Transform3D(1, 0, 0, 0, -0.42446813, 0.905443, 0, -0.905443, -0.42446813, 0, 5.5924788, 0)
+
+[node name="EnemyGroup" type="Area3D" parent="." unique_id=2128502404]
+script = ExtResource("2_hfuoi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyGroup" unique_id=69708237]
+shape = SubResource("SphereShape3D_w58r3")
+
+[node name="Enemy" parent="EnemyGroup" unique_id=1891892681 instance=ExtResource("3_o6saw")]
+
+[node name="Enemy2" parent="EnemyGroup" unique_id=224124476 instance=ExtResource("3_o6saw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.4298773)
+
+[node name="Enemy3" parent="EnemyGroup" unique_id=278276688 instance=ExtResource("3_o6saw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7154627)
+
+[node name="Mask" type="RigidBody3D" parent="." unique_id=1882664378 node_paths=PackedStringArray("first_enemy")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6741743, 8.505402)
+collision_layer = 4
+script = ExtResource("4_fia42")
+first_enemy = NodePath("../Enemy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mask" unique_id=63770764]
+shape = SubResource("BoxShape3D_e4pkg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mask" unique_id=1968376892]
+mesh = SubResource("BoxMesh_06fh6")
+
+[node name="MaskArea" type="Area3D" parent="Mask" unique_id=1393819833]
+script = ExtResource("5_f5afn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mask/MaskArea" unique_id=1952893137]
+shape = SubResource("SphereShape3D_lhi7w")
+
+[node name="PlayerController" type="Node" parent="Mask" unique_id=146181861]
+script = ExtResource("6_ty7d6")
+
+[node name="StateChart" type="Node" parent="Mask" unique_id=196656355]
+script = ExtResource("7_2ugcl")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="Mask/StateChart" unique_id=2126018293]
+script = ExtResource("8_vjeg4")
+initial_state = NodePath("Possessing")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Possessing" type="Node" parent="Mask/StateChart/Root" unique_id=497222039]
+script = ExtResource("9_ex2d6")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Dislodge" type="Node" parent="Mask/StateChart/Root/Possessing" unique_id=2037635031]
+script = ExtResource("10_ixbyu")
+to = NodePath("../../Dislodged")
+event = &"onDislodge"
+delay_in_seconds = "0.0"
+
+[node name="Die" type="Node" parent="Mask/StateChart/Root/Possessing" unique_id=145877824]
+script = ExtResource("10_ixbyu")
+to = NodePath("../../Dead")
+event = &"onHit"
+delay_in_seconds = "0.0"
+
+[node name="Dislodged" type="Node" parent="Mask/StateChart/Root" unique_id=1159641629]
+script = ExtResource("9_ex2d6")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="MaskAim" type="Node" parent="Mask/StateChart/Root/Dislodged" unique_id=1146805230]
+script = ExtResource("10_ixbyu")
+to = NodePath("../../Aiming")
+event = &"onMaskAim"
+delay_in_seconds = "0.0"
+
+[node name="Aiming" type="Node" parent="Mask/StateChart/Root" unique_id=131081917]
+script = ExtResource("9_ex2d6")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Die" type="Node" parent="Mask/StateChart/Root/Aiming" unique_id=149712776]
+script = ExtResource("10_ixbyu")
+to = NodePath("../../Dead")
+event = &"onMaskMiss"
+delay_in_seconds = "0.0"
+
+[node name="Transition" type="Node" parent="Mask/StateChart/Root/Aiming" unique_id=149662335]
+script = ExtResource("10_ixbyu")
+to = NodePath("../../Transition")
+event = &"onTransition"
+delay_in_seconds = "0.0"
+
+[node name="Transition" type="Node" parent="Mask/StateChart/Root" unique_id=1582639696]
+script = ExtResource("9_ex2d6")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Possess" type="Node" parent="Mask/StateChart/Root/Transition" unique_id=1066993896]
+script = ExtResource("10_ixbyu")
+to = NodePath("../../Possessing")
+event = &"onPossess"
+delay_in_seconds = "0.0"
+
+[node name="Dead" type="Node" parent="Mask/StateChart/Root" unique_id=2052251636]
+script = ExtResource("9_ex2d6")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="Enemy" parent="." unique_id=1575115432 instance=ExtResource("3_o6saw")]
+transform = Transform3D(-0.30830315, 0, -0.95128816, 0, 1, 0, 0.95128816, 0, -0.30830315, 3.8816614, 0, 8.054255)
+
+[node name="CamParent" type="Node3D" parent="." unique_id=1003285289]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6741743, 8.505402)
+
+[node name="Camera3D" type="Camera3D" parent="CamParent" unique_id=1829377079 node_paths=PackedStringArray("player", "blur_effect", "mask")]
+script = ExtResource("11_rgfq2")
+player = NodePath("../../Mask/PlayerController")
+blur_effect = NodePath("../../CanvasLayer/ColorRect")
+mask = NodePath("../../Mask")
+
+[node name="RayCast3D" type="RayCast3D" parent="CamParent/Camera3D" unique_id=276697023]
+target_position = Vector3(0, 0, -10)
+collision_mask = 8
+
+[connection signal="area_entered" from="EnemyGroup" to="EnemyGroup" method="_on_area_entered"]
+[connection signal="state_entered" from="Mask/StateChart/Root/Possessing" to="Mask" method="_on_possessing_state_entered"]
+[connection signal="state_entered" from="Mask/StateChart/Root/Possessing" to="CamParent/Camera3D" method="_on_possessing_state_entered"]
+[connection signal="state_exited" from="Mask/StateChart/Root/Possessing" to="Mask" method="_on_possessing_state_exited"]
+[connection signal="state_exited" from="Mask/StateChart/Root/Possessing" to="CamParent/Camera3D" method="_on_possessing_state_exited"]
+[connection signal="state_physics_processing" from="Mask/StateChart/Root/Possessing" to="Mask" method="_on_possessing_state_physics_processing"]
+[connection signal="state_processing" from="Mask/StateChart/Root/Possessing" to="Mask" method="_on_possessing_state_processing"]
+[connection signal="state_entered" from="Mask/StateChart/Root/Dislodged" to="Mask" method="_on_dislodged_state_entered"]
+[connection signal="state_processing" from="Mask/StateChart/Root/Dislodged" to="Mask" method="_on_dislodged_state_processing"]
+[connection signal="state_entered" from="Mask/StateChart/Root/Aiming" to="Mask" method="_on_aiming_state_entered"]
+[connection signal="state_exited" from="Mask/StateChart/Root/Aiming" to="Mask" method="_on_aiming_state_exited"]
+[connection signal="state_processing" from="Mask/StateChart/Root/Aiming" to="Mask" method="_on_aiming_state_processing"]
+[connection signal="state_entered" from="Mask/StateChart/Root/Transition" to="Mask" method="_on_transition_state_entered"]
+[connection signal="state_entered" from="Mask/StateChart/Root/Dead" to="Mask" method="_on_dead_state_entered"]
+[connection signal="state_processing" from="Mask/StateChart/Root/Dead" to="Mask" method="_on_dead_state_processing"]
+
+[editable path="CanvasLayer"]
