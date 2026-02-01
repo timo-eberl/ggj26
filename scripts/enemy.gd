@@ -18,6 +18,7 @@ var time_in_sight: float = 0.0
 var time_to_trigger: float = pick_new_trigger_time()
 var _has_target: bool = false
 var ammo := 3
+var health := 100
 
 func get_state_chart() -> StateChart:
 	return $StateChart
@@ -73,7 +74,9 @@ func _on_active_state_entered() -> void:
 	waffe.bullet_viz_thickness = 0.5
 	
 
-func hit(position: Vector3, direction: Vector3):
+func hit(position: Vector3, direction: Vector3, damage: int):
+	health -= damage
+	if health > 0: return
 	$Head/HandAnchor/Waffe.hide()
 	character_model.explode(position, direction)
 	process_mode = Node.PROCESS_MODE_DISABLED
