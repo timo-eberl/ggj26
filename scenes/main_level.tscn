@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://5ma2tu6dib3b" path="res://scripts/game_manager.gd" id="1_ff0s2"]
 [ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="1_iqu8w"]
 [ext_resource type="PackedScene" uid="uid://dukrhwrgsm7vt" path="res://assets/3D_Modell/Fabrik.glb" id="1_v3uhd"]
-[ext_resource type="Script" path="res://scripts/enemy_group.gd" id="2_fkrx8"]
+[ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="2_fkrx8"]
 [ext_resource type="PackedScene" uid="uid://vrvaoa3kbuo7" path="res://scenes/mask.tscn" id="2_mwgft"]
 [ext_resource type="PackedScene" uid="uid://bs1y54scate4v" path="res://assets/Prefabs/kegel.tscn" id="3_6we3w"]
-[ext_resource type="PackedScene" uid="uid://7msiydq3ot60" path="res://scenes/camera.tscn" id="3_adxub"]
+[ext_resource type="PackedScene" path="res://scenes/camera.tscn" id="3_adxub"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="3_mwgft"]
 [ext_resource type="Texture2D" uid="uid://3ghqn5tf64wm" path="res://assets/3D_Modell/outdoor_chapel_1k.exr" id="11_uk2yf"]
 [ext_resource type="PackedScene" uid="uid://cpfef7kdce62t" path="res://assets/Prefabs/container.tscn" id="13_mwgft"]
@@ -135,7 +135,7 @@ shadow_mesh = SubResource("ArrayMesh_8wpt4")
 radius = 15.643
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ff0s2"]
-size = Vector3(5, 2, 13.921448)
+size = Vector3(31.256348, 2, 13.921448)
 
 [node name="MainLevel" type="Node3D" unique_id=1658949428]
 script = ExtResource("1_ff0s2")
@@ -145,7 +145,13 @@ unique_name_in_owner = true
 
 [node name="Canvaslayer" parent="." unique_id=1975544332 instance=ExtResource("1_iqu8w")]
 
-[node name="ProgressBar" parent="Canvaslayer/MarginContainer2" parent_id_path=PackedInt32Array(1975544332, 2096340384) index="0" unique_id=361755964]
+[node name="MarginContainer" parent="Canvaslayer" index="4" unique_id=1904239802]
+visible = true
+
+[node name="MarginContainer2" parent="Canvaslayer" index="5" unique_id=2096340384]
+visible = true
+
+[node name="ProgressBar" parent="Canvaslayer/MarginContainer2" index="0" unique_id=361755964]
 custom_minimum_size = Vector2(250, 40)
 
 [node name="Mask" parent="." unique_id=324879140 node_paths=PackedStringArray("first_enemy") instance=ExtResource("2_mwgft")]
@@ -165,7 +171,7 @@ environment = SubResource("Environment_ufxs0")
 [node name="Fabrik2" parent="." unique_id=951520355 instance=ExtResource("1_v3uhd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2936249, 0, -0.32879043)
 
-[node name="Cylinder" parent="Fabrik2" index="3" unique_id=766717268]
+[node name="Cylinder" parent="Fabrik2" index="3" unique_id=392401731]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.741772, 11.340998, -11.651939)
 
 [node name="Cylinder2" type="MeshInstance3D" parent="Fabrik2" unique_id=1971189653]
@@ -833,7 +839,7 @@ collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WinArea" unique_id=1956291683]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0696716)
+transform = Transform3D(0.9368615, 0, -0.34970054, 0, 1, 0, 0.34970054, 0, 0.9368615, -12.29928, 0, -3.5212555)
 shape = SubResource("BoxShape3D_ff0s2")
 
 [connection signal="area_entered" from="Enemies/EnemyGroup" to="Enemies/EnemyGroup" method="_on_area_entered"]
