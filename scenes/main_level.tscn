@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://dib7wl3k31t36"]
 
-[ext_resource type="PackedScene" uid="uid://bu41gotfdpwiu" path="res://scenes/sound/audio_manager.tscn" id="1_adxub"]
-[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_ff0s2"]
+[ext_resource type="PackedScene" uid="uid://df8j5036eil1e" path="res://scenes/sound/audio_manager.tscn" id="1_adxub"]
+[ext_resource type="Script" uid="uid://5ma2tu6dib3b" path="res://scripts/game_manager.gd" id="1_ff0s2"]
 [ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="1_iqu8w"]
 [ext_resource type="PackedScene" uid="uid://dukrhwrgsm7vt" path="res://assets/3D_Modell/Fabrik.glb" id="1_v3uhd"]
 [ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="2_fkrx8"]
@@ -138,6 +138,7 @@ radius = 15.643
 script = ExtResource("1_ff0s2")
 
 [node name="AudioManager" parent="." unique_id=1940496778 instance=ExtResource("1_adxub")]
+unique_name_in_owner = true
 
 [node name="Canvaslayer" parent="." unique_id=1975544332 instance=ExtResource("1_iqu8w")]
 
