@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://beslbp7by2x3e" path="res://assets/shader/blur.gdshader" id="2_rcgkl"]
 [ext_resource type="Script" uid="uid://c24oq8vtp02t8" path="res://scripts/ui/settings_menu.gd" id="3_a44fs"]
 [ext_resource type="Texture2D" uid="uid://df0lojl403bsm" path="res://assets/MaskMassacre-Controls.png" id="4_vnpvo"]
+[ext_resource type="Texture2D" uid="uid://3mjc83vx37rj" path="res://assets/bullet.png" id="6_vo76m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vnpvo"]
 shader = ExtResource("2_rcgkl")
@@ -41,6 +42,7 @@ size_flags_vertical = 4
 layout_mode = 2
 
 [node name="PauseMenu" type="PanelContainer" parent="." unique_id=1835739715]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -160,6 +162,58 @@ layout_mode = 2
 [node name="ButtonBack" type="Button" parent="SettingsMenu/VBoxContainer" unique_id=376403747]
 layout_mode = 2
 text = "Back"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1904239802]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1177104851]
+layout_mode = 2
+
+[node name="Bullet1" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=1915066071]
+custom_minimum_size = Vector2(36.515, 88.215)
+layout_mode = 2
+texture = ExtResource("6_vo76m")
+stretch_mode = 4
+
+[node name="Bullet2" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=935545738]
+custom_minimum_size = Vector2(36.515, 88.215)
+layout_mode = 2
+texture = ExtResource("6_vo76m")
+stretch_mode = 4
+
+[node name="Bullet3" type="TextureRect" parent="MarginContainer/VBoxContainer" unique_id=318894336]
+custom_minimum_size = Vector2(36.515, 88.215)
+layout_mode = 2
+texture = ExtResource("6_vo76m")
+stretch_mode = 4
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=2096340384]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 50
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer2" unique_id=361755964]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+value = 100.0
+fill_mode = 1
+show_percentage = false
 
 [connection signal="value_changed" from="SettingsMenu/VBoxContainer/GridContainer/HSliderMusicVol" to="SettingsMenu" method="_on_h_slider_music_vol_value_changed"]
 [connection signal="value_changed" from="SettingsMenu/VBoxContainer/GridContainer/HSliderMouseSensitivity" to="SettingsMenu" method="_on_h_slider_mouse_sensitivity_value_changed"]

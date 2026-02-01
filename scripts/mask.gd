@@ -11,7 +11,7 @@ const mouse_sensitivity = 0.002
 @export var transition_speed = 10
 @export var min_trans_time = 0.6
 @export var max_trans_time = 0.8
-@export var shoot_cooldown_sec = 0.2
+@export var shoot_cooldown_sec = 0.4
 
 @export_category("Camera Settings")
 @export_group("Camera Tilt")
@@ -56,6 +56,7 @@ func _input(event):
 # Possessing
 func _on_possessing_state_entered() -> void:
 	self.freeze = true
+	self.visible = false
 	_cam_rot = _current_enemy.global_rotation
 func _on_possessing_state_physics_processing(delta: float) -> void:
 	player_controller.control_body(_current_enemy, delta)
@@ -137,6 +138,7 @@ func _on_aiming_state_exited() -> void:
 
 # Transition to Possessing
 func _on_transition_state_entered() -> void:
+	self.visible = true
 	self.freeze = true
 	var target_transform := _current_enemy.mask_target.global_transform
 	var dist = self.global_position.distance_to(target_transform.origin)
