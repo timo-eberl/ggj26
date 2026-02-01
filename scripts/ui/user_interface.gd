@@ -12,7 +12,7 @@ func _ready():
 	%ButtonQuit.pressed.connect(on_quit)
 	settings_menu.close.connect(close_settings)
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	pause_game()
+	continue_game()
 	
 
 func _process(_delta):

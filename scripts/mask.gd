@@ -42,7 +42,7 @@ func _ready():
 	_current_enemy.get_state_chart().send_event.call_deferred("onPossessed")
 
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_accept"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
@@ -155,6 +155,3 @@ func _on_dead_state_processing(_delta: float) -> void:
 	cam_effect.enable_full_blur()
 	# self.global_rotation = cam.global_rotation
 	cam.global_transform = self.global_transform
-
-
-
