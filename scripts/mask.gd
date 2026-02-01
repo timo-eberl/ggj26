@@ -94,12 +94,12 @@ func _on_possessing_state_processing(_delta: float) -> void:
 		else:
 			audio_manager_2.play("EmptyClip", 0.0, true)
 	
-	var a1 := 1.0 if (_current_enemy.ammo > 0) else 0.1
-	var a2 := 1.0 if (_current_enemy.ammo > 1) else 0.1
-	var a3 := 1.0 if (_current_enemy.ammo > 2) else 0.1
-	bullet_1_ui.modulate = Color(a1,a1,a1,1.0)
-	bullet_2_ui.modulate = Color(a2,a2,a2,1.0)
-	bullet_3_ui.modulate = Color(a3,a3,a3,1.0)
+	var a1 := 1.0 if (_current_enemy.ammo > 0) else 0.3
+	var a2 := 1.0 if (_current_enemy.ammo > 1) else 0.3
+	var a3 := 1.0 if (_current_enemy.ammo > 2) else 0.3
+	bullet_1_ui.modulate = Color(a1,a1,a1,a1)
+	bullet_2_ui.modulate = Color(a2,a2,a2,a2)
+	bullet_3_ui.modulate = Color(a3,a3,a3,a3)
 	
 	health_ui.value = _current_enemy.health
 	

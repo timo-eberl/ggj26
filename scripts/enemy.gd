@@ -26,7 +26,7 @@ func get_state_chart() -> StateChart:
 	return $StateChart
 
 func pick_new_trigger_time():
-	return randf_range(2.0, 3.0)
+	return randf_range(1.0, 2.0)
 
 func _process(_delta: float) -> void:
 	$CharacterModel/Body/Cylinder/Outline.visible = outline_visible
@@ -74,13 +74,16 @@ func _on_possessed_state_entered() -> void:
 func _on_active_state_entered() -> void:
 	_is_possessed = false
 	waffe.aim_speed = 5.0
-	waffe.bullet_viz_scale = 20.0
+	waffe.bullet_viz_scale = 35.0
 	waffe.bullet_viz_thickness = 0.5
 	
 
 func hit(position: Vector3, direction: Vector3, damage: int):
 	health -= damage
 	if health > 0: return
+	if state_possessed.active:
+		_mask.state_chart.send_event("onHit")
+		_mask.on_hit_by_bullet(direction)
 	$Head/HandAnchor/Waffe.hide()
 	character_model.explode(position, direction)
 	if not _is_possessed: audio_manager_2.play("EnemyDead")

@@ -142,6 +142,9 @@ unique_name_in_owner = true
 
 [node name="Canvaslayer" parent="." unique_id=1975544332 instance=ExtResource("1_iqu8w")]
 
+[node name="ProgressBar" parent="Canvaslayer/MarginContainer2" parent_id_path=PackedInt32Array(1975544332, 2096340384) index="0" unique_id=361755964]
+custom_minimum_size = Vector2(250, 40)
+
 [node name="Mask" parent="." unique_id=324879140 node_paths=PackedStringArray("first_enemy") instance=ExtResource("2_mwgft")]
 unique_name_in_owner = true
 first_enemy = NodePath("../Enemies/FirstEnemy")
