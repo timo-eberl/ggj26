@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://5ma2tu6dib3b" path="res://scripts/game_manager.gd" id="1_hfuoi"]
 [ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="1_ipbrq"]
 [ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="2_hfuoi"]
-[ext_resource type="PackedScene" uid="uid://df8j5036eil1e" path="res://scenes/sound/audio_manager.tscn" id="2_o6saw"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="3_o6saw"]
 [ext_resource type="Script" uid="uid://d0oqv1005hnrm" path="res://scripts/mask.gd" id="4_fia42"]
 [ext_resource type="Script" uid="uid://cb0mppp77ww7g" path="res://scripts/mask_area.gd" id="5_f5afn"]
@@ -32,8 +31,6 @@ radius = 0.1
 
 [node name="EnemyPrototype" type="Node3D" unique_id=1785478038]
 script = ExtResource("1_hfuoi")
-
-[node name="AudioManager" parent="." unique_id=1940496778 instance=ExtResource("2_o6saw")]
 
 [node name="CanvasLayer" parent="." unique_id=1975544332 instance=ExtResource("1_ipbrq")]
 
@@ -185,5 +182,4 @@ collision_mask = 8
 [connection signal="state_entered" from="Mask/StateChart/Root/Dead" to="Mask" method="_on_dead_state_entered"]
 [connection signal="state_processing" from="Mask/StateChart/Root/Dead" to="Mask" method="_on_dead_state_processing"]
 
-[editable path="AudioManager"]
 [editable path="CanvasLayer"]

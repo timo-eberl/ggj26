@@ -1,20 +1,18 @@
-extends Node
+class_name AudioManager2 extends Node
 
 var active_music_stream: AudioStreamPlayer
 
 @export_group("Main")
 @export var clips: Node
+@export var background_music_action: AudioStreamPlayer
+@export var background_music_chill: AudioStreamPlayer
 
 var _original_music_volume: float = -30.0
 var _original_music_pitch: float = 1.0
 var _is_slow_down: bool = false
 
-var background_music_action: AudioStreamPlayer
-var background_music_chill: AudioStreamPlayer
-
 func _ready() -> void:
-	background_music_action = clips.get_node("BackgroundMusicAction")
-	background_music_chill = clips.get_node("BackgroundMusicChill")
+	print(clips)
 
 func play(audio_name: String, from_position: float = 0.0, restart: bool = true) -> void:
 	if active_music_stream and active_music_stream.name == audio_name and active_music_stream.playing and !restart:
