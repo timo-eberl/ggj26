@@ -2,16 +2,19 @@
 
 [ext_resource type="PackedScene" uid="uid://bq6qbxg0qxrlx" path="res://assets/3D_Modell/Box.glb" id="1_8ibgp"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_d6o8k"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_8ibgp"]
 size = Vector3(2, 2, 2)
 
 [node name="Box_Physiks" type="RigidBody3D" unique_id=1392588661]
 
 [node name="Box2" parent="." unique_id=579423369 instance=ExtResource("1_8ibgp")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=320465697]
-transform = Transform3D(0, 0, 0.2, 0, 0.2, 0, -0.2, 0, 0, 0, 0, 0)
-shape = SubResource("BoxShape3D_d6o8k")
+[node name="Box" parent="Box2" index="0" unique_id=1659461833]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=888520640]
+transform = Transform3D(-1.7484556e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.7484556e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_8ibgp")
 
 [editable path="Box2"]
