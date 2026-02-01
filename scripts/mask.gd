@@ -73,11 +73,11 @@ func _on_possessing_state_processing(_delta: float) -> void:
 	_current_enemy.waffe.set_target(self.global_position - self.global_basis.z * 500)
 	
 	if Input.is_action_just_pressed("shoot"):
-		if (Time.get_ticks_msec() - _last_shot_time) > (shoot_cooldown_sec * 1000.0):
-			AudioManager.play("GunShot", 0.0, true)
-			cam_effect.add_screen_shake(0.1, 0.1)
-			_current_enemy.waffe.shoot()
-			_last_shot_time = Time.get_ticks_msec()
+		if _current_enemy.ammo > 0:
+			if (Time.get_ticks_msec() - _last_shot_time) > (shoot_cooldown_sec * 1000.0):
+				_current_enemy.waffe.shoot()
+				_last_shot_time = Time.get_ticks_msec()
+			_current_enemy.ammo -= 1
 	
 	if Input.is_action_just_pressed("right_mouse_button"):
 		state_chart.send_event("onDislodge")
