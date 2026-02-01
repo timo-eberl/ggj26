@@ -25,6 +25,8 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ipns3"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wrm80"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xegu5"]
 resource_name = "Material.002"
 cull_mode = 2
@@ -64,6 +66,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8j7kr")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wrm80"]
+radius = 0.7680664
+height = 3.6396484
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wdwq1"]
 resource_name = "Material.001"
 cull_mode = 2
@@ -102,6 +108,9 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_n0tbe")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6awcb"]
+radius = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ccr75"]
 resource_name = "Material.003"
@@ -143,6 +152,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_uwobn")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_wjec0"]
+radius = 1.0
+
 [sub_resource type="ArrayMesh" id="ArrayMesh_hdchb"]
 _surfaces = [{
 "aabb": AABB(-0.99999994, -1, -1, 2, 2, 2),
@@ -177,6 +189,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_hdchb")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_i4rgx"]
+radius = 1.0
+
 [sub_resource type="SphereMesh" id="SphereMesh_xwavj"]
 radius = 0.05
 height = 0.1
@@ -200,27 +215,62 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_ipns3")
 
 [node name="CharacterModel" type="Node3D" parent="." unique_id=544387618]
+process_mode = 3
 transform = Transform3D(-1.4206201e-08, 0, 0.325, 0, 0.325, 0, -0.325, 0, -1.4206201e-08, 0, 1, 0)
 script = ExtResource("3_w8i8w")
 
-[node name="Cylinder" type="MeshInstance3D" parent="CharacterModel" unique_id=2003701959]
-transform = Transform3D(0.6832129, 0, 0, 0, 1.3132741, 0, 0, 0, 1, 0, 0, 0)
+[node name="Body" type="RigidBody3D" parent="CharacterModel" unique_id=1582078518]
+collision_layer = 0
+physics_material_override = SubResource("PhysicsMaterial_wrm80")
+angular_damp = 8.0
+
+[node name="Cylinder" type="MeshInstance3D" parent="CharacterModel/Body" unique_id=2003701959]
+transform = Transform3D(0.6832128, 0, 0, 0, 1.3132741, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_nyrsp")
 
-[node name="Sphere" type="MeshInstance3D" parent="CharacterModel" unique_id=533913602]
-transform = Transform3D(0.895, 0, 0, 0, 0.895, 0, 0, 0, 0.895, 0, 2.1797376, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterModel/Body" unique_id=274099093]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49583316, 0)
+shape = SubResource("CapsuleShape3D_wrm80")
+debug_color = Color(0.9582997, 1.6364455e-06, 0.5252386, 0.5882353)
+
+[node name="Head" type="RigidBody3D" parent="CharacterModel" unique_id=34497958]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1797376, 0)
+collision_layer = 0
+
+[node name="Sphere" type="MeshInstance3D" parent="CharacterModel/Head" unique_id=533913602]
+transform = Transform3D(0.895, 0, -3.5527137e-15, 0, 0.895, 0, 3.5527137e-15, 0, 0.895, 0, 0, 0)
 material_override = ExtResource("4_wrm80")
 mesh = SubResource("ArrayMesh_7mdow")
 script = ExtResource("4_otmr2")
 faces = Array[Texture2D]([ExtResource("6_6awcb"), ExtResource("7_wjec0"), ExtResource("8_i4rgx"), ExtResource("9_2mchx"), ExtResource("10_t3vcr"), ExtResource("11_qaulx"), ExtResource("12_1f82d"), ExtResource("13_lioqc"), ExtResource("14_0lg75"), ExtResource("15_lsnsy")])
 
-[node name="Sphere_001" type="MeshInstance3D" parent="CharacterModel" unique_id=2095827330]
-transform = Transform3D(0.30661893, 0, 0, 0, 0.30661893, 0, 0, 0, 0.30661893, 0, 0.3349233, 1.431633)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterModel/Head" unique_id=2045216942]
+transform = Transform3D(0.895, 0, -3.5527137e-15, 0, 0.895, 0, 3.5527137e-15, 0, 0.895, 3.2007694e-07, 0, -3.2007694e-07)
+shape = SubResource("SphereShape3D_6awcb")
+
+[node name="HandRight" type="RigidBody3D" parent="CharacterModel" unique_id=468513587]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3349233, 1.431633)
+collision_layer = 0
+
+[node name="Sphere_001" type="MeshInstance3D" parent="CharacterModel/HandRight" unique_id=2095827330]
+transform = Transform3D(0.30661893, 0, -8.881784e-16, 0, 0.30661893, 0, 8.881784e-16, 0, 0.30661893, 0, 0, 0)
 mesh = SubResource("ArrayMesh_lwsav")
 
-[node name="Sphere_002" type="MeshInstance3D" parent="CharacterModel" unique_id=390595324]
-transform = Transform3D(0.30661893, 0, 0, 0, 0.30661893, 0, 0, 0, 0.30661893, 0, 0.38089317, -1.4250658)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterModel/HandRight" unique_id=71301566]
+transform = Transform3D(0.30661893, 0, -8.881784e-16, 0, 0.30661893, 0, 8.881784e-16, 0, 0.30661893, 1.8275912e-08, 0, 5.293956e-23)
+shape = SubResource("SphereShape3D_wjec0")
+
+[node name="HandLeft" type="RigidBody3D" parent="CharacterModel" unique_id=1928599369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38089317, -1.4250658)
+collision_layer = 0
+
+[node name="Sphere_002" type="MeshInstance3D" parent="CharacterModel/HandLeft" unique_id=390595324]
+transform = Transform3D(0.30661893, 0, -8.881784e-16, 0, 0.30661893, 0, 8.881784e-16, 0, 0.30661893, 0, 0, 0)
 mesh = SubResource("ArrayMesh_67p1t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterModel/HandLeft" unique_id=157314855]
+transform = Transform3D(0.30661893, 0, -8.881784e-16, 0, 0.30661893, 0, 8.881784e-16, 0, 0.30661893, 1.8275912e-08, 0, 5.293956e-23)
+shape = SubResource("SphereShape3D_i4rgx")
 
 [node name="Head" type="Node3D" parent="." unique_id=1048384683]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6005105, -0.494358)

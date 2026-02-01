@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bogqc6d6pb1rr"]
 
-[ext_resource type="Script" uid="uid://cb0mppp77ww7g" path="res://scripts/mask_area.gd" id="1_lhi7w"]
-[ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="1_w58r3"]
+[ext_resource type="Script" path="res://scripts/mask_area.gd" id="1_lhi7w"]
+[ext_resource type="Script" path="res://scripts/enemy_group.gd" id="1_w58r3"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="2_j7opc"]
 [ext_resource type="Script" uid="uid://d0oqv1005hnrm" path="res://scripts/mask.gd" id="3_e4pkg"]
 [ext_resource type="Script" uid="uid://bc4w5l8sc8hv1" path="res://scripts/player/player_controller.gd" id="5_lcibp"]

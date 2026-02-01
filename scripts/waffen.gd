@@ -38,11 +38,14 @@ func shoot() -> Dictionary:
 		
 		if result.collider is RigidBody3D:
 			result.collider.apply_impulse(-global_basis.z * 100, hit_pos)
-		if result.collider is Enemy:
-			result.collider.queue_free()
+		if result.collider is Enemy :
+			(result.collider as Enemy).hit(hit_pos, bulletExitPos.global_position.direction_to(extendetTarget))
 		if result.collider is Enemy and result.collider.state_possessed.active:
+			var direction := bulletExitPos.global_position.direction_to(extendetTarget)
+			(result.collider as Enemy).hit(hit_pos, direction)
 			var mask: Mask = result.collider._mask
 			mask.state_chart.send_event("onHit")
+			mask.on_hit_by_bullet(direction)
 	
 	var dir: Vector3 = (extendetTarget - bulletExitPos.global_position).normalized() * bullet_viz_scale
 	spawn_bullet_vis(bulletExitPos.global_position, bulletExitPos.global_position + dir)

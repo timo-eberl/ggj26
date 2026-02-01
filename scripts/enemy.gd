@@ -11,6 +11,7 @@ extends CharacterBody3D
 @onready var waffe: Waffe = $Head/HandAnchor/Waffe
 @onready var ray_cast: RayCast3D = $Head/RayCast3D
 @onready var state_possessed: AtomicState = $StateChart/Root/Possessed
+@onready var character_model: CharacterModel = $CharacterModel
 
 var time_in_sight: float = 0.0
 var time_to_trigger: float = pick_new_trigger_time()
@@ -63,3 +64,9 @@ func _on_active_state_entered() -> void:
 	waffe.aim_speed = 5.0
 	waffe.bullet_viz_scale = 20.0
 	waffe.bullet_viz_thickness = 0.5
+	
+
+func hit(position: Vector3, direction: Vector3):
+	character_model.explode(position, direction)
+	process_mode = Node.PROCESS_MODE_DISABLED
+	get_tree().create_timer(2).timeout.connect(queue_free)

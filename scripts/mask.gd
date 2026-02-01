@@ -160,3 +160,8 @@ func _on_dead_state_processing(_delta: float) -> void:
 	cam_effect.enable_full_blur()
 	# self.global_rotation = cam.global_rotation
 	cam.global_transform = self.global_transform
+	
+
+func on_hit_by_bullet(direction: Vector3):
+	freeze = false
+	apply_central_impulse((direction+Vector3.UP*0.2)*5)
