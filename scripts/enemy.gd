@@ -12,6 +12,7 @@ extends CharacterBody3D
 @onready var ray_cast: RayCast3D = $Head/RayCast3D
 @onready var state_possessed: AtomicState = $StateChart/Root/Possessed
 @onready var character_model: CharacterModel = $CharacterModel
+@onready var audio_manager_2 : AudioManager2 = %AudioManager
 var outline_visible := false
 
 var time_in_sight: float = 0.0
@@ -19,6 +20,7 @@ var time_to_trigger: float = pick_new_trigger_time()
 var _has_target: bool = false
 var ammo := 3
 var health := 100
+var _is_possessed: bool = false
 
 func get_state_chart() -> StateChart:
 	return $StateChart
@@ -64,11 +66,13 @@ func reset_logic():
 	_has_target = true
 
 func _on_possessed_state_entered() -> void:
+	_is_possessed = true
 	waffe.aim_speed = 35.0
 	waffe.bullet_viz_scale = 200.0
 	waffe.bullet_viz_thickness = 3.0
 
 func _on_active_state_entered() -> void:
+	_is_possessed = false
 	waffe.aim_speed = 5.0
 	waffe.bullet_viz_scale = 20.0
 	waffe.bullet_viz_thickness = 0.5
@@ -79,5 +83,6 @@ func hit(position: Vector3, direction: Vector3, damage: int):
 	if health > 0: return
 	$Head/HandAnchor/Waffe.hide()
 	character_model.explode(position, direction)
+	if not _is_possessed: audio_manager_2.play("EnemyDead")
 	process_mode = Node.PROCESS_MODE_DISABLED
 	get_tree().create_timer(2).timeout.connect(queue_free)
