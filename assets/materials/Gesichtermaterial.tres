@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ynwd5rje4x2f"]
+
+[ext_resource type="Shader" uid="uid://sosbhyrbtn4d" path="res://assets/materials/Gesichtershader.tres" id="1_615a6"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_615a6")

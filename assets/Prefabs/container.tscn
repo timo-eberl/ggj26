@@ -194,7 +194,7 @@ shadow_mesh = SubResource("ArrayMesh_bo4ed")
 [sub_resource type="BoxShape3D" id="BoxShape3D_f8yim"]
 size = Vector3(4.2394276, 8.332835, 0.4144492)
 
-[node name="Container" type="StaticBody3D" unique_id=2009751847]
+[node name="Container" type="Node3D" unique_id=1388612574]
 
 [node name="Container2" type="Node3D" parent="." unique_id=1095593324]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.6652963, 0)
@@ -209,7 +209,7 @@ mesh = SubResource("ArrayMesh_bpt75")
 shape = SubResource("ConcavePolygonShape3D_e7ryq")
 
 [node name="TuerA" type="MeshInstance3D" parent="Container2" unique_id=1250005749]
-transform = Transform3D(0.7449642, 0, 0.71850955, 0, 1.1588336, 0, -0.80442834, 0, 0.66539663, 4.8163095, -2.445786, 1.3259239)
+transform = Transform3D(1.0963874, 0, -0.0029590225, 0, 1.1588336, 0, 0.003312826, 0, 0.97928536, 4.816309, -2.4457858, 1.3259239)
 mesh = SubResource("ArrayMesh_rmv0d")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Container2/TuerA" unique_id=1561021950]
