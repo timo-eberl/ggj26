@@ -53,8 +53,8 @@ func _process(_delta):
 
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		_cam_rot.x -= event.screen_relative.y * mouse_sensitivity
-		_cam_rot.y -= event.screen_relative.x * mouse_sensitivity
+		_cam_rot.x -= event.screen_relative.y * mouse_sensitivity * GameSettings.mouse_sensitivity
+		_cam_rot.y -= event.screen_relative.x * mouse_sensitivity * GameSettings.mouse_sensitivity
 		_cam_rot.x = clamp(_cam_rot.x, deg_to_rad(tilt_lower_limit), deg_to_rad(tilt_upper_limit))
 		_cam_rot.z = 0.0
 

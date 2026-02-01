@@ -13,6 +13,7 @@ func _ready():
 	music_vol_slider.value = AudioServer.get_bus_volume_linear(0) * 100
 	music_vol_label.text = str(music_vol_slider.value) + " %"
 	mouse_sensi_label.text = str(mouse_sensi_slider.value) + " %"
+	mouse_sensi_slider.value = GameSettings.mouse_sensitivity * 100
 	
 
 func _on_h_slider_music_vol_value_changed(value):
@@ -22,7 +23,7 @@ func _on_h_slider_music_vol_value_changed(value):
 
 func _on_h_slider_mouse_sensitivity_value_changed(value):
 	mouse_sensi_label.text = str(value) + " %"
-	#TODO: Apply Setting
+	GameSettings.mouse_sensitivity = value / 100.0
 
 
 func _on_button_back_pressed():

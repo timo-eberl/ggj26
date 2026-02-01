@@ -20,6 +20,10 @@ config/icon="uid://bmjr6t34bo6hn"
 
 AudioManager="*uid://bu41gotfdpwiu"
 
+[autoload]
+
+GameSettings="*uid://dr1y5r78gwno2"
+
 [display]
 
 window/size/mode=2
