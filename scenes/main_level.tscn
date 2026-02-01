@@ -1,35 +1,18 @@
 [gd_scene format=4 uid="uid://dib7wl3k31t36"]
 
+[ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="1_iqu8w"]
 [ext_resource type="PackedScene" uid="uid://dukrhwrgsm7vt" path="res://assets/3D_Modell/Fabrik.glb" id="1_v3uhd"]
 [ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="2_fkrx8"]
+[ext_resource type="PackedScene" uid="uid://vrvaoa3kbuo7" path="res://scenes/mask.tscn" id="2_mwgft"]
 [ext_resource type="PackedScene" uid="uid://bs1y54scate4v" path="res://assets/Prefabs/kegel.tscn" id="3_6we3w"]
+[ext_resource type="PackedScene" path="res://scenes/camera.tscn" id="3_adxub"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="3_mwgft"]
-[ext_resource type="Script" uid="uid://d0oqv1005hnrm" path="res://scripts/mask.gd" id="4_adxub"]
-[ext_resource type="Script" uid="uid://cb0mppp77ww7g" path="res://scripts/mask_area.gd" id="5_ff0s2"]
-[ext_resource type="Script" uid="uid://bc4w5l8sc8hv1" path="res://scripts/player/player_controller.gd" id="6_uk2yf"]
-[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="7_ondrs"]
-[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="8_0e4v7"]
-[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="9_6nivd"]
-[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="10_al56o"]
-[ext_resource type="Script" uid="uid://dc0dpt335slwo" path="res://scripts/camera/camera_effects.gd" id="11_1bmon"]
 [ext_resource type="Texture2D" uid="uid://3ghqn5tf64wm" path="res://assets/3D_Modell/outdoor_chapel_1k.exr" id="11_uk2yf"]
 [ext_resource type="PackedScene" uid="uid://cpfef7kdce62t" path="res://assets/Prefabs/container.tscn" id="13_mwgft"]
 [ext_resource type="PackedScene" uid="uid://4ghh1etxmy2w" path="res://assets/Prefabs/box.tscn" id="14_adxub"]
 [ext_resource type="PackedScene" uid="uid://cwe3046ed3fy3" path="res://assets/Prefabs/box_physiks.tscn" id="15_ff0s2"]
 [ext_resource type="PackedScene" uid="uid://bq6qbxg0qxrlx" path="res://assets/3D_Modell/Box.glb" id="17_ondrs"]
 [ext_resource type="PackedScene" uid="uid://88li2bo52qmm" path="res://assets/Prefabs/Fass.glb" id="18_0e4v7"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_w58r3"]
-radius = 7.0
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_e4pkg"]
-size = Vector3(0.5217285, 0.3557129, 0.1171875)
-
-[sub_resource type="BoxMesh" id="BoxMesh_06fh6"]
-size = Vector3(0.5217285, 0.3557129, 0.1171875)
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_lhi7w"]
-radius = 0.1
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ondrs"]
 panorama = ExtResource("11_uk2yf")
@@ -146,178 +129,31 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_8wpt4")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_2sb77"]
+radius = 7.0
+
 [node name="MainLevel" type="Node3D" unique_id=1658949428]
 
-[node name="EnemyPrototype" type="Node3D" parent="." unique_id=1785478038]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17198181, -16.897655)
+[node name="Canvaslayer" parent="." unique_id=1975544332 instance=ExtResource("1_iqu8w")]
 
-[node name="EnemyGroup" type="Area3D" parent="EnemyPrototype" unique_id=2128502404]
-script = ExtResource("2_fkrx8")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyPrototype/EnemyGroup" unique_id=69708237]
-shape = SubResource("SphereShape3D_w58r3")
-
-[node name="Enemy" parent="EnemyPrototype/EnemyGroup" unique_id=1891892681 instance=ExtResource("3_mwgft")]
-
-[node name="Enemy2" parent="EnemyPrototype/EnemyGroup" unique_id=224124476 instance=ExtResource("3_mwgft")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.4298773)
-
-[node name="Enemy3" parent="EnemyPrototype/EnemyGroup" unique_id=278276688 instance=ExtResource("3_mwgft")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.7154627)
-
-[node name="Mask" type="RigidBody3D" parent="EnemyPrototype" unique_id=1882664378 node_paths=PackedStringArray("first_enemy")]
+[node name="Mask" parent="." unique_id=324879140 node_paths=PackedStringArray("first_enemy") instance=ExtResource("2_mwgft")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6741743, 8.505402)
-collision_layer = 4
-script = ExtResource("4_adxub")
-first_enemy = NodePath("../Enemy")
+first_enemy = NodePath("../Enemies/FirstEnemy")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyPrototype/Mask" unique_id=63770764]
-shape = SubResource("BoxShape3D_e4pkg")
+[node name="CamParent" parent="." unique_id=1411812721 instance=ExtResource("3_adxub")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="EnemyPrototype/Mask" unique_id=1968376892]
-mesh = SubResource("BoxMesh_06fh6")
-
-[node name="MaskArea" type="Area3D" parent="EnemyPrototype/Mask" unique_id=1393819833]
-script = ExtResource("5_ff0s2")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyPrototype/Mask/MaskArea" unique_id=1952893137]
-shape = SubResource("SphereShape3D_lhi7w")
-
-[node name="PlayerController" type="Node" parent="EnemyPrototype/Mask" unique_id=146181861]
-script = ExtResource("6_uk2yf")
-
-[node name="StateChart" type="Node" parent="EnemyPrototype/Mask" unique_id=196656355]
-script = ExtResource("7_ondrs")
-metadata/_custom_type_script = "uid://couw105c3bde4"
-
-[node name="Root" type="Node" parent="EnemyPrototype/Mask/StateChart" unique_id=2126018293]
-script = ExtResource("8_0e4v7")
-initial_state = NodePath("Possessing")
-metadata/_custom_type_script = "uid://jk2jm1g6q853"
-
-[node name="Possessing" type="Node" parent="EnemyPrototype/Mask/StateChart/Root" unique_id=497222039]
-script = ExtResource("9_6nivd")
-metadata/_custom_type_script = "uid://cytafq8i1y8qm"
-
-[node name="Dislodge" type="Node" parent="EnemyPrototype/Mask/StateChart/Root/Possessing" unique_id=2037635031]
-script = ExtResource("10_al56o")
-to = NodePath("../../Dislodged")
-event = &"onDislodge"
-delay_in_seconds = "0.0"
-
-[node name="Dislodged" type="Node" parent="EnemyPrototype/Mask/StateChart/Root" unique_id=1159641629]
-script = ExtResource("9_6nivd")
-metadata/_custom_type_script = "uid://cytafq8i1y8qm"
-
-[node name="MaskAim" type="Node" parent="EnemyPrototype/Mask/StateChart/Root/Dislodged" unique_id=1146805230]
-script = ExtResource("10_al56o")
-to = NodePath("../../Aiming")
-event = &"onMaskAim"
-delay_in_seconds = "0.0"
-
-[node name="Aiming" type="Node" parent="EnemyPrototype/Mask/StateChart/Root" unique_id=131081917]
-script = ExtResource("9_6nivd")
-metadata/_custom_type_script = "uid://cytafq8i1y8qm"
-
-[node name="Die" type="Node" parent="EnemyPrototype/Mask/StateChart/Root/Aiming" unique_id=149712776]
-script = ExtResource("10_al56o")
-to = NodePath("../../Dead")
-event = &"onMaskMiss"
-delay_in_seconds = "0.0"
-
-[node name="Transition" type="Node" parent="EnemyPrototype/Mask/StateChart/Root/Aiming" unique_id=149662335]
-script = ExtResource("10_al56o")
-to = NodePath("../../Transition")
-event = &"onTransition"
-delay_in_seconds = "0.0"
-
-[node name="Transition" type="Node" parent="EnemyPrototype/Mask/StateChart/Root" unique_id=1582639696]
-script = ExtResource("9_6nivd")
-metadata/_custom_type_script = "uid://cytafq8i1y8qm"
-
-[node name="Possess" type="Node" parent="EnemyPrototype/Mask/StateChart/Root/Transition" unique_id=1066993896]
-script = ExtResource("10_al56o")
-to = NodePath("../../Possessing")
-event = &"onPossess"
-delay_in_seconds = "0.0"
-
-[node name="Dead" type="Node" parent="EnemyPrototype/Mask/StateChart/Root" unique_id=2052251636]
-script = ExtResource("9_6nivd")
-metadata/_custom_type_script = "uid://cytafq8i1y8qm"
-
-[node name="Enemy" parent="EnemyPrototype" unique_id=1575115432 instance=ExtResource("3_mwgft")]
-transform = Transform3D(-0.30830315, 0, -0.95128816, 0, 1, 0, 0.95128816, 0, -0.30830315, 3.8816614, 0, 8.054255)
-
-[node name="CamParent" type="Node3D" parent="EnemyPrototype" unique_id=1003285289]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6741743, 8.505402)
-
-[node name="Camera3D" type="Camera3D" parent="EnemyPrototype/CamParent" unique_id=1829377079 node_paths=PackedStringArray("player")]
-script = ExtResource("11_1bmon")
+[node name="Camera3D" parent="CamParent" index="0" unique_id=182462785 node_paths=PackedStringArray("player", "blur_effect", "mask")]
 player = NodePath("../../Mask/PlayerController")
-
-[node name="RayCast3D" type="RayCast3D" parent="EnemyPrototype/CamParent/Camera3D" unique_id=276697023]
-target_position = Vector3(0, 0, -10)
-collision_mask = 8
+blur_effect = NodePath("../../Canvaslayer/ColorRect")
+mask = NodePath("../../Mask")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=954539639]
 environment = SubResource("Environment_ufxs0")
 
-[node name="Kegel" parent="." unique_id=1362632845 instance=ExtResource("3_6we3w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.465496, 0.123642094, -6.6281486)
-
-[node name="Kegel2" parent="." unique_id=1732996859 instance=ExtResource("3_6we3w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.854956, 0.12364221, -6.72029)
-
-[node name="Kegel3" parent="." unique_id=793903816 instance=ExtResource("3_6we3w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.530413, 0.12364233, -6.2828555)
-
-[node name="Kegel4" parent="." unique_id=253567148 instance=ExtResource("3_6we3w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.742255, 1.2662442, -6.304888)
-
-[node name="Kegel5" parent="." unique_id=839445357 instance=ExtResource("3_6we3w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.910989, 1.2662442, -5.9404373)
-
-[node name="Container" parent="." unique_id=2009751847 instance=ExtResource("13_mwgft")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7829905, 0.11826801, -23.399563)
-
-[node name="Box" parent="." unique_id=244138912 instance=ExtResource("14_adxub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.932189, 1.1182694, -10.6627865)
-
-[node name="Box4" parent="." unique_id=1965154592 instance=ExtResource("14_adxub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.790092, 1.1182694, -18.52958)
-
-[node name="Box5" parent="." unique_id=936473445 instance=ExtResource("14_adxub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.145506, 1.1182694, -14.21913)
-
-[node name="Box7" parent="." unique_id=1408952870 instance=ExtResource("14_adxub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.145506, 1.1182694, -16.415493)
-
-[node name="Box6" parent="." unique_id=1636120457 instance=ExtResource("14_adxub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.145506, 3.1591187, -14.21913)
-
-[node name="Box2" parent="." unique_id=704080947 instance=ExtResource("14_adxub")]
-transform = Transform3D(0.585, 0, 0, 0, 0.585, 0, 0, 0, 0.585, 5.9956264, 0.7427702, -13.543385)
-
-[node name="Box3" parent="." unique_id=1027197818 instance=ExtResource("14_adxub")]
-transform = Transform3D(0.435, 0, 0, 0, 0.435, 0, 0, 0, 0.435, 6.1237445, 0.59961665, -12.063355)
-
-[node name="Box_Physiks" parent="." unique_id=1392588661 instance=ExtResource("15_ff0s2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.670375, 1, -6.742876)
-
-[node name="Box_Physiks2" parent="." unique_id=2103464853 instance=ExtResource("15_ff0s2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.670375, 2, -6.742876)
-
-[node name="Box_Physiks3" parent="." unique_id=1406915289 instance=ExtResource("15_ff0s2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.670375, 3, -6.742876)
-
-[node name="Box_Physiks4" parent="." unique_id=970797010 instance=ExtResource("15_ff0s2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.122387, 1, -7.222946)
-
 [node name="Fabrik2" parent="." unique_id=951520355 instance=ExtResource("1_v3uhd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2936249, 0, -0.32879043)
 
-[node name="Cylinder" parent="Fabrik2" index="3" unique_id=934572576]
+[node name="Cylinder" parent="Fabrik2" index="3" unique_id=392401731]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.741772, 11.340998, -11.651939)
 
 [node name="Cylinder2" type="MeshInstance3D" parent="Fabrik2" unique_id=1971189653]
@@ -722,26 +558,133 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.29476, 0.7788223, -80.028
 [node name="Box19" parent="ContainerHalter" unique_id=1550106891 instance=ExtResource("14_adxub")]
 transform = Transform3D(0.7374542, 0, -0.67539716, 0, 1, 0, 0.67539716, 0, 0.7374542, -14.465744, 1.1182704, -77.059586)
 
-[node name="Fass" parent="." unique_id=1627576379 instance=ExtResource("18_0e4v7")]
+[node name="Stuff" type="Node3D" parent="." unique_id=1512319471]
+
+[node name="Fass" parent="Stuff" unique_id=1627576379 instance=ExtResource("18_0e4v7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.625133, 0.7788224, -2.7458117)
 
-[node name="Fass2" parent="." unique_id=2043764401 instance=ExtResource("18_0e4v7")]
+[node name="Fass2" parent="Stuff" unique_id=2043764401 instance=ExtResource("18_0e4v7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.169563, 0.77882206, -9.860556)
 
-[node name="Box8" parent="." unique_id=655840982 instance=ExtResource("14_adxub")]
+[node name="Box8" parent="Stuff" unique_id=655840982 instance=ExtResource("14_adxub")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.242315, 1.1182714, -11.76733)
 
-[connection signal="area_entered" from="EnemyPrototype/EnemyGroup" to="EnemyPrototype/EnemyGroup" method="_on_area_entered"]
-[connection signal="state_entered" from="EnemyPrototype/Mask/StateChart/Root/Possessing" to="EnemyPrototype/Mask" method="_on_possessing_state_entered"]
-[connection signal="state_exited" from="EnemyPrototype/Mask/StateChart/Root/Possessing" to="EnemyPrototype/Mask" method="_on_possessing_state_exited"]
-[connection signal="state_physics_processing" from="EnemyPrototype/Mask/StateChart/Root/Possessing" to="EnemyPrototype/Mask" method="_on_possessing_state_physics_processing"]
-[connection signal="state_processing" from="EnemyPrototype/Mask/StateChart/Root/Possessing" to="EnemyPrototype/Mask" method="_on_possessing_state_processing"]
-[connection signal="state_entered" from="EnemyPrototype/Mask/StateChart/Root/Dislodged" to="EnemyPrototype/Mask" method="_on_dislodged_state_entered"]
-[connection signal="state_processing" from="EnemyPrototype/Mask/StateChart/Root/Dislodged" to="EnemyPrototype/Mask" method="_on_dislodged_state_processing"]
-[connection signal="state_entered" from="EnemyPrototype/Mask/StateChart/Root/Aiming" to="EnemyPrototype/Mask" method="_on_aiming_state_entered"]
-[connection signal="state_processing" from="EnemyPrototype/Mask/StateChart/Root/Aiming" to="EnemyPrototype/Mask" method="_on_aiming_state_processing"]
-[connection signal="state_entered" from="EnemyPrototype/Mask/StateChart/Root/Transition" to="EnemyPrototype/Mask" method="_on_transition_state_entered"]
-[connection signal="state_processing" from="EnemyPrototype/Mask/StateChart/Root/Dead" to="EnemyPrototype/Mask" method="_on_dead_state_processing"]
+[node name="Kegel" parent="Stuff" unique_id=1362632845 instance=ExtResource("3_6we3w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.465496, 0.123642094, -6.6281486)
 
+[node name="Kegel2" parent="Stuff" unique_id=1732996859 instance=ExtResource("3_6we3w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.854956, 0.12364221, -6.72029)
+
+[node name="Kegel3" parent="Stuff" unique_id=793903816 instance=ExtResource("3_6we3w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.530413, 0.12364233, -6.2828555)
+
+[node name="Kegel4" parent="Stuff" unique_id=253567148 instance=ExtResource("3_6we3w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.742255, 1.2662442, -6.304888)
+
+[node name="Kegel5" parent="Stuff" unique_id=839445357 instance=ExtResource("3_6we3w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.910989, 1.2662442, -5.9404373)
+
+[node name="Container" parent="Stuff" unique_id=2009751847 instance=ExtResource("13_mwgft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7829905, 0.11826801, -23.399563)
+
+[node name="Box" parent="Stuff" unique_id=244138912 instance=ExtResource("14_adxub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.932189, 1.1182694, -10.6627865)
+
+[node name="Box4" parent="Stuff" unique_id=1965154592 instance=ExtResource("14_adxub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.790092, 1.1182694, -18.52958)
+
+[node name="Box5" parent="Stuff" unique_id=936473445 instance=ExtResource("14_adxub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.145506, 1.1182694, -14.21913)
+
+[node name="Box7" parent="Stuff" unique_id=1408952870 instance=ExtResource("14_adxub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.145506, 1.1182694, -16.415493)
+
+[node name="Box6" parent="Stuff" unique_id=1636120457 instance=ExtResource("14_adxub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.145506, 3.1591187, -14.21913)
+
+[node name="Box2" parent="Stuff" unique_id=704080947 instance=ExtResource("14_adxub")]
+transform = Transform3D(0.585, 0, 0, 0, 0.585, 0, 0, 0, 0.585, 5.9956264, 0.7427702, -13.543385)
+
+[node name="Box3" parent="Stuff" unique_id=1027197818 instance=ExtResource("14_adxub")]
+transform = Transform3D(0.435, 0, 0, 0, 0.435, 0, 0, 0, 0.435, 6.1237445, 0.59961665, -12.063355)
+
+[node name="Box_Physiks" parent="Stuff" unique_id=1392588661 instance=ExtResource("15_ff0s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.670375, 1, -6.742876)
+
+[node name="Box_Physiks2" parent="Stuff" unique_id=2103464853 instance=ExtResource("15_ff0s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.670375, 2, -6.742876)
+
+[node name="Box_Physiks3" parent="Stuff" unique_id=1406915289 instance=ExtResource("15_ff0s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.670375, 3, -6.742876)
+
+[node name="Box_Physiks4" parent="Stuff" unique_id=970797010 instance=ExtResource("15_ff0s2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.122387, 1, -7.222946)
+
+[node name="Enemies" type="Node3D" parent="." unique_id=1382195430]
+
+[node name="FirstEnemy" parent="Enemies" unique_id=50302605 instance=ExtResource("3_mwgft")]
+transform = Transform3D(-0.057180714, 0, 0.99836385, 0, 1, 0, -0.99836385, 0, -0.057180714, 19.361267, 0, -4.328483)
+
+[node name="EnemyGroup" type="Area3D" parent="Enemies" unique_id=901898650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.726887, 0, -14.853951)
+script = ExtResource("2_fkrx8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemies/EnemyGroup" unique_id=867754408]
+shape = SubResource("SphereShape3D_2sb77")
+debug_color = Color(0, 0.6, 0.69803923, 0.5372549)
+
+[node name="Enemy" parent="Enemies/EnemyGroup" unique_id=1891892681 instance=ExtResource("3_mwgft")]
+
+[node name="Enemy2" parent="Enemies/EnemyGroup" unique_id=714705740 instance=ExtResource("3_mwgft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5508347, 0, 0.8937578)
+
+[node name="Enemy3" parent="Enemies/EnemyGroup" unique_id=2061462092 instance=ExtResource("3_mwgft")]
+transform = Transform3D(-0.5344408, 0, -0.8452059, 0, 1, 0, 0.8452059, 0, -0.5344408, 2.8005638, 0, -3.480113)
+
+[node name="Enemy4" parent="Enemies/EnemyGroup" unique_id=96704599 instance=ExtResource("3_mwgft")]
+transform = Transform3D(-0.34452826, 0, 0.93877596, 0, 1, 0, -0.93877596, 0, -0.34452826, 5.9740524, 0, -3.9032679)
+
+[node name="Enemy5" parent="Enemies/EnemyGroup" unique_id=1617652288 instance=ExtResource("3_mwgft")]
+transform = Transform3D(0.37897167, 0, 0.9254083, 0, 1, 0, -0.9254083, 0, 0.37897167, 5.0410748, 0, -1.2418842)
+
+[node name="Enemy6" parent="Enemies/EnemyGroup" unique_id=1952363724 instance=ExtResource("3_mwgft")]
+transform = Transform3D(0.46825376, 0, -0.88359404, 0, 1, 0, 0.88359404, 0, 0.46825376, -2.8837967, 0, -0.7261727)
+
+[node name="EnemyGroup2" type="Area3D" parent="Enemies" unique_id=1316703634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.079788, -9.536743e-07, -5.1115713)
+script = ExtResource("2_fkrx8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemies/EnemyGroup2" unique_id=1525052233]
+shape = SubResource("SphereShape3D_2sb77")
+debug_color = Color(0, 0.6, 0.69803923, 0.5372549)
+
+[node name="Enemy" parent="Enemies/EnemyGroup2" unique_id=81553281 instance=ExtResource("3_mwgft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4518971, 0, 1.6516366)
+
+[node name="Enemy2" parent="Enemies/EnemyGroup2" unique_id=883690239 instance=ExtResource("3_mwgft")]
+transform = Transform3D(0.7590782, 0, 0.6509995, 0, 1, 0, -0.6509995, 0, 0.7590782, 8.444398, 0, 3.319468)
+
+[node name="Enemy3" parent="Enemies/EnemyGroup2" unique_id=1912450804 instance=ExtResource("3_mwgft")]
+transform = Transform3D(-0.5344408, 0, -0.8452059, 0, 1, 0, 0.8452059, 0, -0.5344408, 2.8005638, 0, -3.480113)
+
+[node name="Enemy4" parent="Enemies/EnemyGroup2" unique_id=1926404585 instance=ExtResource("3_mwgft")]
+transform = Transform3D(-0.34452826, 0, 0.93877596, 0, 1, 0, -0.93877596, 0, -0.34452826, 5.9740524, 0, -3.9032679)
+
+[node name="Enemy5" parent="Enemies/EnemyGroup2" unique_id=1480496179 instance=ExtResource("3_mwgft")]
+transform = Transform3D(0.37897167, 0, 0.9254083, 0, 1, 0, -0.9254083, 0, 0.37897167, 5.0410748, 0, -1.2418842)
+
+[node name="Enemy6" parent="Enemies/EnemyGroup2" unique_id=1040843998 instance=ExtResource("3_mwgft")]
+transform = Transform3D(0.46825376, 0, -0.88359404, 0, 1, 0, 0.88359404, 0, 0.46825376, -2.8837967, 0, -0.7261727)
+
+[node name="Enemy7" parent="Enemies/EnemyGroup2" unique_id=518363797 instance=ExtResource("3_mwgft")]
+transform = Transform3D(-0.99955046, 0, -0.029980302, 0, 1, 0, 0.029980302, 0, -0.99955046, 6.202813, 3.3301091, -8.295511)
+
+[connection signal="area_entered" from="Enemies/EnemyGroup" to="Enemies/EnemyGroup" method="_on_area_entered"]
+[connection signal="area_entered" from="Enemies/EnemyGroup2" to="Enemies/EnemyGroup2" method="_on_area_entered"]
+
+[editable path="Canvaslayer"]
+[editable path="Mask"]
+[editable path="Mask/maske"]
+[editable path="CamParent"]
 [editable path="Fabrik2"]
 [editable path="ContainerHalter/Container27"]
