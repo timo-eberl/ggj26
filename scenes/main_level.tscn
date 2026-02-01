@@ -4,9 +4,10 @@
 [ext_resource type="Script" uid="uid://5ma2tu6dib3b" path="res://scripts/game_manager.gd" id="1_ff0s2"]
 [ext_resource type="PackedScene" uid="uid://drgmu3orchuld" path="res://scenes/ui/user_interface.tscn" id="1_iqu8w"]
 [ext_resource type="PackedScene" uid="uid://dukrhwrgsm7vt" path="res://assets/3D_Modell/Fabrik.glb" id="1_v3uhd"]
-[ext_resource type="Script" uid="uid://b4sybqqyfktl8" path="res://scripts/enemy_group.gd" id="2_fkrx8"]
+[ext_resource type="Script" path="res://scripts/enemy_group.gd" id="2_fkrx8"]
 [ext_resource type="PackedScene" uid="uid://vrvaoa3kbuo7" path="res://scenes/mask.tscn" id="2_mwgft"]
 [ext_resource type="PackedScene" uid="uid://bs1y54scate4v" path="res://assets/Prefabs/kegel.tscn" id="3_6we3w"]
+[ext_resource type="PackedScene" uid="uid://7msiydq3ot60" path="res://scenes/camera.tscn" id="3_adxub"]
 [ext_resource type="PackedScene" uid="uid://7msiydq3ot60" path="res://scenes/camera.tscn" id="3_adxub"]
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="3_mwgft"]
 [ext_resource type="Texture2D" uid="uid://3ghqn5tf64wm" path="res://assets/3D_Modell/outdoor_chapel_1k.exr" id="11_uk2yf"]
@@ -133,6 +134,9 @@ shadow_mesh = SubResource("ArrayMesh_8wpt4")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2sb77"]
 radius = 15.643
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ff0s2"]
+size = Vector3(5, 2, 13.921448)
 
 [node name="MainLevel" type="Node3D" unique_id=1658949428]
 script = ExtResource("1_ff0s2")
@@ -481,7 +485,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.832049, 1.1182709, -7.8522
 transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 14.683018, 0.6513407, -6.2470245)
 
 [node name="Fass" parent="ContainerHalter" unique_id=538591485 instance=ExtResource("18_0e4v7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.851858, 0.7788223, -21.475527)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.851858, 0.7788223, -20.662323)
 
 [node name="Box5" parent="ContainerHalter" unique_id=891442996 instance=ExtResource("14_adxub")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.465918, 1.1182714, -22.672403)
@@ -823,6 +827,16 @@ transform = Transform3D(0.37897167, 0, 0.9254083, 0, 1, 0, -0.9254083, 0, 0.3789
 [node name="Enemy6" parent="Enemies/EnemyGroup7" unique_id=727563365 instance=ExtResource("3_mwgft")]
 transform = Transform3D(0.46825376, 0, -0.88359404, 0, 1, 0, 0.88359404, 0, 0.46825376, -2.8837967, 0, -0.7261727)
 
+[node name="WinArea" type="Area3D" parent="." unique_id=1248481198]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.136591, 1.8326123, -56.789356)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WinArea" unique_id=1956291683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0696716)
+shape = SubResource("BoxShape3D_ff0s2")
+
 [connection signal="area_entered" from="Enemies/EnemyGroup" to="Enemies/EnemyGroup" method="_on_area_entered"]
 [connection signal="area_entered" from="Enemies/EnemyGroup2" to="Enemies/EnemyGroup2" method="_on_area_entered"]
 [connection signal="area_entered" from="Enemies/EnemyGroup3" to="Enemies/EnemyGroup3" method="_on_area_entered"]
@@ -830,6 +844,7 @@ transform = Transform3D(0.46825376, 0, -0.88359404, 0, 1, 0, 0.88359404, 0, 0.46
 [connection signal="area_entered" from="Enemies/EnemyGroup5" to="Enemies/EnemyGroup5" method="_on_area_entered"]
 [connection signal="area_entered" from="Enemies/EnemyGroup6" to="Enemies/EnemyGroup6" method="_on_area_entered"]
 [connection signal="area_entered" from="Enemies/EnemyGroup7" to="Enemies/EnemyGroup7" method="_on_area_entered"]
+[connection signal="body_entered" from="WinArea" to="Canvaslayer" method="_on_win_area_body_entered"]
 
 [editable path="Canvaslayer"]
 [editable path="Mask"]
