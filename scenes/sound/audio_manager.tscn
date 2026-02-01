@@ -1,31 +1,37 @@
-[gd_scene format=3 uid="uid://bu41gotfdpwiu"]
+[gd_scene format=3 uid="uid://df8j5036eil1e"]
 
-[ext_resource type="Script" uid="uid://ccgsops8lrjw5" path="res://scripts/sound/audio_manager.gd" id="1_uw1qd"]
-[ext_resource type="AudioStream" uid="uid://cr1nhsxge78ny" path="res://assets/sound/OST_Bulldozer_Action_SENONVIBES.wav" id="2_lug6x"]
-[ext_resource type="AudioStream" uid="uid://dalwpewd83k1r" path="res://assets/sound/soundeffects/pistol_shot.wav" id="3_lug6x"]
-[ext_resource type="AudioStream" uid="uid://b80nltwgoebna" path="res://assets/sound/soundeffects/footsteps_6.wav" id="4_xpnli"]
-[ext_resource type="AudioStream" uid="uid://cj404ixouliac" path="res://assets/sound/soundeffects/dislodge.wav" id="5_wqv7n"]
+[ext_resource type="Script" uid="uid://ccgsops8lrjw5" path="res://scripts/sound/audio_manager.gd" id="1_brmp6"]
+[ext_resource type="AudioStream" uid="uid://cr1nhsxge78ny" path="res://assets/sound/OST_Bulldozer_Action_SENONVIBES.wav" id="2_0t1kc"]
+[ext_resource type="AudioStream" uid="uid://cl28yded41xhv" path="res://assets/sound/OST_Bulldozer_Chill_SENONVIBES.wav" id="3_yiulx"]
+[ext_resource type="AudioStream" uid="uid://b80nltwgoebna" path="res://assets/sound/soundeffects/footsteps_6.wav" id="4_qc58m"]
+[ext_resource type="AudioStream" uid="uid://cj404ixouliac" path="res://assets/sound/soundeffects/dislodge.wav" id="5_t0u28"]
+[ext_resource type="AudioStream" uid="uid://brgvhoqwkmxdh" path="res://assets/sound/soundeffects/shot.wav" id="6_eod24"]
 
-[node name="AudioManager" type="Node" unique_id=1368285413 node_paths=PackedStringArray("clips")]
-script = ExtResource("1_uw1qd")
+[node name="AudioManager" type="Node" unique_id=1940496778 node_paths=PackedStringArray("clips", "background_music_action", "background_music_chill")]
+script = ExtResource("1_brmp6")
 clips = NodePath("Clips")
+background_music_action = NodePath("Clips/BackgroundMusicAction")
+background_music_chill = NodePath("Clips/BackgroundMusicChill")
 
-[node name="Clips" type="Node" parent="." unique_id=778752903]
+[node name="Clips" type="Node" parent="." unique_id=1759223821]
 
-[node name="BackgroundMusicAction" type="AudioStreamPlayer" parent="Clips" unique_id=1678627446]
-stream = ExtResource("2_lug6x")
+[node name="BackgroundMusicAction" type="AudioStreamPlayer" parent="Clips" unique_id=1204856684]
+stream = ExtResource("2_0t1kc")
 volume_db = -35.0
 
-[node name="BackgroundMusicChill" type="AudioStreamPlayer" parent="Clips" unique_id=603429561]
+[node name="BackgroundMusicChill" type="AudioStreamPlayer" parent="Clips" unique_id=1557755796]
+stream = ExtResource("3_yiulx")
+volume_db = -30.0
 
-[node name="Shot" type="AudioStreamPlayer3D" parent="Clips" unique_id=1164423515]
-stream = ExtResource("3_lug6x")
-volume_db = -20.0
+[node name="Footstep" type="AudioStreamPlayer" parent="Clips" unique_id=132040726]
+stream = ExtResource("4_qc58m")
+volume_db = -3.0
+pitch_scale = 1.2
 
-[node name="Footstep" type="AudioStreamPlayer" parent="Clips" unique_id=291941825]
-stream = ExtResource("4_xpnli")
-volume_db = -20.0
-
-[node name="Dislodge" type="AudioStreamPlayer" parent="Clips" unique_id=2120918762]
-stream = ExtResource("5_wqv7n")
+[node name="Dislodge" type="AudioStreamPlayer" parent="Clips" unique_id=1815768855]
+stream = ExtResource("5_t0u28")
 volume_db = -10.0
+
+[node name="GunShot" type="AudioStreamPlayer" parent="Clips" unique_id=153185410]
+stream = ExtResource("6_eod24")
+volume_db = -20.0

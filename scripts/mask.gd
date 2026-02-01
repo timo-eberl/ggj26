@@ -30,6 +30,7 @@ var _last_shot_time := Time.get_ticks_msec()
 @onready var ray_cast: RayCast3D = $"../CamParent/Camera3D/RayCast3D"
 @onready var player_controller: PlayerController = $PlayerController
 @onready var state_chart: StateChart = $StateChart
+@onready var audio_manager_2: AudioManager2 = $"../AudioManager"
 
 var _current_enemy: Enemy
 
@@ -76,6 +77,8 @@ func _on_possessing_state_processing(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		if _current_enemy.ammo > 0:
 			if (Time.get_ticks_msec() - _last_shot_time) > (shoot_cooldown_sec * 1000.0):
+				audio_manager_2.play("GunShot", 0.0, true)
+				cam_effect.add_screen_shake(0.1, 0.1)
 				_current_enemy.waffe.shoot()
 				_last_shot_time = Time.get_ticks_msec()
 			_current_enemy.ammo -= 1
@@ -88,7 +91,7 @@ func _on_possessing_state_processing(_delta: float) -> void:
 func _on_dislodged_state_entered() -> void:
 	cam_effect.add_screen_shake(0.4, 0.4)
 	cam_effect.enable_headbob = true
-	AudioManager.play("Dislodge", 0.0)
+	audio_manager_2.play("Dislodge", 0.0)
 	self.freeze = false
 	print("dislodge_angle_offset: ", dislodge_angle_offset)
 	var dir = Vector3.FORWARD.rotated(Vector3.RIGHT, deg_to_rad(dislodge_angle_offset)) * self.global_basis.inverse()
@@ -114,6 +117,7 @@ func _on_aiming_state_processing(delta: float) -> void:
 
 	var blur_progress = clamp(_slow_down_timer / max_slow_down_time, 0.0, 1.0)
 	cam_effect.set_blur_intensity(blur_progress)
+	audio_manager_2.slow_down_music(blur_progress, time_scale)
 
 	if _slow_down_timer >= max_slow_down_time:
 		state_chart.send_event("onMaskMiss")
@@ -133,6 +137,7 @@ func _on_aiming_state_processing(delta: float) -> void:
 		#else:
 			#state_chart.send_event("onMaskMiss")
 func _on_aiming_state_exited() -> void:
+	audio_manager_2.reset_music_speed()
 	Engine.time_scale = 1
 	_slow_down_timer = 0.0
 

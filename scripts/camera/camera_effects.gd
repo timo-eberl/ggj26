@@ -29,6 +29,8 @@ class_name CameraEffects extends Camera3D
 @export_range(0.0, 0.04, 0.001) var bob_up: float = 0.005
 @export_range(3.0, 8.0, 0.1) var bob_frequency: float = 6.0
 
+@onready var audio_manager_2: AudioManager2 = $"../../AudioManager"
+
 var _screen_shake_tween: Tween
 var _step_timer = 0.0
 
@@ -93,7 +95,7 @@ func calculate_view_offset(delta: float) -> void:
 
 	if speed > 0.1 and enable_headbob:
 		if _previous_bob_sin > 0.0 and bob_sin <= 0.0 and not _footstep_triggered:
-			AudioManager.play("Footstep", 0.0)
+			audio_manager_2.play("Footstep", 0.0)
 			_footstep_triggered = true
 		elif bob_sin > 0.0:
 			_footstep_triggered = false
@@ -140,4 +142,4 @@ func update_screen_shake(alpha: float, amount: float) -> void:
 
 func _on_possessing_state_exited() -> void:
 	enable_headbob = false
-	AudioManager.stop("Footstep")
+	audio_manager_2.stop("Footstep")
