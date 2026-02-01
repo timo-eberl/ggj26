@@ -4,6 +4,7 @@ extends CharacterBody3D
 @export var turn_speed : float = 3.0
 
 @onready var _mask : Node3D = %Mask
+@onready var mask_possessing_state: AtomicState = %Mask/StateChart/Root/Possessing
 @onready var state_chart: StateChart = $StateChart
 @onready var mask_target: Node3D = $MaskTarget
 @onready var head: Node3D = $Head
@@ -28,6 +29,9 @@ func _on_active_state_physics_processing(delta: float) -> void:
 	
 	var facing_direction := -global_basis.z.normalized()
 	var angle_diff := facing_direction.signed_angle_to(direction, Vector3.UP)
+	
+	if not mask_possessing_state.active:
+		reset_logic()
 	
 	waffe.set_target(_mask.global_position)
 	

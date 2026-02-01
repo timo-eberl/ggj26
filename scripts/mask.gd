@@ -119,8 +119,8 @@ func _on_aiming_state_processing(delta: float) -> void:
 			_current_enemy.get_state_chart().send_event("onPossessed")
 			cam_effect.enable_blur(false)
 			state_chart.send_event("onTransition")
-		else:
-			state_chart.send_event("onMaskMiss")
+		#else:
+			#state_chart.send_event("onMaskMiss")
 func _on_aiming_state_exited() -> void:
 	Engine.time_scale = 1
 	_slow_down_timer = 0.0
