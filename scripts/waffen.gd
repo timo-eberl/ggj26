@@ -17,11 +17,12 @@ func _process(delta):
 
 func shoot() -> Dictionary:
 	var space = get_world_3d().direct_space_state
-	var extendetTarget = bulletExitPos.global_position + (aimTarget - bulletExitPos.global_position).normalized() * 500;
+	var extendetTarget = bulletExitPos.global_position + (aimTarget - bulletExitPos.global_position).normalized() * 25;
 
 	var query = PhysicsRayQueryParameters3D.create(
 		bulletExitPos.global_position,
-		extendetTarget
+		extendetTarget,
+		0b11
 	)
 	
 	query.exclude = [self]
@@ -36,6 +37,9 @@ func shoot() -> Dictionary:
 			result.collider.apply_impulse(-global_basis.z * 100, hit_pos)
 		if result.collider is Enemy:
 			result.collider.queue_free()
+		if result.collider is Enemy and result.collider.state_possessed.active:
+			var mask: Mask = result.collider._mask
+			mask.state_chart.send_event("onHit")
 	
 	spawn_bullet_vis(bulletExitPos.global_position, extendetTarget)
 	add_recoil(base_recoil)

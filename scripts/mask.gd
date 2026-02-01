@@ -17,27 +17,28 @@ const mouse_sensitivity = 0.002
 @export_range(-90, -60) var tilt_lower_limit: int = -90
 @export_range(60, 90) var tilt_upper_limit: int = 90
 
+@export_category("Slow down")
+@export var max_slow_down_time: float = 2.0
+
+var _slow_down_timer: float = 0.0 
 var _cam_rot: Vector3
 
 @onready var cam: Node3D = $"../CamParent"
+@onready var cam_effect: CameraEffects = $"../CamParent/Camera3D"
 @onready var ray_cast: RayCast3D = $"../CamParent/Camera3D/RayCast3D"
 @onready var player_controller: PlayerController = $PlayerController
 @onready var state_chart: StateChart = $StateChart
 
 var _current_enemy: Enemy
 
-var is_dislodged = false
-var is_in_aim_mode = false
-var was_in_aim_mode = false
-var is_in_transition = false
-
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_current_enemy = first_enemy
-	_current_enemy.get_state_chart().send_event.call_deferred("onPossessed")
+	await get_tree().process_frame
+	_current_enemy.get_state_chart().send_event("onPos")
 
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_accept"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
@@ -52,6 +53,7 @@ func _input(event):
 
 # Possessing
 func _on_possessing_state_entered() -> void:
+	print("hi")
 	self.freeze = true
 	_cam_rot = _current_enemy.global_rotation
 func _on_possessing_state_physics_processing(delta: float) -> void:
@@ -79,6 +81,7 @@ func _on_possessing_state_processing(_delta: float) -> void:
 # Dislodged
 func _on_dislodged_state_entered() -> void:
 	self.freeze = false
+	print("dislodge_angle_offset: ", dislodge_angle_offset)
 	var dir = Vector3.FORWARD.rotated(Vector3.RIGHT, deg_to_rad(dislodge_angle_offset)) * self.global_basis.inverse()
 	self.apply_central_impulse(dir * dislodge_force)
 func _on_dislodged_state_processing(_delta: float) -> void:
@@ -89,14 +92,24 @@ func _on_dislodged_state_processing(_delta: float) -> void:
 
 # Aiming
 func _on_aiming_state_entered() -> void:
+	_slow_down_timer = 0.0
+	cam_effect.enable_blur(true)
 	_cam_rot = self.global_rotation
-func _on_aiming_state_processing(delta: float) -> void:
+func _on_aiming_state_processing(delta: float) -> void:			
 	Engine.time_scale = lerp(Engine.time_scale, time_scale, delta * 5.0)
 	cam.global_position = self.global_position
 	cam.global_rotation.y = _cam_rot.y
 	cam.global_rotation.x = _cam_rot.x
+
+	_slow_down_timer += delta / Engine.time_scale
+
+	var blur_progress = clamp(_slow_down_timer / max_slow_down_time, 0.0, 1.0)
+	cam_effect.set_blur_intensity(blur_progress)
+
+	if _slow_down_timer >= max_slow_down_time:
+		state_chart.send_event("onMaskMiss")
+
 	if Input.is_action_just_pressed("right_mouse_button") or Input.is_action_just_pressed("left_mouse_button"):
-		Engine.time_scale = 1
 		var collider = ray_cast.get_collider() as CollisionObject3D
 		if collider is Enemy:
 			if is_instance_valid(_current_enemy):
@@ -104,10 +117,13 @@ func _on_aiming_state_processing(delta: float) -> void:
 				_current_enemy.get_state_chart().send_event("onActivate")
 			_current_enemy = collider
 			_current_enemy.get_state_chart().send_event("onPossessed")
+			cam_effect.enable_blur(false)
 			state_chart.send_event("onTransition")
 		else:
-			self.global_rotation = cam.global_rotation
 			state_chart.send_event("onMaskMiss")
+func _on_aiming_state_exited() -> void:
+	Engine.time_scale = 1
+	_slow_down_timer = 0.0
 
 # Transition to Possessing
 func _on_transition_state_entered() -> void:
@@ -129,5 +145,10 @@ func _on_transition_state_entered() -> void:
 	tween.finished.connect(func(): state_chart.send_event("onPossess"))
 
 # Dead
+func _on_dead_state_entered() -> void:
+	self.global_rotation = cam.global_rotation
+	self.freeze = false
 func _on_dead_state_processing(_delta: float) -> void:
+	cam_effect.enable_full_blur()
+	# self.global_rotation = cam.global_rotation
 	cam.global_transform = self.global_transform

@@ -71,6 +71,11 @@ bullet_vis_scene = ExtResource("5_ipns3")
 [node name="bulletStartPos" type="Node3D" parent="Head/HandAnchor/Waffe" unique_id=1855909560]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004127145, 0.093804836, -0.37035882)
 
+[node name="RayCast3D" type="RayCast3D" parent="Head" unique_id=2121112549]
+target_position = Vector3(0, 0, -50)
+collision_mask = 3
+debug_shape_custom_color = Color(0, 1, 0, 0.15686275)
+
 [node name="MaskTarget" type="Node3D" parent="." unique_id=1618735242]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6005105, -0.494358)
 
@@ -95,7 +100,7 @@ delay_in_seconds = "0.0"
 [node name="GetPossessed" type="Node" parent="StateChart/Root/Idle" unique_id=1795543024]
 script = ExtResource("8_qek5x")
 to = NodePath("../../Possessed")
-event = &"onPossessed"
+event = &"onPos"
 delay_in_seconds = "0.0"
 
 [node name="Active" type="Node" parent="StateChart/Root" unique_id=1018996131]
