@@ -15,6 +15,7 @@ func _ready():
 	hand_right.freeze = true
 
 func explode(position: Vector3, direction: Vector3):
+	hand_right.show()
 	head.freeze = false
 	body.freeze = false
 	hand_left.freeze = false

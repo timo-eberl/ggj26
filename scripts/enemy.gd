@@ -16,6 +16,7 @@ extends CharacterBody3D
 var time_in_sight: float = 0.0
 var time_to_trigger: float = pick_new_trigger_time()
 var _has_target: bool = false
+var ammo := 3
 
 func get_state_chart() -> StateChart:
 	return $StateChart
@@ -56,7 +57,7 @@ func reset_logic():
 	_has_target = true
 
 func _on_possessed_state_entered() -> void:
-	waffe.aim_speed = 25.0
+	waffe.aim_speed = 35.0
 	waffe.bullet_viz_scale = 200.0
 	waffe.bullet_viz_thickness = 3.0
 
@@ -67,6 +68,7 @@ func _on_active_state_entered() -> void:
 	
 
 func hit(position: Vector3, direction: Vector3):
+	$Head/HandAnchor/Waffe.hide()
 	character_model.explode(position, direction)
 	process_mode = Node.PROCESS_MODE_DISABLED
 	get_tree().create_timer(2).timeout.connect(queue_free)

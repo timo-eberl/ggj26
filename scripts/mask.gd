@@ -55,7 +55,6 @@ func _input(event):
 
 # Possessing
 func _on_possessing_state_entered() -> void:
-	print("hi")
 	self.freeze = true
 	_cam_rot = _current_enemy.global_rotation
 func _on_possessing_state_physics_processing(delta: float) -> void:
@@ -85,6 +84,8 @@ func _on_possessing_state_processing(_delta: float) -> void:
 # Dislodged
 func _on_dislodged_state_entered() -> void:
 	cam_effect.add_screen_shake(0.4, 0.4)
+	cam_effect.enable_headbob = true
+	AudioManager.play("Dislodge", 0.0)
 	self.freeze = false
 	print("dislodge_angle_offset: ", dislodge_angle_offset)
 	var dir = Vector3.FORWARD.rotated(Vector3.RIGHT, deg_to_rad(dislodge_angle_offset)) * self.global_basis.inverse()
@@ -119,7 +120,7 @@ func _on_aiming_state_processing(delta: float) -> void:
 		if collider is Enemy:
 			if is_instance_valid(_current_enemy):
 				_current_enemy.head.global_transform = _current_enemy.mask_target.global_transform
-				_current_enemy.get_state_chart().send_event("onActivate")
+				_current_enemy.get_state_chart().send_event("onFree")
 			_current_enemy = collider
 			_current_enemy.get_state_chart().send_event("onPossessed")
 			cam_effect.enable_blur(false)

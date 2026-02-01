@@ -3,6 +3,7 @@ class_name CameraEffects extends Camera3D
 @export_category("References")
 @export var player: PlayerController
 @export var blur_effect: ColorRect
+@export var mask: Mask
 
 @export_category("Effects")
 @export var enable_tilt: bool = true
@@ -30,6 +31,9 @@ class_name CameraEffects extends Camera3D
 
 var _screen_shake_tween: Tween
 var _step_timer = 0.0
+
+var _previous_bob_sin: float = 0.0
+var _footstep_triggered: bool = false
 
 const MIN_SCREEN_SHAKE: float = 0.05
 const MAX_SCREEN_SHAKE: float = 0.4
@@ -84,8 +88,17 @@ func calculate_view_offset(delta: float) -> void:
 		_step_timer = fmod(_step_timer, 1.0)
 	else:
 		_step_timer = 0.0
+
 	var bob_sin = sin(_step_timer * 2.0 * PI) * 0.5 # doom2: sin(time) * speed * amplitude
 
+	if speed > 0.1 and enable_headbob:
+		if _previous_bob_sin > 0.0 and bob_sin <= 0.0 and not _footstep_triggered:
+			AudioManager.play("Footstep", 0.0)
+			_footstep_triggered = true
+		elif bob_sin > 0.0:
+			_footstep_triggered = false
+	
+	_previous_bob_sin = bob_sin
 
 	if enable_tilt:
 		var forward = global_transform.basis.z
@@ -93,7 +106,7 @@ func calculate_view_offset(delta: float) -> void:
 
 		var forward_dot = velocity.dot(forward)
 		var forward_tilt = clampf(forward_dot * deg_to_rad(run_pitch), deg_to_rad(-max_pitch), deg_to_rad(max_pitch))
-		angles.x = lerp(rotation.x, forward_tilt, 10.0 * delta)
+		#angles.x = lerp(rotation.x, forward_tilt, 10.0 * delta)
 
 		var right_dot = velocity.dot(right)
 		var side_tilt = clampf(right_dot * deg_to_rad(run_roll), deg_to_rad(-max_roll), deg_to_rad(max_roll))
@@ -123,3 +136,8 @@ func update_screen_shake(alpha: float, amount: float) -> void:
 	var current_shake_amount = amount * (1.0 - alpha)
 	h_offset = randf_range(-current_shake_amount, current_shake_amount)
 	v_offset = randf_range(-current_shake_amount, current_shake_amount)
+
+
+func _on_possessing_state_exited() -> void:
+	enable_headbob = false
+	AudioManager.stop("Footstep")
