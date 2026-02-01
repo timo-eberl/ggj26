@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://x1p21c5k01uj" path="res://scenes/enemy.tscn" id="2_j7opc"]
 [ext_resource type="Script" uid="uid://d0oqv1005hnrm" path="res://scripts/mask.gd" id="3_e4pkg"]
 [ext_resource type="Script" uid="uid://bc4w5l8sc8hv1" path="res://scripts/player/player_controller.gd" id="5_lcibp"]
+[ext_resource type="PackedScene" uid="uid://dftsx3goa60g7" path="res://assets/3D_Modell/maske.glb" id="5_mus3p"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="8_06fh6"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="9_4706d"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="9_e4pkg"]
@@ -35,9 +36,6 @@ radius = 7.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4706d"]
 radius = 0.25
-
-[sub_resource type="BoxMesh" id="BoxMesh_06fh6"]
-size = Vector3(0.5217285, 0.3557129, 0.1171875)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lhi7w"]
 radius = 0.1
@@ -95,8 +93,8 @@ first_enemy = NodePath("../Enemy")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mask" unique_id=63770764]
 shape = SubResource("SphereShape3D_4706d")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Mask" unique_id=1968376892]
-mesh = SubResource("BoxMesh_06fh6")
+[node name="maske" parent="Mask" unique_id=2123581501 instance=ExtResource("5_mus3p")]
+transform = Transform3D(-1.857734e-08, 0, 0.425, 0, 0.425, 0, -0.425, 0, -1.857734e-08, 0, 0, 0.21232605)
 
 [node name="MaskArea" type="Area3D" parent="Mask" unique_id=1393819833]
 script = ExtResource("1_lhi7w")
@@ -202,3 +200,4 @@ collision_mask = 8
 [connection signal="state_processing" from="Mask/StateChart/Root/Dead" to="Mask" method="_on_dead_state_processing"]
 
 [editable path="CanvasLayer"]
+[editable path="Mask/maske"]
