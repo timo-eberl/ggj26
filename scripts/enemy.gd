@@ -67,6 +67,7 @@ func _on_active_state_entered() -> void:
 	
 
 func hit(position: Vector3, direction: Vector3):
+	$Head/HandAnchor/Waffe.hide()
 	character_model.explode(position, direction)
 	process_mode = Node.PROCESS_MODE_DISABLED
 	get_tree().create_timer(2).timeout.connect(queue_free)
