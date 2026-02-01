@@ -59,10 +59,10 @@ func _on_active_state_physics_processing(delta: float) -> void:
 func reset_logic():
 	time_in_sight = 0.0
 	time_to_trigger = pick_new_trigger_time()
-	print("Resetting. time_to_trigger: ", time_to_trigger)
 	_has_target = true
 
 func _on_possessed_state_entered() -> void:
+	ammo = 3
 	waffe.aim_speed = 35.0
 	waffe.bullet_viz_scale = 200.0
 	waffe.bullet_viz_thickness = 3.0

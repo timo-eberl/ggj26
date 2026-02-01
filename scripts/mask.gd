@@ -13,6 +13,10 @@ const mouse_sensitivity = 0.002
 @export var max_trans_time = 0.8
 @export var shoot_cooldown_sec = 0.4
 
+@onready var bullet_1_ui: TextureRect = $"../Canvaslayer/MarginContainer/VBoxContainer/Bullet3"
+@onready var bullet_2_ui: TextureRect = $"../Canvaslayer/MarginContainer/VBoxContainer/Bullet2"
+@onready var bullet_3_ui: TextureRect = $"../Canvaslayer/MarginContainer/VBoxContainer/Bullet1"
+
 @export_category("Camera Settings")
 @export_group("Camera Tilt")
 @export_range(-90, -60) var tilt_lower_limit: int = -90
@@ -56,6 +60,7 @@ func _input(event):
 
 # Possessing
 func _on_possessing_state_entered() -> void:
+	$"../Canvaslayer/MarginContainer/VBoxContainer".visible = true # ammo
 	self.freeze = true
 	self.visible = false
 	_cam_rot = _current_enemy.global_rotation
@@ -83,8 +88,17 @@ func _on_possessing_state_processing(_delta: float) -> void:
 				_last_shot_time = Time.get_ticks_msec()
 			_current_enemy.ammo -= 1
 	
+	var a1 := 1.0 if (_current_enemy.ammo > 0) else 0.1
+	var a2 := 1.0 if (_current_enemy.ammo > 1) else 0.1
+	var a3 := 1.0 if (_current_enemy.ammo > 2) else 0.1
+	bullet_1_ui.modulate = Color(a1,a1,a1,1.0)
+	bullet_2_ui.modulate = Color(a2,a2,a2,1.0)
+	bullet_3_ui.modulate = Color(a3,a3,a3,1.0)
+	
 	if Input.is_action_just_pressed("right_mouse_button"):
 		state_chart.send_event("onDislodge")
+func _on_possessing_state_exited() -> void:
+	$"../Canvaslayer/MarginContainer/VBoxContainer".visible = false # ammo
 
 
 # Dislodged
