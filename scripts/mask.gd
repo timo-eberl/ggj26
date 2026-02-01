@@ -82,6 +82,8 @@ func _on_possessing_state_processing(_delta: float) -> void:
 				_current_enemy.waffe.shoot()
 				_last_shot_time = Time.get_ticks_msec()
 			_current_enemy.ammo -= 1
+		else:
+			audio_manager_2.play("EmptyClip", 0.0, true)
 	
 	if Input.is_action_just_pressed("right_mouse_button"):
 		state_chart.send_event("onDislodge")
