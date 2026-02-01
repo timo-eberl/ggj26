@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bcjlbphm6b7sg" path="res://assets/materials/Gesichter/Gesichter9.png" id="13_lioqc"]
 [ext_resource type="Texture2D" uid="uid://dh4o683b1wgjm" path="res://assets/materials/Gesichter/Gesichter10.png" id="14_0lg75"]
 [ext_resource type="Texture2D" uid="uid://boa5ueqov4ph0" path="res://assets/materials/Gesichter/Gesichter.png" id="15_lsnsy"]
+[ext_resource type="PackedScene" uid="uid://dwkndds3fwi0d" path="res://assets/3D_Modell/Revolver.glb" id="19_6awcb"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ipns3"]
 
@@ -144,8 +145,7 @@ radius = 1.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ccr75"]
 resource_name = "Material.003"
 cull_mode = 2
-albedo_color = Color(0.5461567, 0.39287537, 0.219002, 1)
-roughness = 0.5
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_uwobn"]
 _surfaces = [{
@@ -220,47 +220,6 @@ shadow_mesh = SubResource("ArrayMesh_hdchb")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i4rgx"]
 radius = 1.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s73y7"]
-resource_name = "Material"
-cull_mode = 2
-albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 1)
-roughness = 0.5
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_uij4x"]
-_surfaces = [{
-"aabb": AABB(-0.050227284, -0.16402699, -0.36865994, 0.10045457, 0.29952717, 0.50346524),
-"format": 34359742465,
-"index_count": 108,
-"index_data": PackedByteArray("AAABAAIAAgABAAMABAADAAEAAAAEAAEABAAFAAMABgAFAAQABgAEAAAABwADAAUABwAFAAYAAgADAAcABgAIAAcAAgAHAAgACQAGAAAACgAAAAIACgALAAAACwAJAAAADAAKAAIACgANAAsACgAMAA0ACwANAAkADAACAA4ADQAMAA4AAgAIAA4ADQAOAAkADgAPAAkACQAQAAYABgAQAAgACQAPABEACQARABAADgASAA8ACAASAA4AEgARAA8AEAATAAgACAATABIAEAARABMAEgATABEA"),
-"name": "Material",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 20,
-"vertex_data": PackedByteArray("ILtNPSC7TT0gu029ILtNvSC7TT3/wLy+ILtNvSC7TT0gu029ILtNvY7ACj7/wLy+ILtNPSC7TT3/wLy+ILtNPY7ACj7/wLy+ILtNPY7ACj4gu029ILtNvY7ACj4gu029ILtNvY7ACj4gu009ILtNPSC7TT0gu009ILtNvbH2J75Usww9ILtNPbH2J75Usww9ILtNvbH2J75lCgo+ILtNPbH2J75lCgo+ILtNvSC7TT0gu009ILtNPSC7TT1oPtY9ILtNPY7ACj4gu009ILtNPY7ACj5oPtY9ILtNvSC7TT1oPtY9ILtNvY7ACj5oPtY9")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_7c4y2"]
-resource_name = "Pistole_Cube"
-_surfaces = [{
-"aabb": AABB(-0.050227284, -0.16402699, -0.36865994, 0.10045457, 0.29952717, 0.50346524),
-"attribute_data": PackedByteArray("AAAgPwAAAD8AACA/AABAPwAAID8AAEA/AAAgPwAAAD8AAMA+AACAPgAAID8AAAAAAAAgPwAAgD4AAMA+AAAAAAAAwD4AAIA/AAAgPwAAQD8AACA/AACAPwAAwD4AAEA/AAAgPwAAgD8AACA/AACAPwAAID8AAIA/AAAgPwAAQD8AACA/AABAPwAAID8AAEA/AAAAPgAAAD8AAMA+AACAPgAAwD4AAAA/AAAAPgAAgD4AAMA+AAAAPwAAID8AAIA+AAAgPwAAAD8AAMA+AACAPgAAID8AAAA/AAAgPwAAAD8AACA/AAAAPwAAID8AAIA+AAAgPwAAgD4AACA/AACAPgAAwD4AAEA/AAAgPwAAAD8AACA/AABAPwAAwD4AAAA/AAAgPwAAAD8AAGA/AACAPgAAYD8AAAA/AAAgPwAAAD8AAGA/AAAAPwAAID8AAIA+AABgPwAAgD4AACA/AACAPgAAID8AAAAAAAAgPwAAgD4AACA/AACAPgAAID8AAAAAAAAgPwAAAAAAACA/AACAPgAAID8AAIA+AAAgPwAAAAAAACA/AAAAPwAAID8AAEA/AAAgPwAAQD8AACA/AAAAPw=="),
-"format": 34359742487,
-"index_count": 108,
-"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkACQAMAAoADAANAAoADAAOAA0ACQAPAAwACQAQAA8ACQARABAAEgATABQAEgAVABMAFgAXABgAFgAZABcAFwAaABgAGgAbABgAGgAcABsAFwAdABoAFwAeAB0AFwAfAB4AIAAhACIAIAAjACEAJAAlACYAJgAnACQAJgAoACcAJAApACUAKQAqACUAKQArACoALAAtAC4ALAAvAC0AMAAxADIAMAAzADEANAA1ADYANAA3ADUA"),
-"material": SubResource("StandardMaterial3D_s73y7"),
-"name": "Material",
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 56,
-"vertex_data": PackedByteArray("ILtNPSC7TT0gu029ILtNvSC7TT3/wLy+ILtNvSC7TT0gu029ILtNPSC7TT3/wLy+ILtNPbH2J75lCgo+ILtNvSC7TT0gu009ILtNPSC7TT0gu009ILtNvbH2J75lCgo+ILtNvbH2J75lCgo+ILtNvSC7TT0gu029ILtNvSC7TT0gu009ILtNvbH2J75Usww9ILtNvY7ACj4gu009ILtNvSC7TT1oPtY9ILtNvY7ACj5oPtY9ILtNvY7ACj4gu029ILtNvY7ACj7/wLy+ILtNvSC7TT3/wLy+ILtNvbH2J75Usww9ILtNPbH2J75lCgo+ILtNPbH2J75Usww9ILtNvbH2J75lCgo+ILtNPbH2J75Usww9ILtNPSC7TT0gu009ILtNPSC7TT0gu029ILtNPbH2J75lCgo+ILtNPY7ACj4gu029ILtNPSC7TT3/wLy+ILtNPY7ACj7/wLy+ILtNPY7ACj4gu009ILtNPY7ACj5oPtY9ILtNPSC7TT1oPtY9ILtNvbH2J75Usww9ILtNPSC7TT0gu029ILtNvSC7TT0gu029ILtNPbH2J75Usww9ILtNPY7ACj4gu029ILtNvY7ACj4gu009ILtNvY7ACj4gu029ILtNPY7ACj7/wLy+ILtNvY7ACj7/wLy+ILtNPY7ACj4gu009ILtNvY7ACj5oPtY9ILtNPY7ACj5oPtY9ILtNvSC7TT1oPtY9ILtNPY7ACj5oPtY9ILtNPSC7TT1oPtY9ILtNvY7ACj5oPtY9ILtNvSC7TT0gu009ILtNPSC7TT1oPtY9ILtNPSC7TT0gu009ILtNvSC7TT1oPtY9ILtNPSC7TT3/wLy+ILtNvY7ACj7/wLy+ILtNvSC7TT3/wLy+ILtNPY7ACj7/wLy+/38AAP///7//fwAA////v/9/AAD///+//38AAP///7//fzqkOqT///9/OqQ6pP///386pDqk////fzqkOqT//wAA/385pP//AAD/fzmk//8AAP9/OaT//wAA/385pP//AAD/f////78AAP9/////vwAA/3////+/AAD/f////78AAP9/////vwAA/3////+//38AAP///7//fwAA////v/9/AAD///+//38AAP///7////9/OaT//////385pP//////fzmk//////9/OaT//////3////+/////f////7////9/////v////3////+/////f////7////9/////v8TbAAA6pP//xNsAADqk///E2wAAOqT//8TbAAA6pP///3///wAA/7//f///AAD/v/9///8AAP+//3///////7//f///////v/9///8AAP+//3///////7//f///////v/9//3////8//3//f////z//f/9/////P/9//3////8//38AAP///7//fwAA////v/9/AAD///+//38AAP///7//////////v/////////+//////////7//////////vw==")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_uij4x")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rogs8"]
-albedo_color = Color(0.26293245, 0.26293245, 0.26293245, 1)
 
 [node name="Enemy" type="CharacterBody3D" unique_id=1891892681]
 collision_layer = 10
@@ -358,15 +317,14 @@ transform = Transform3D(0.545, 0, 0, 0, 0.545, 0, 0, 0, 0.545, 0.28212425, -0.13
 script = ExtResource("4_md484")
 bullet_vis_scene = ExtResource("5_ipns3")
 
-[node name="Pistole" type="MeshInstance3D" parent="Head/HandAnchor/Waffe" unique_id=596129924]
-mesh = SubResource("ArrayMesh_7c4y2")
-surface_material_override/0 = SubResource("StandardMaterial3D_rogs8")
+[node name="Revolver" parent="Head/HandAnchor/Waffe" unique_id=714690411 instance=ExtResource("19_6awcb")]
+transform = Transform3D(3.2699997, 0, 0, 0, 3.2699997, 0, 0, 0, 3.2699997, 0, -0.06417203, -0.011947036)
 
 [node name="bulletStartPos" type="Node3D" parent="Head/HandAnchor/Waffe" unique_id=1855909560]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.004127145, 0.093804836, -0.37035882)
 
 [node name="Sphere_001" type="MeshInstance3D" parent="Head/HandAnchor/Waffe" unique_id=1119661813]
-transform = Transform3D(0.142, 0, -4.1132923e-16, 0, 0.142, 0, 4.1132923e-16, 0, 0.142, 0, -0.1052227, 0.031616926)
+transform = Transform3D(0.127, 0, -3.6787885e-16, 0, 0.127, 0, 3.6787885e-16, 0, 0.127, 0.01857239, -0.104911804, 0.031616807)
 mesh = SubResource("ArrayMesh_lwsav")
 
 [node name="RayCast3D" type="RayCast3D" parent="Head" unique_id=2121112549]
