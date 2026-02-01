@@ -26,15 +26,11 @@ var _cam_rot: Vector3
 
 var _current_enemy: Enemy
 
-var is_dislodged = false
-var is_in_aim_mode = false
-var was_in_aim_mode = false
-var is_in_transition = false
-
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_current_enemy = first_enemy
-	_current_enemy.get_state_chart().send_event.call_deferred("onPossessed")
+	await get_tree().process_frame
+	_current_enemy.get_state_chart().send_event("onPos")
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -52,6 +48,7 @@ func _input(event):
 
 # Possessing
 func _on_possessing_state_entered() -> void:
+	print("hi")
 	self.freeze = true
 	_cam_rot = _current_enemy.global_rotation
 func _on_possessing_state_physics_processing(delta: float) -> void:
@@ -79,6 +76,7 @@ func _on_possessing_state_processing(_delta: float) -> void:
 # Dislodged
 func _on_dislodged_state_entered() -> void:
 	self.freeze = false
+	print("dislodge_angle_offset: ", dislodge_angle_offset)
 	var dir = Vector3.FORWARD.rotated(Vector3.RIGHT, deg_to_rad(dislodge_angle_offset)) * self.global_basis.inverse()
 	self.apply_central_impulse(dir * dislodge_force)
 func _on_dislodged_state_processing(_delta: float) -> void:
@@ -103,10 +101,9 @@ func _on_aiming_state_processing(delta: float) -> void:
 				_current_enemy.head.global_transform = _current_enemy.mask_target.global_transform
 				_current_enemy.get_state_chart().send_event("onActivate")
 			_current_enemy = collider
-			_current_enemy.get_state_chart().send_event("onPossessed")
+			_current_enemy.get_state_chart().send_event("onPos")
 			state_chart.send_event("onTransition")
 		else:
-			self.global_rotation = cam.global_rotation
 			state_chart.send_event("onMaskMiss")
 
 # Transition to Possessing
@@ -129,5 +126,8 @@ func _on_transition_state_entered() -> void:
 	tween.finished.connect(func(): state_chart.send_event("onPossess"))
 
 # Dead
+func _on_dead_state_entered() -> void:
+	self.global_rotation = cam.global_rotation
+	self.freeze = false
 func _on_dead_state_processing(_delta: float) -> void:
 	cam.global_transform = self.global_transform

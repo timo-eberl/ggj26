@@ -13,7 +13,7 @@ func _process(delta):
 		set_line(lerp(start, end, alive), end)
 		pass
 		
-	if alive >= 1.0:
+	if alive >= 0.95:
 		queue_free()
 
 func set_line(_start: Vector3, _end: Vector3) -> void:

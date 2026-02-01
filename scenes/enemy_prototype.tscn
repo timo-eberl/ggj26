@@ -100,6 +100,12 @@ to = NodePath("../../Dislodged")
 event = &"onDislodge"
 delay_in_seconds = "0.0"
 
+[node name="Die" type="Node" parent="Mask/StateChart/Root/Possessing" unique_id=145877824]
+script = ExtResource("9_e4pkg")
+to = NodePath("../../Dead")
+event = &"onHit"
+delay_in_seconds = "0.0"
+
 [node name="Dislodged" type="Node" parent="Mask/StateChart/Root" unique_id=1159641629]
 script = ExtResource("10_mus3p")
 metadata/_custom_type_script = "uid://cytafq8i1y8qm"
@@ -166,4 +172,5 @@ collision_mask = 8
 [connection signal="state_entered" from="Mask/StateChart/Root/Aiming" to="Mask" method="_on_aiming_state_entered"]
 [connection signal="state_processing" from="Mask/StateChart/Root/Aiming" to="Mask" method="_on_aiming_state_processing"]
 [connection signal="state_entered" from="Mask/StateChart/Root/Transition" to="Mask" method="_on_transition_state_entered"]
+[connection signal="state_entered" from="Mask/StateChart/Root/Dead" to="Mask" method="_on_dead_state_entered"]
 [connection signal="state_processing" from="Mask/StateChart/Root/Dead" to="Mask" method="_on_dead_state_processing"]
