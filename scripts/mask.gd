@@ -74,6 +74,8 @@ func _on_possessing_state_processing(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("shoot"):
 		if (Time.get_ticks_msec() - _last_shot_time) > (shoot_cooldown_sec * 1000.0):
+			AudioManager.play("GunShot", 0.0, true)
+			cam_effect.add_screen_shake(0.1, 0.1)
 			_current_enemy.waffe.shoot()
 			_last_shot_time = Time.get_ticks_msec()
 	
@@ -111,6 +113,7 @@ func _on_aiming_state_processing(delta: float) -> void:
 
 	var blur_progress = clamp(_slow_down_timer / max_slow_down_time, 0.0, 1.0)
 	cam_effect.set_blur_intensity(blur_progress)
+	AudioManager.slow_down_music(blur_progress, time_scale)
 
 	if _slow_down_timer >= max_slow_down_time:
 		state_chart.send_event("onMaskMiss")
@@ -130,6 +133,7 @@ func _on_aiming_state_processing(delta: float) -> void:
 		#else:
 			#state_chart.send_event("onMaskMiss")
 func _on_aiming_state_exited() -> void:
+	AudioManager.reset_music_speed()
 	Engine.time_scale = 1
 	_slow_down_timer = 0.0
 
