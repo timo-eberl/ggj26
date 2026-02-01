@@ -10,7 +10,7 @@
 shader = ExtResource("2_rcgkl")
 shader_parameter/blur_amount = 2.0
 shader_parameter/inner_radius = 0.3
-shader_parameter/edge_color = Color(0, 0.48815858, 0.51282406, 1)
+shader_parameter/edge_color = Color(0, 0, 0, 1)
 shader_parameter/color_blend = 0.4
 shader_parameter/saturation = 1.0
 
@@ -19,6 +19,7 @@ process_mode = 3
 script = ExtResource("1_hj6hg")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=768798567]
+visible = false
 material = SubResource("ShaderMaterial_vnpvo")
 anchors_preset = 15
 anchor_right = 1.0
