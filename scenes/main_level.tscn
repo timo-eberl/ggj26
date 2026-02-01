@@ -481,7 +481,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.832049, 1.1182709, -7.8522
 transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 14.683018, 0.6513407, -6.2470245)
 
 [node name="Fass" parent="ContainerHalter" unique_id=538591485 instance=ExtResource("18_0e4v7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.851858, 0.7788223, -21.475527)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.851858, 0.7788223, -20.662323)
 
 [node name="Box5" parent="ContainerHalter" unique_id=891442996 instance=ExtResource("14_adxub")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.465918, 1.1182714, -22.672403)
