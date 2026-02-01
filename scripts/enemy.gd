@@ -12,6 +12,7 @@ extends CharacterBody3D
 @onready var ray_cast: RayCast3D = $Head/RayCast3D
 @onready var state_possessed: AtomicState = $StateChart/Root/Possessed
 @onready var character_model: CharacterModel = $CharacterModel
+var outline_visible := false
 
 var time_in_sight: float = 0.0
 var time_to_trigger: float = pick_new_trigger_time()
@@ -23,6 +24,11 @@ func get_state_chart() -> StateChart:
 
 func pick_new_trigger_time():
 	return randf_range(2.0, 3.0)
+
+func _process(_delta: float) -> void:
+	$CharacterModel/Body/Cylinder/Outline.visible = outline_visible
+	$CharacterModel/Head/Sphere/Outline.visible = outline_visible
+	outline_visible = false
 
 func _on_active_state_physics_processing(delta: float) -> void:
 	var direction := global_position.direction_to(_mask.global_position)

@@ -115,8 +115,10 @@ func _on_aiming_state_processing(delta: float) -> void:
 	if _slow_down_timer >= max_slow_down_time:
 		state_chart.send_event("onMaskMiss")
 
+	var collider = ray_cast.get_collider() as CollisionObject3D
+	if collider is Enemy:
+		collider.outline_visible = true
 	if Input.is_action_just_pressed("right_mouse_button") or Input.is_action_just_pressed("left_mouse_button"):
-		var collider = ray_cast.get_collider() as CollisionObject3D
 		if collider is Enemy:
 			if is_instance_valid(_current_enemy):
 				_current_enemy.head.global_transform = _current_enemy.mask_target.global_transform
