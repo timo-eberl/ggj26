@@ -17,9 +17,14 @@ const mouse_sensitivity = 0.002
 @export_range(-90, -60) var tilt_lower_limit: int = -90
 @export_range(60, 90) var tilt_upper_limit: int = 90
 
+@export_category("Slow down")
+@export var max_slow_down_time: float = 2.0
+
+var _slow_down_timer: float = 0.0 
 var _cam_rot: Vector3
 
 @onready var cam: Node3D = $"../CamParent"
+@onready var cam_effect: CameraEffects = $"../CamParent/Camera3D"
 @onready var ray_cast: RayCast3D = $"../CamParent/Camera3D/RayCast3D"
 @onready var player_controller: PlayerController = $PlayerController
 @onready var state_chart: StateChart = $StateChart
@@ -33,7 +38,7 @@ func _ready():
 	_current_enemy.get_state_chart().send_event("onPos")
 
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_accept"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
@@ -87,24 +92,38 @@ func _on_dislodged_state_processing(_delta: float) -> void:
 
 # Aiming
 func _on_aiming_state_entered() -> void:
+	_slow_down_timer = 0.0
+	cam_effect.enable_blur(true)
 	_cam_rot = self.global_rotation
-func _on_aiming_state_processing(delta: float) -> void:
+func _on_aiming_state_processing(delta: float) -> void:			
 	Engine.time_scale = lerp(Engine.time_scale, time_scale, delta * 5.0)
 	cam.global_position = self.global_position
 	cam.global_rotation.y = _cam_rot.y
 	cam.global_rotation.x = _cam_rot.x
+
+	_slow_down_timer += delta / Engine.time_scale
+
+	var blur_progress = clamp(_slow_down_timer / max_slow_down_time, 0.0, 1.0)
+	cam_effect.set_blur_intensity(blur_progress)
+
+	if _slow_down_timer >= max_slow_down_time:
+		state_chart.send_event("onMaskMiss")
+
 	if Input.is_action_just_pressed("right_mouse_button") or Input.is_action_just_pressed("left_mouse_button"):
-		Engine.time_scale = 1
 		var collider = ray_cast.get_collider() as CollisionObject3D
 		if collider is Enemy:
 			if is_instance_valid(_current_enemy):
 				_current_enemy.head.global_transform = _current_enemy.mask_target.global_transform
 				_current_enemy.get_state_chart().send_event("onActivate")
 			_current_enemy = collider
-			_current_enemy.get_state_chart().send_event("onPos")
+			_current_enemy.get_state_chart().send_event("onPossessed")
+			cam_effect.enable_blur(false)
 			state_chart.send_event("onTransition")
 		else:
 			state_chart.send_event("onMaskMiss")
+func _on_aiming_state_exited() -> void:
+	Engine.time_scale = 1
+	_slow_down_timer = 0.0
 
 # Transition to Possessing
 func _on_transition_state_entered() -> void:
@@ -130,4 +149,6 @@ func _on_dead_state_entered() -> void:
 	self.global_rotation = cam.global_rotation
 	self.freeze = false
 func _on_dead_state_processing(_delta: float) -> void:
+	cam_effect.enable_full_blur()
+	# self.global_rotation = cam.global_rotation
 	cam.global_transform = self.global_transform

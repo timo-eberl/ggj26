@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://4ghh1etxmy2w"]
+
+[ext_resource type="PackedScene" uid="uid://bq6qbxg0qxrlx" path="res://assets/3D_Modell/Box.glb" id="1_bkqd1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rfmlh"]
+size = Vector3(2, 2, 2)
+
+[node name="Box" type="Node3D" unique_id=244138912]
+
+[node name="Box2" parent="." unique_id=579423369 instance=ExtResource("1_bkqd1")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box2/Box" parent_id_path=PackedInt32Array(579423369, 1659461833) index="0" unique_id=1565948702]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2/Box/StaticBody3D" unique_id=795540232]
+shape = SubResource("BoxShape3D_rfmlh")
+
+[editable path="Box2"]

@@ -2,11 +2,19 @@ class_name CameraEffects extends Camera3D
 
 @export_category("References")
 @export var player: PlayerController
+@export var blur_effect: ColorRect
 
 @export_category("Effects")
 @export var enable_tilt: bool = true
 @export var enable_headbob: bool = true
 @export var enable_screen_shake: bool = true
+
+@export_category("Blur Settings")
+@export var max_blur_intensity: float = 4.0
+@export var max_tint_strength: float = 0.5
+@export var min_inner_radius: float = 0.0
+@export var max_inner_radius: float = 0.75
+@export var min_saturation: float = 0.25
 
 @export_category("Kick and Recoil Settings")
 @export_group("Run Tilt")
@@ -26,8 +34,41 @@ var _step_timer = 0.0
 const MIN_SCREEN_SHAKE: float = 0.05
 const MAX_SCREEN_SHAKE: float = 0.4
 
+func _ready():
+	blur_effect.visible = false
+
 func _process(delta: float) -> void:
 	calculate_view_offset(delta)
+
+func enable_full_blur() -> void:
+	blur_effect.visible = true
+	blur_effect.material.set_shader_parameter("inner_radius", min_inner_radius)
+	blur_effect.material.set_shader_parameter("saturation", min_saturation)
+	blur_effect.material.set_shader_parameter("blur_amount", max_blur_intensity)
+	blur_effect.material.set_shader_parameter("color_blend", max_tint_strength)
+
+
+func set_blur_intensity(intensity: float) -> void:
+	intensity = clamp(intensity, 0.0, 1.0)
+	
+	var current_inner_radius = lerp(max_inner_radius, min_inner_radius, intensity)
+	var current_saturation = lerp(1.0, min_saturation, intensity)
+
+	blur_effect.material.set_shader_parameter("inner_radius", current_inner_radius)
+	blur_effect.material.set_shader_parameter("saturation", current_saturation)
+	blur_effect.material.set_shader_parameter("blur_amount", intensity * max_blur_intensity)
+	blur_effect.material.set_shader_parameter("color_blend", intensity * max_tint_strength)
+
+func enable_blur(flag: bool):
+	blur_effect.visible = flag
+	blur_effect.material.set_shader_parameter("inner_radius", max_inner_radius)
+	blur_effect.material.set_shader_parameter("saturation", 1.0)
+	blur_effect.material.set_shader_parameter("blur_amount", 0.0)
+	blur_effect.material.set_shader_parameter("color_blend", 0.0)
+
+	if not flag:
+		set_blur_intensity(0.0)
+
 
 func calculate_view_offset(delta: float) -> void:
 	if not player:

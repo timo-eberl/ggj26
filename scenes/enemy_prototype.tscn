@@ -30,6 +30,8 @@ radius = 0.1
 
 [node name="EnemyPrototype" type="Node3D" unique_id=1785478038]
 
+[node name="CanvasLayer" parent="." unique_id=1975544332 instance=ExtResource("11_4706d")]
+
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=1483744264]
 transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -0.5, 0)
 mesh = SubResource("BoxMesh_w58r3")
@@ -152,15 +154,14 @@ transform = Transform3D(-0.30830315, 0, -0.95128816, 0, 1, 0, 0.95128816, 0, -0.
 [node name="CamParent" type="Node3D" parent="." unique_id=1003285289]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6741743, 8.505402)
 
-[node name="Camera3D" type="Camera3D" parent="CamParent" unique_id=1829377079 node_paths=PackedStringArray("player")]
+[node name="Camera3D" type="Camera3D" parent="CamParent" unique_id=1829377079 node_paths=PackedStringArray("player", "blur_effect")]
 script = ExtResource("10_06fh6")
 player = NodePath("../../Mask/PlayerController")
+blur_effect = NodePath("../../CanvasLayer/ColorRect")
 
 [node name="RayCast3D" type="RayCast3D" parent="CamParent/Camera3D" unique_id=276697023]
 target_position = Vector3(0, 0, -10)
 collision_mask = 8
-
-[node name="CanvasLayer" parent="." unique_id=1975544332 instance=ExtResource("11_4706d")]
 
 [connection signal="area_entered" from="EnemyGroup" to="EnemyGroup" method="_on_area_entered"]
 [connection signal="state_entered" from="Mask/StateChart/Root/Possessing" to="Mask" method="_on_possessing_state_entered"]
@@ -170,7 +171,10 @@ collision_mask = 8
 [connection signal="state_entered" from="Mask/StateChart/Root/Dislodged" to="Mask" method="_on_dislodged_state_entered"]
 [connection signal="state_processing" from="Mask/StateChart/Root/Dislodged" to="Mask" method="_on_dislodged_state_processing"]
 [connection signal="state_entered" from="Mask/StateChart/Root/Aiming" to="Mask" method="_on_aiming_state_entered"]
+[connection signal="state_exited" from="Mask/StateChart/Root/Aiming" to="Mask" method="_on_aiming_state_exited"]
 [connection signal="state_processing" from="Mask/StateChart/Root/Aiming" to="Mask" method="_on_aiming_state_processing"]
 [connection signal="state_entered" from="Mask/StateChart/Root/Transition" to="Mask" method="_on_transition_state_entered"]
 [connection signal="state_entered" from="Mask/StateChart/Root/Dead" to="Mask" method="_on_dead_state_entered"]
 [connection signal="state_processing" from="Mask/StateChart/Root/Dead" to="Mask" method="_on_dead_state_processing"]
+
+[editable path="CanvasLayer"]
