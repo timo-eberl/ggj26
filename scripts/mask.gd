@@ -11,6 +11,7 @@ const mouse_sensitivity = 0.002
 @export var transition_speed = 10
 @export var min_trans_time = 0.6
 @export var max_trans_time = 0.8
+@export var shoot_cooldown_sec = 0.2
 
 @export_category("Camera Settings")
 @export_group("Camera Tilt")
@@ -22,6 +23,7 @@ const mouse_sensitivity = 0.002
 
 var _slow_down_timer: float = 0.0 
 var _cam_rot: Vector3
+var _last_shot_time := Time.get_ticks_msec()
 
 @onready var cam: Node3D = $"../CamParent"
 @onready var cam_effect: CameraEffects = $"../CamParent/Camera3D"
@@ -72,7 +74,9 @@ func _on_possessing_state_processing(_delta: float) -> void:
 	_current_enemy.waffe.set_target(self.global_position - self.global_basis.z * 500)
 	
 	if Input.is_action_just_pressed("shoot"):
-		_current_enemy.waffe.shoot()
+		if (Time.get_ticks_msec() - _last_shot_time) > (shoot_cooldown_sec * 1000.0):
+			_current_enemy.waffe.shoot()
+			_last_shot_time = Time.get_ticks_msec()
 	
 	if Input.is_action_just_pressed("right_mouse_button"):
 		state_chart.send_event("onDislodge")

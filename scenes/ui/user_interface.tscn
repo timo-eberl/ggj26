@@ -78,6 +78,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Continue"
 
+[node name="ButtonRestart" type="Button" parent="PauseMenu/CenterContainer/HBoxContainer/VBoxContainer" unique_id=1524219745]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Restart"
+
 [node name="ButtonSettings" type="Button" parent="PauseMenu/CenterContainer/HBoxContainer/VBoxContainer" unique_id=1082420950]
 unique_name_in_owner = true
 layout_mode = 2

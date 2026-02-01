@@ -53,3 +53,13 @@ func reset_logic():
 	time_to_trigger = pick_new_trigger_time()
 	print("Resetting. time_to_trigger: ", time_to_trigger)
 	_has_target = true
+
+func _on_possessed_state_entered() -> void:
+	waffe.aim_speed = 25.0
+	waffe.bullet_viz_scale = 200.0
+	waffe.bullet_viz_thickness = 3.0
+
+func _on_active_state_entered() -> void:
+	waffe.aim_speed = 5.0
+	waffe.bullet_viz_scale = 20.0
+	waffe.bullet_viz_thickness = 0.5

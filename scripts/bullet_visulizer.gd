@@ -5,6 +5,7 @@ extends Node3D
 var start: Vector3;
 var end: Vector3;
 @export var alive: float;
+var thickness := 1.0
 
 func _process(delta):
 	alive += delta * 1.0;
@@ -33,7 +34,7 @@ func set_line(_start: Vector3, _end: Vector3) -> void:
 
 	# Skalieren (Y = Länge)
 	cylinder.scale = Vector3(
-		cylinder.scale.x,
+		thickness,
 		length,
-		cylinder.scale.z
+		thickness
 	)
