@@ -28,13 +28,14 @@ func pause_game():
 	reticle.hide()
 	pause_menu.show()
 	settings_menu.hide()
-	
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func continue_game():
 	pause_menu.hide()
 	settings_menu.hide()
 	reticle.show()
 	get_tree().paused = false
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func open_settings():
